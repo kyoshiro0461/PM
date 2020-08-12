@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionAssist", "Connect
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PublicMethods", "PublicMethods\PublicMethods.csproj", "{B05039C6-4DDD-4E85-A174-39EE5CDE8D85}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMCommon", "PMCommon\PMCommon.csproj", "{B164F361-03E4-4F3D-A0D6-0E369A147123}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{B05039C6-4DDD-4E85-A174-39EE5CDE8D85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B05039C6-4DDD-4E85-A174-39EE5CDE8D85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B05039C6-4DDD-4E85-A174-39EE5CDE8D85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B164F361-03E4-4F3D-A0D6-0E369A147123}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B164F361-03E4-4F3D-A0D6-0E369A147123}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B164F361-03E4-4F3D-A0D6-0E369A147123}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B164F361-03E4-4F3D-A0D6-0E369A147123}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +55,7 @@ Global
 		{1A0C510C-883C-4702-9AB3-05A4B3C89A34} = {3F4941F1-F474-456B-8479-C55B8050AC62}
 		{1DD2E3A6-3BD5-477B-9613-086AB9E14E84} = {59C36D80-8980-4433-B8E1-E0668F45BA90}
 		{B05039C6-4DDD-4E85-A174-39EE5CDE8D85} = {C1817FDF-A299-4981-87D8-83586F28606B}
+		{B164F361-03E4-4F3D-A0D6-0E369A147123} = {97C9FA86-3525-40AD-9891-FB8A2FBB8CAF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E0DC6A86-C68A-4C9E-871C-F182961529D8}
