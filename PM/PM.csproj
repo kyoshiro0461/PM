@@ -198,8 +198,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\InitialController.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\RootController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -210,6 +212,7 @@
     <Compile Include="Methods\CommonSite.cs" />
     <Compile Include="Methods\ViewMethods.cs" />
     <Compile Include="Models\ConnectionFactory.cs" />
+    <Compile Include="Models\MenuColFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sections\ConnectionSection.cs" />
     <Compile Include="Views\Main\Index.aspx.cs">
@@ -257,6 +260,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
+    <Folder Include="Views\Root\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

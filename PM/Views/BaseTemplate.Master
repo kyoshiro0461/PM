@@ -1,6 +1,5 @@
 ﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
 
-<%@ Import Namespace="PMModel" %>
 
 <!DOCTYPE html>
 

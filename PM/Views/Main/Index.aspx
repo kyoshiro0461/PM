@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="PM.Views.Main.Index" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/BaseTemplate.Master" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
 
 <!DOCTYPE html>
 
