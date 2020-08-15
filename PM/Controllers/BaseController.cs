@@ -1,4 +1,7 @@
-﻿using System;
+﻿using PM.Models;
+using PMBLL.Instance;
+using PMModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,19 +13,19 @@ namespace PM.Controllers
     /// <summary>
     /// 基类控制器（后台管理）
     /// </summary>
-    public class AdminBaseController : RootController
+    public class BaseController : RootController
     {
         /// <summary>
         /// 后台管理信息控制器
         /// </summary>
-        public AdminBaseController()
+        public BaseController()
         {
             //获取顶部后台菜单信息分类
-            MenuColFactory menucolfactory = new MenuColFactory();
-            List<IMenuB> lstMenu = menucolfactory.GetDataMenu();
-            List<MenuM> MenuInfoCol = new List<MenuM>();
-            lstMenu.ForEach(p => MenuInfoCol.Add(p.Infomation_menu));
-            ViewBag.AdminBaseController = MenuInfoCol;
+            MenuFactory menufactory = new MenuFactory();
+            List<IMenuB> lstMenu = menufactory.GetDataMenu();
+            List<MenuM> MenuInfo = new List<MenuM>();
+            lstMenu.ForEach(p => MenuInfo.Add(p.Infomation_menu));
+            ViewBag.BaseController = MenuInfo;
             ////获取model表信息
             //ModelColFactory modelcolfactory = new ModelColFactory();
             //List<IModelB> lstModel = modelcolfactory.AllGetData();

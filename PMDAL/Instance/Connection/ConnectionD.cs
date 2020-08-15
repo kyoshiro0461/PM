@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PMDAL.Instance.Connection
+namespace PMDAL.Instance
 {
     /// <summary>
     /// 链接类（数据链路层）

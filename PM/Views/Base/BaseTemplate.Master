@@ -1,5 +1,6 @@
 ﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
 
+<%@ Import Namespace="PMModel" %>
 
 <!DOCTYPE html>
 
@@ -20,42 +21,40 @@
     <script type="text/javascript" src="../../CustomAdmin/Script/layer/layer.js"></script>
 </head>
 <body>
-   
-    <div class="bar">
+     <div class="bar">
         <div class="cont">
             <a href="../../Admin/" class="logo">民安创享管理系统</a>
             <div class="m_nav"><i class="iconfont icon-manage"></i></div>
             <div class="m_subnav ">
-                <div class="menu">
+                              
+              <div class="menu">
                     <%
-                        List<MenuM> MenuInfoCol = (ViewBag.AdminBaseController as List<MenuM>);
-                        List<MenuM> MenuLevel1 = (MenuInfoCol != null ? MenuInfoCol.Where(p => p.Level == 1).OrderBy(p => p.Order).ToList() : null);//一级菜单
-                        List<MenuM> MenuLevel2 = MenuInfoCol.Where(p => p.Level == 2).ToList();//二级菜单
+                        List<MenuM> MenuInfo = (ViewBag.BaseController as List<MenuM>);
+                        List<MenuM> MenuLevel1 = (MenuInfo != null ? MenuInfo.Where(p => p.Level == 1).OrderBy(p => p.Order).ToList() : null);//一级菜单
+                        List<MenuM> MenuLevel2 = MenuInfo.Where(p => p.Level == 2).ToList();//二级菜单
                        
+                    %>
                     <% if (MenuLevel1 != null)
                     { %>
                     <% foreach (MenuM level1 in MenuLevel1)
                     { %>
                     <% string ahref = ""; %>
-                    <% if (islimit || (!islimit && arylimit.Contains(level1.MNID.ToString())))
-                    { %>
+                  
+                    
                     <div class="lastmenu">
                         <a href="javascript:;" class="last js_sub"><%= level1.Name %><span></span></a>
-                        <% MenuLevel2 = MenuInfoCol.Where(p => p.Level == 2 && p.MNTID == level1.MNID).OrderBy(p => p.Order).ToList();//获取二级菜单 %>
+                        <% MenuLevel2 = MenuInfo.Where(p => p.Level == 2 && p.MNTID == level1.MNID).OrderBy(p => p.Order).ToList();//获取二级菜单 %>
                         <% if (MenuLevel2 != null && MenuLevel2.Count > 0)
                         { %>
                         <div class="othermenu">
                             <% foreach (MenuM level2 in MenuLevel2)
                             { %>
-                            <% if (islimit || (!islimit && arylimit.Contains(level2.MNID.ToString())))
-                            { %>
-                            <a href="<%= level2.Link %>" target="_blank"><%= level2.Name %></a>
-                            <% } %>
+                            
                             <% } %>
                         </div>
                         <%} %>
                     </div>
-                    <% } %>
+                    
                     <% } %>
                     <% } %>
                 </div>
@@ -64,60 +63,7 @@
     </div>
     <div class="container pd0">
         <div class="cont">
-    <%if (userinfo != null && userinfo.GroupInfo.ID == 1){ %>
-            <div class="left js_leftnav">
-                <div class="up js_up"><span></span></div>
-                <%  
-                    string href_level3 = "";
-                    List<SortM> SortInfoCol = (ViewBag.BaseSortInfoCol as List<SortM>);
-                    List<SortM> SortLevel1 = SortInfoCol.Where(p => p.Level == 1 && p.OnOff == IsDisableEnum.idNo).ToList();//一级菜单
-                    List<SortM> SortLevel2 = SortInfoCol.Where(p => p.Level == 2 && p.OnOff == IsDisableEnum.idNo).ToList();//二级菜单
-                    List<SortM> SortLevel3 = new List<SortM>();//三级菜单
-                %>
-      
-                <% if (SortLevel1 != null)
-                   { %>
-                <% foreach (SortM level1 in SortLevel1)
-                   { %>
-                <div class="class">
-                    <div class="title js_title"><span><a <%=(level1.ID==147? string.Format("href={0}",level1.Url):"") %>><%=level1.Name %></a></span><div class="tag"></div>
-                    </div>
-                    <% SortLevel2 = SortInfoCol.Where(p => p.Level == 2 && p.Tid == level1.ID).OrderBy(p => p.Order).ToList();//获取二级菜单 %>
-                    <% if (SortLevel2 != null && SortLevel2.Count > 0)
-                       { %>
-                    <div class="ul">
-                        <% foreach (SortM level2 in SortLevel2)
-                           { %>
-                        <% 
-                               //设置二级菜单
-                             string href= string.Format("{0}?SortBy={1}", level1.Url, level2.ID);
-                        %>
-                        <div class="li show">
-                            <% SortLevel3 = SortInfoCol.Where(p => p.Pid == level2.ID && p.Level == 3).ToList(); //设置三级菜单 %>
-                            <% if (SortLevel3 != null && SortLevel3.Count > 0)
-                               { %>
-                            <a href="<%=href %>" target="_blank" class="off" data-sortby="<%=level2.ID %>"><%= level2.Name %><span></span></a>
-                            <% foreach (SortM level3 in SortLevel3)
-                               { %>
-                            <%href_level3= string.Format("{0}?SortBy={1}", level1.Url, level3.ID);%>
-                            <div class="subli">
-                                <a href="<%=href_level3 %>" target="_blank" data-num="11" data-sortby="<%=level3.ID %>"><%= level3.Name %></a>
-                            </div>
-                            <% } %>
-                            <% }
-                               else
-                               { %>
-                            <a href="<%=href %>" target="_blank" data-sortby="<%= level2.ID %>"><%= level2.Name %></a>
-                            <% } %>
-                        </div>
-                        <% } %>
-                    </div>
-                    <%} %>
-                </div>
-                <% } %>
-            </div>
-            <%} %>
-            <%} %>
+   
             <div class="center js_tabbody">
                 <div class="tips js_tabtop">
                     <asp:ContentPlaceHolder ID="PathContent" runat="server">
@@ -229,11 +175,7 @@
                                  prompt = '../../Admin/Prompt';
                                  var date = jsonDateFormat(bill.Addtime, "yyyy-MM-dd hh:mm:ss");
                                  btn += '<a href=' + edit + '>';
-                                 if (bill.IsRead == [<%= Json.Encode(YesNoEnum.ynNo) %>]) {
-                                     btn += '<div class="stips unread">未读</div>' + bill.Content;
-                                 } else {
-                                     btn += '<div class="stips unread">已读</div>' + bill.Content;
-                                 }
+                                
 
                                  btn += '<span>' + date + '</span>';
                                  btn += '</a>'

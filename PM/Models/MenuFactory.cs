@@ -1,4 +1,6 @@
-﻿using PM.Methods;
+﻿using PMModel;
+using PMBLL.Instance;
+using PM.Methods;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,21 +11,21 @@ namespace PM.Models
     /// <summary>
     /// 后台菜单信息工厂类（UI层）
     /// </summary>
-    public class MenuColFactory
+    public class MenuFactory
     {
         #region 常量
-        const string GROUPNAME = "MenuColGroup";                             //SectionGroup名称
+        const string GROUPNAME = "MenuGroup";                             //SectionGroup名称
         const string SECTIONNAME = "SetInstance";                           //Section名称
         #endregion
         #region 变量
-        private IMenuColB _menucolb;                                        //后台菜单信息集合类（业务逻辑层） 
+        private IMenuB _menucolb;                                        //后台菜单信息集合类（业务逻辑层） 
         private ConnectionFactory _connectionfactory;                       //链接类                       
         #endregion
         #region 初始化
         /// <summary>
         /// 初始化
         /// </summary>
-        public MenuColFactory()
+        public MenuFactory()
         {
             this._connectionfactory = ViewMethods.GetConnection();
             InitFactory();
@@ -48,7 +50,7 @@ namespace PM.Models
         {
             string configPath = Methods.CommonMethods.GetConfigPath();
             //读取配置文件的信息
-            Sections.MenuColSection section = PublicMethods.Methods.ReadConfigFile_SectionGroup(configPath, GROUPNAME, SECTIONNAME) as Sections.MenuColSection;
+            Sections.MenuSection section = PublicMethods.Methods.ReadConfigFile_SectionGroup(configPath, GROUPNAME, SECTIONNAME) as Sections.MenuSection;
             if (section != null)
             {
                 strNameSpace = section.NameSpace;//命名空间
@@ -63,7 +65,7 @@ namespace PM.Models
         /// <param name="strInstance">实例名</param>
         void InstanceObject(string strNameSpace, string strInstance)
         {
-            this._menucolb = PublicMethods.Methods.InstanceObject(strNameSpace, strInstance, new object[] { this._connectionfactory.ConnectionB }) as IMenuColB;
+            this._menucolb = PublicMethods.Methods.InstanceObject(strNameSpace, strInstance, new object[] { this._connectionfactory.ConnectionB }) as IMenuB;
         }
         /// <summary>
         /// 获取数据

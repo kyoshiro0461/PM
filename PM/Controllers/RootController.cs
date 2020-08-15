@@ -1,4 +1,7 @@
-﻿using System;
+﻿using PM.Models;
+using PMBLL.Instance;
+using PMModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,11 +21,22 @@ namespace PM.Controllers
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
-
+            InitialPC();
            
 
         }
-       
+        /// <summary>
+        /// PC端初始化
+        /// </summary>
+        void InitialPC()
+        {
+            MenuFactory menufactory = new MenuFactory();
+            List<IMenuB> lstMenu = menufactory.GetDataMenu();
+            List<MenuM> MenuInfo = new List<MenuM>();
+            if (lstMenu != null && lstMenu.Count > 0) lstMenu.ForEach(p => MenuInfo.Add(p.Infomation_menu));
+            ViewBag.BaseMenuInfo = MenuInfo;
+        }
+
 
     }
 }
