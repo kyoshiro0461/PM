@@ -12,12 +12,12 @@ namespace PMBLL.Instance
     /// </summary>
     public interface IMenuB
     {
-        #region 属性
-        /// <summary>
-        /// 后台菜单信息类（模型） 
-        /// </summary>
-        MenuM Infomation_menu { get; set; }
-        #endregion
+        //#region 属性
+        ///// <summary>
+        ///// 后台菜单信息类（模型） 
+        ///// </summary>
+        //MenuM Infomation_menu { get; set; }
+        //#endregion
         /// <summary>
         /// 获取数据
         /// </summary>

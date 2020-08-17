@@ -24,7 +24,7 @@ namespace PM.Controllers
             MenuFactory menufactory = new MenuFactory();
             List<IMenuB> lstMenu = menufactory.GetDataMenu();
             List<MenuM> MenuInfo = new List<MenuM>();
-            lstMenu.ForEach(p => MenuInfo.Add(p.Infomation_menu));
+           // lstMenu.ForEach(p => MenuInfo.Add(p.Infomation_menu));
             ViewBag.BaseController = MenuInfo;
             ////获取model表信息
             //ModelColFactory modelcolfactory = new ModelColFactory();

@@ -18,7 +18,7 @@ namespace PM.Models
         const string SECTIONNAME = "SetInstance";                           //Section名称
         #endregion
         #region 变量
-        private IMenuB _menucolb;                                        //后台菜单信息集合类（业务逻辑层） 
+        private IMenuB _menub;                                        //后台菜单信息集合类（业务逻辑层） 
         private ConnectionFactory _connectionfactory;                       //链接类                       
         #endregion
         #region 初始化
@@ -65,7 +65,7 @@ namespace PM.Models
         /// <param name="strInstance">实例名</param>
         void InstanceObject(string strNameSpace, string strInstance)
         {
-            this._menucolb = PublicMethods.Methods.InstanceObject(strNameSpace, strInstance, new object[] { this._connectionfactory.ConnectionB }) as IMenuB;
+            this._menub = PublicMethods.Methods.InstanceObject(strNameSpace, strInstance, new object[] { this._connectionfactory.ConnectionB }) as IMenuB;
         }
         /// <summary>
         /// 获取数据
@@ -73,7 +73,7 @@ namespace PM.Models
         /// <returns>后台菜单信息（业务逻辑层）集合</returns>
         public List<IMenuB> GetDataMenu()
         {
-            return this._menucolb.GetDataMenu();
+            return this._menub.GetDataMenu();
         }
         #endregion
     }

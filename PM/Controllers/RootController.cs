@@ -33,7 +33,7 @@ namespace PM.Controllers
             MenuFactory menufactory = new MenuFactory();
             List<IMenuB> lstMenu = menufactory.GetDataMenu();
             List<MenuM> MenuInfo = new List<MenuM>();
-            if (lstMenu != null && lstMenu.Count > 0) lstMenu.ForEach(p => MenuInfo.Add(p.Infomation_menu));
+           // if (lstMenu != null && lstMenu.Count > 0) lstMenu.ForEach(p => MenuInfo.Add(p.Infomation_menu));
             ViewBag.BaseMenuInfo = MenuInfo;
         }
 
