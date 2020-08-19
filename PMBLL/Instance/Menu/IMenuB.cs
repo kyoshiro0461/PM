@@ -16,7 +16,7 @@ namespace PMBLL.Instance
         ///// <summary>
         ///// 后台菜单信息类（模型） 
         ///// </summary>
-        //MenuM Infomation_menu { get; set; }
+        MenuM Infomation_menu { get; set; }
         //#endregion
         /// <summary>
         /// 获取数据

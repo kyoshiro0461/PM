@@ -46,7 +46,7 @@ namespace PMDAL.Instance
         /// <returns>字段</returns>
         public static string GetField(string alias = "")
         {
-            string result = string.Format("[#alias]{0}[#as]{0}, [#alias]{1}[#as]{1}, [#alias]{2}[#as]{2}, [#alias]{3}[#as]{3}, [#alias]{4}[#as]{4}, [#alias]{5}[#as]{5}, [#alias]{6}[#as]{6}, [#alias]{7}[#as]{7}}",
+            string result = string.Format("[#alias]{0}[#as]{0}, [#alias]{1}[#as]{1}, [#alias]{2}[#as]{2}, [#alias]{3}[#as]{3}, [#alias]{4}[#as]{4}, [#alias]{5}[#as]{5}, [#alias]{6}[#as]{6}, [#alias]{7}[#as]{7}",
                 TableStructM.Info_Menu.MN_ID, TableStructM.Info_Menu.MN_TID, TableStructM.Info_Menu.MN_PID, TableStructM.Info_Menu.MN_NAME, TableStructM.Info_Menu.MN_LINK,
                 TableStructM.Info_Menu.MN_ORDER, TableStructM.Info_Menu.MN_LEVEL, TableStructM.Info_Menu.MN_ONOFF);
             result = result.Replace("[#alias]", (string.IsNullOrEmpty(alias) ? "" : string.Format("{0}.", alias)));

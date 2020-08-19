@@ -23,7 +23,7 @@
 <body>
      <div class="bar">
         <div class="cont">
-            <a href="../../Admin/" class="logo">民安创享管理系统</a>
+            <a href="../../Main/" class="logo">华鼎管理系统</a>
             <div class="m_nav"><i class="iconfont icon-manage"></i></div>
             <div class="m_subnav ">
                               
@@ -49,7 +49,7 @@
                         <div class="othermenu">
                             <% foreach (MenuM level2 in MenuLevel2)
                             { %>
-                            
+                            <a href="<%= level2.Link %>" target="_blank" ><%= level2.Name %></a>
                             <% } %>
                         </div>
                         <%} %>

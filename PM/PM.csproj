@@ -210,10 +210,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\Base\BaseController.cs" />
     <Compile Include="Controllers\InitialController.cs" />
-    <Compile Include="Controllers\MainController.cs" />
-    <Compile Include="Controllers\RootController.cs" />
+    <Compile Include="Controllers\Main\MainController.cs" />
+    <Compile Include="Controllers\Base\RootController.cs" />
+    <Compile Include="Controllers\Ower\OwerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -241,6 +242,13 @@
     </Compile>
     <Compile Include="Views\Main\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Ower\Ower.aspx.cs">
+      <DependentUpon>Ower.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Ower\Ower.aspx.designer.cs">
+      <DependentUpon>Ower.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -270,6 +278,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Main\Index.aspx" />
+    <Content Include="Views\Ower\Ower.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

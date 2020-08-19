@@ -7,21 +7,15 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
   
-<div class="indextips">
-    <h1>欢迎您: <span></span> ，今天是 <b></b></h1>
-    您正在使用的是民安创享电商管理系统，欢迎您对本系统提出宝贵的建议。
-</div>
 
-<div class="wrap_mk wball ct pt100 m20">
-    <i class="iconfont icon-dynamic"></i>
-    统计组件开发中...
-</div>
+
+
 <script type="text/javascript">
-    var n=$('.name a').text(),mydate = new Date(),t=mydate.toLocaleString();
+<%--    var n=$('.name a').text(),mydate = new Date(),t=mydate.toLocaleString();
     $('.indextips h1 span').text(n);
     $('.indextips h1 b').text(t);
 
-   <%-- var t = null;
+    var t = null;
     t = setTimeout(time, 1000); //开始执行
     function time() {
         clearTimeout(t); //清除定时器
