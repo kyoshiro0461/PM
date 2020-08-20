@@ -14,11 +14,11 @@
     <title>
         <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
     </title>
-    <link rel="stylesheet" href="../../CustomAdmin/Style/common.css" />
-    <link href="../../CustomAdmin/Script/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" href="../../CustomAdmin/Style/webuploader.min.css" />
-    <script type="text/javascript" src="../../CustomAdmin/Script/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../../CustomAdmin/Script/layer/layer.js"></script>
+    <link rel="stylesheet" href="../../CustomBase/Style/common.css" />
+    <link href="../../CustomBase/Script/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="../../CustomBase/Style/webuploader.min.css" />
+    <script type="text/javascript" src="../../CustomBase/Script/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../CustomBase/Script/layer/layer.js"></script>
 </head>
 <body>
      <div class="bar">
@@ -78,9 +78,9 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="../../CustomAdmin/Script/common.js"></script>
-     <script type="text/javascript" src="../../CustomAdmin/Script/jquery.datetimepicker.full.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../CustomAdmin/Style/jquery.datetimepicker.css" />
+    <script type="text/javascript" src="../../CustomBase/Script/common.js"></script>
+     <script type="text/javascript" src="../../CustomBase/Script/jquery.datetimepicker.full.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../CustomBase/Style/jquery.datetimepicker.css" />
     <script type="text/javascript">
         var t = null;
         t = setTimeout(time, 1000); //开始执行
