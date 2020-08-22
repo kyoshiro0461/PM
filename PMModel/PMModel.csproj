@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomEnum.cs" />
     <Compile Include="Menu\MenuM.cs" />
+    <Compile Include="Ower\OwerM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TableStructM.cs" />
   </ItemGroup>

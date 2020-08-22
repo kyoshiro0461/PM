@@ -11,12 +11,12 @@ namespace PM.Controllers
 {
 
     /// <summary>
-    /// 基类控制器（后台管理）
+    /// 基类控制器
     /// </summary>
     public class BaseController : RootController
     {
         /// <summary>
-        /// 后台管理信息控制器
+        /// 主菜单控制器
         /// </summary>
         public BaseController()
         {

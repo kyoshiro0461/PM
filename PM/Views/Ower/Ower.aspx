@@ -2,20 +2,20 @@
 <%@ Import Namespace="PMModel" %>
 <%@ Import Namespace="PublicMethods" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    业主合同
+    业主管理
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     
     <% 
         List<OwerM> OwerInfo = ViewBag.OwerInfo as List<OwerM>;
         object keys = TempData["keys"];
-        int desc = ViewBag.OrderBy;
+        int desc = TempData["Orderby"].ConvertToInt32();
         int allpage = ViewBag.TotalPages;
         int pagecurrent = TempData["CurrentPage"].ConvertToInt32();
     %>
     <div class="wrap_mk wball">
         <div class="crumbs">
-            位置:<a href="../../Admin/Index">首页</a> > <a href="../../Admin/Customer">会员管理</a>
+            位置:<a href="../../Main/Index">首页</a> > <a href="../../Admin/Customer">业主管理</a>
         </div>
         <div class="tool">
             <a href="../../Main/Index" class="btn btn-gray"><i class="iconfont icon-undo"></i>返回</a>
@@ -44,23 +44,19 @@
                     { %>
                 <% foreach (OwerM item in OwerInfo)
                     { %>
-                <tr data-uid='<%=item.ID%>'>
-                    <td><%= item.ID%></td>
+                <tr data-uid='<%=item.OWID%>'>
+                    <td><%=item.OWID %></td>
                     <td><%= item.Name%></td>
-                    <td><%= item.TrueName%></td>
-                    <td><%= item.GroupInfo.Name%></td>
-                    <td><%= item.Mobile%></td>
-                    <td><%= item.Email%></td>
-                    <td><%= item.LoginTime%></td>
+                    
                     <td>
                         <div class="btn_switch js_onoff">
-                            <input type="checkbox" value="<%=item.OnOff.ConvertToInt32()%>" <%= (item.OnOff == IsDisableEnum.idNo ? "checked='checked'" : "")%> class="switch onoff" />
+                            <input type="checkbox" value="" class="switch onoff" />
                             <label></label>
                         </div>
                     </td>
                     <td>
-                        <a href="../../Admin/Customer_Edit?ID=<%= item.ID%>" class="btn_icon gree"><i class="iconfont icon-brush_fill"></i></a>
-                        <a href="javascript:;" value="<%=item.OnOff.ConvertToInt32() %>" class="btn_icon red btn_del"><i class="iconfont icon-trash_fill"></i></a>
+                        <a href="../../Admin/Customer_Edit?ID=<%= item.OWID%>" class="btn_icon gree"><i class="iconfont icon-brush_fill"></i></a>
+                        <a href="javascript:;" value="" class="btn_icon red btn_del"><i class="iconfont icon-trash_fill"></i></a>
                     </td>
                 </tr>
                 <% } %>
@@ -159,9 +155,7 @@
                 success: function (data) {
                     var obj = JSON.parse(data);
                     t.attr('value', obj.onoff);
-                    if (obj.onoff == [<%= IsDisableEnum.idNo.ConvertToInt32()%>])
-                        t.prop('checked', true);
-                    else
+                   
                         t.removeAttr('checked');
                     alert('设置成功');
                 }

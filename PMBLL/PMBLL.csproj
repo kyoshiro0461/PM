@@ -48,9 +48,12 @@
     <Compile Include="Instance\ConnectionB\IConnectionB.cs" />
     <Compile Include="Instance\Menu\IMenuB.cs" />
     <Compile Include="Instance\Menu\MenuB.cs" />
+    <Compile Include="Instance\Ower\IOwerB.cs" />
+    <Compile Include="Instance\Ower\OwerB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sections\ConnectionSection.cs" />
-    <Compile Include="Sections\MenuSection.cs" />
+    <Compile Include="Sections\Menu\MenuSection.cs" />
+    <Compile Include="Sections\Ower\OwerSection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PMCommon\PMCommon.csproj">

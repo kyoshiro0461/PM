@@ -56,5 +56,29 @@ namespace PMModel
             
         }
         #endregion
+
+        #region 业主信息表(info_ower)
+        /// <summary>
+        /// 业主信息表
+        /// </summary>
+        public static class Info_Ower
+        {
+            /// <summary>
+            /// 表名
+            /// </summary>
+            public static string TABLENAME = "Ower";
+
+            ///<summary>
+            ///序号
+            /// </summary>
+            public static string OW_ID = "ow_id";
+
+            ///<summary>
+            ///名称
+            /// </summary>
+            public static string OW_NAME = "ow_name";
+
+        }
+        #endregion
     }
 }
