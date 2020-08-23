@@ -20,7 +20,7 @@
         <div class="tool">
             <a href="../../Main/Index" class="btn btn-gray"><i class="iconfont icon-undo"></i>返回</a>
             <a href="../../Admin/Customer" class="btn btn-gray"><i class="iconfont icon-refresh"></i>刷新</a>
-            <a href="../../Admin/Customer_Add" class="btn btn-primary"><i class="iconfont icon-add"></i>添加</a>
+            <a href="../../Ower/Ower_Add" class="btn btn-primary"><i class="iconfont icon-add"></i>添加</a>
 
             <div class="search">
                 <input type="text" value="<%=keys%>" placeholder="请输入关键词" id="keys" />

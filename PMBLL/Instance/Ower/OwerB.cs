@@ -23,6 +23,7 @@ namespace PMBLL.Instance
         private IOwerD _owerd;                                                  //业主信息类（数据链路层）
         private string _methodnm_GetDefaultOwer;                                //GetDefaultOwer方法名
         private string _methodnm_GetPageData;                           //GetPageData
+        private string _methodnm_IsExist_owername;             //IsExist_owername方法名
         private IConnectionB _connectionb;                                      //链接类（业务逻辑层）
         private OwerM _owerm;                                           //业主信息类（模型层）
         public OwerM Infomation_ower
@@ -68,6 +69,7 @@ namespace PMBLL.Instance
                 strInstance = section.Instance;//实例
                 this._methodnm_GetDefaultOwer = section.GetDataOwerMethod;   //GetDefaultOwer方法名
                 this._methodnm_GetPageData = section.GetPageDataMethod;
+                this._methodnm_IsExist_owername = section.IsExist_owernameMethod;//IsExist_owername方法名
             }
         }
         /// <summary>
@@ -123,7 +125,25 @@ namespace PMBLL.Instance
             count = args[0].ConvertToInt64();
             return ConvertToOwerB(lstower);
         }
+        /// <summary>
+        /// 判断业主是否存在
+        /// </summary>
+        /// <param name="owername">业主名</param>
+        /// <returns>业主信息类</returns>
+        public OwerM IsExist_owername(string owername)
+        {
+            //通过反射调用数据链路层的用户类IsExist_username判断用户是否存在
+            return Methods.ReflexInvokeMethod(this._owerd, this._methodnm_IsExist_owername, new Type[] { typeof(String), typeof(IConnectionD) }, new object[] { owername, this._connectionb.ConnectionD }) as OwerM;
+        }
 
+        /// <summary>
+        /// 存档
+        /// </summary>
+        /// <returns>T=存档成功；F=存档失败</returns>
+        public bool Save()
+        {
+            return this._owerd.Save();//存档
+        }
         #endregion
 
     }

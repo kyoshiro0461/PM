@@ -31,6 +31,14 @@ namespace PMBLL.Sections
             get { return this["GetPageDataMethod"].ToString(); }
             set { this["GetPageDataMethod"] = value; }
         }
-
+        /// <summary>
+        /// 获取业主数据方法名
+        /// </summary>
+        [ConfigurationProperty("IsExist_owernameMethod", IsRequired = true)]
+        internal string IsExist_owernameMethod
+        {
+            get { return this["IsExist_owernameMethod"].ToString(); }
+            set { this["IsExist_owernameMethod"] = value; }
+        }
     }
 }

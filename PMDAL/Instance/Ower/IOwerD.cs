@@ -16,5 +16,12 @@ namespace PMDAL.Instance
         /// 业主信息类（模型层）
         /// </summary>
         OwerM Infomation_ower { set; }
+
+        /// <summary>
+        /// 存档
+        /// </summary>
+        /// <param name="userm">业主信息类（模型层）</param>
+        /// <returns>T=存档成功；F=存档失败</returns>
+        bool Save();
     }
 }

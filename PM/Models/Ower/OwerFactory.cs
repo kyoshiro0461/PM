@@ -18,8 +18,19 @@ namespace PM.Models
         const string SECTIONNAME = "SetInstance";                           //Section名称
         #endregion
         #region 变量
-        private IOwerB _owerb;                                        //后台菜单信息集合类（业务逻辑层） 
-        private ConnectionFactory _connectionfactory;                       //链接类                       
+        private IOwerB _owerb;                                        //后台菜单信息集合类（业务逻辑层）
+        private OwerM _owerm;                                           //业主类（模型层） 
+        private ConnectionFactory _connectionfactory;                       //链接
+        #endregion
+        #region 属性
+        /// <summary>
+        /// 业主信息
+        /// </summary>
+        public OwerM Infomation
+        {
+            get { return this._owerm; }
+            set { this._owerm = value; this._owerb.Infomation_ower = this._owerm; }
+        }
         #endregion
         #region 初始化
         /// <summary>
@@ -88,6 +99,33 @@ namespace PM.Models
         public  List<IOwerB> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway)
         {
             return this._owerb.GetPageData(ref count, start, size, key, order, orderway);
+        }
+
+        /// <summary>
+        /// 判断业主是否存在
+        /// </summary>
+        /// <param name="owername">业主名</param>
+        /// <returns>业主类</returns>
+        public bool IsExist_owername(string owername)
+        {
+            bool isExist_owername = false;
+            OwerM owerm = this._owerb.IsExist_owername(owername);
+            if (owerm != null)
+            {
+                this.Infomation = owerm;
+                isExist_owername = true;
+            }
+            return isExist_owername;
+        }
+
+        /// <summary>
+        /// 存档
+        /// </summary>
+        /// <param name="userm">业主信息类（模型层）</param>
+        /// <returns>自动编号</returns>
+        public bool Save()
+        {
+            return this._owerb.Save();
         }
         #endregion
     }

@@ -91,6 +91,30 @@ namespace PMDAL.Instance
             connection.DataBaseFactory.CloseDataReader();
             return result;
         }
+
+        /// <summary>
+        /// 读取数据库
+        /// </summary>
+        /// <param name="condition">其他条件（需带入and）</param>
+        /// <param name="connection">链接类</param>
+        /// <returns>数据</returns>
+        public static List<OwerM> ReadDataBase(string condition = "", IConnectionD connection = null)
+        {
+            List<OwerM> result = null;
+
+            string fields = GetField();
+            string from = GetFrom();
+            string where = string.Format("where 1=1");
+            if (!string.IsNullOrEmpty(condition)) where = string.Format("{0} {1}", where, condition);
+            //string orderby = string.Format("order by {0}", TableStructM.Info_Group.GP_ORDER);
+            string sql = string.Format("select {0} from {1} {2} ", fields, from, where);
+            connection.DataBaseFactory.GetDataReader(sql);
+
+            if (connection.DataBaseFactory.IsEffect()) result = AddDataToList(connection.DataBaseFactory.Reader);
+
+            connection.DataBaseFactory.CloseDataReader();
+            return result;
+        }
         /// <summary>
         /// 将数据添加到链表中
         /// </summary>
@@ -202,7 +226,36 @@ namespace PMDAL.Instance
             connection.DataBaseFactory.CloseDataReader();
             return result;
         }
+        /// <summary>
+        /// 判断业主是否存在
+        /// </summary>
+        /// <param name="owername">管理员名</param>
+        /// <param name="connection">链接类</param>
+        /// <returns>管理组类</returns>
+        public static OwerM IsExist_owername(string owername, IConnectionD connection)
+        {
+            OwerM result = null;
 
+            string where = string.Format(" and {0}={1}", TableStructM.Info_Ower.OW_NAME, owername.ReplaceStr());
+            IList<OwerM> lst = ReadDataBase(where, connection);
+            if (lst != null) result = lst.FirstOrDefault();
+            return result;
+        }
+        /// <summary>
+        /// 存档
+        /// </summary>
+        /// <param name="userm">业主信息类（模型层）</param>
+        /// <returns>T=存档成功；F=存档失败</returns>
+        public bool Save()
+        {
+            string fields = string.Format("{0}",TableStructM.Info_Ower.OW_NAME);
+            string values = string.Format("{0}","@ow_name");
+            List<IDataParameter> lstParam = new List<IDataParameter>();
+            _dbfactory.AddParameter(lstParam, "@ow_name", this._owerm.Name);
+           int effect = this._dbfactory.Insert(TableStructM.Info_Ower.OW_NAME, fields, values, lstParam);
+
+            return (effect > 0);
+        }
         #endregion
     }
 }

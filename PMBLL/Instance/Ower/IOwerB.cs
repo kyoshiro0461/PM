@@ -34,5 +34,19 @@ namespace PMBLL.Instance
         /// <param name="order">排序</param>
         /// <returns></returns>
         List<IOwerB> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway);
+
+        /// <summary>
+        /// 判断业主是否存在
+        /// </summary>
+        /// <param name="owername">业主名</param>
+        /// <returns>业主信息类</returns>
+        OwerM IsExist_owername(string owername);
+
+        /// <summary>
+        /// 存档
+        /// </summary>
+        /// <param name="userm">业主信息类（模型层）</param>
+        /// <returns>T=存档成功；F=存档失败</returns>
+        bool Save();
     }
 }

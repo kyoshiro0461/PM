@@ -50,5 +50,36 @@ namespace PM.Controllers
             TempData["keys"] = objkeys;
             return View();
         }
+
+        /// <summary>
+        /// Ower_Add页面行为
+        /// </summary>
+        /// <returns>视图</returns>
+        public ActionResult Ower_Add()
+        {
+           return View();
+        }
+
+        /// <summary>
+        /// 添加业主信息（Ower_Add页面）
+        /// </summary>
+        public ActionResult Add_Ower()
+        {
+
+            OwerFactory owerfactory = new OwerFactory();
+            //添加业主信息
+            OwerM owerm = new OwerM();
+            string owername = ViewMethods.GetForm(Request, "name", CommonEnums.ValueEnum.vlPost).ToString();
+           
+            bool isExist = owerfactory.IsExist_owername(owername);
+            if (isExist) return ViewMethods.AlertBack("业主已存在,请重新确认", "-1");
+            owerm.Name = owername;
+            
+            owerfactory.Infomation = owerm;
+            owerfactory.Save();
+            return ViewMethods.AlertBack("添加业主成功！", "../../Ower/Ower");
+        }
+
+        
     }
 }
