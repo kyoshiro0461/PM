@@ -190,7 +190,7 @@ namespace PMDAL.Instance
         {
             string where = "", orderby = "";
             string alias = "a";
-            if (!string.IsNullOrEmpty(key)) where = string.Format("{0} and({1} like '%{2}%)", where, TableStructM.Info_Ower.OW_NAME, key.ReplaceStr());
+            if (!string.IsNullOrEmpty(key)) where = string.Format("{0} and({1} like '%{2}%')", where, TableStructM.Info_Ower.OW_NAME, key.ReplaceStr());
             if (!string.IsNullOrEmpty(order)) orderby = string.Format("{0} {1}", order, (orderway == OrderType.otAsc ? "asc" : "desc"));
             string condition = GetFrom();
             count = connection.DataBaseFactory.GetCount(TableStructM.Info_Ower.TABLENAME, string.Format("where 1=1 {0}", where));
@@ -236,7 +236,7 @@ namespace PMDAL.Instance
         {
             OwerM result = null;
 
-            string where = string.Format(" and {0}={1}", TableStructM.Info_Ower.OW_NAME, owername.ReplaceStr());
+            string where = string.Format(" and {0}='{1}'", TableStructM.Info_Ower.OW_NAME, owername.ReplaceStr());
             IList<OwerM> lst = ReadDataBase(where, connection);
             if (lst != null) result = lst.FirstOrDefault();
             return result;
@@ -252,9 +252,52 @@ namespace PMDAL.Instance
             string values = string.Format("{0}","@ow_name");
             List<IDataParameter> lstParam = new List<IDataParameter>();
             _dbfactory.AddParameter(lstParam, "@ow_name", this._owerm.Name);
-           int effect = this._dbfactory.Insert(TableStructM.Info_Ower.OW_NAME, fields, values, lstParam);
+           int effect = this._dbfactory.Insert(TableStructM.Info_Ower.TABLENAME, fields, values, lstParam);
 
             return (effect > 0);
+        }
+
+        /// <summary>
+        /// 删除业主信息
+        /// </summary>
+        /// <param name="owerm">业主信息模型类（模型层）</param>
+        /// <returns>受影响的行数</returns>
+        public int Del_Ower()
+        {
+            string where = string.Format("where {0}=@id", TableStructM.Info_Ower.OW_ID);
+            List<IDataParameter> lstParam = new List<IDataParameter>();
+            this._dbfactory.AddParameter(lstParam, "@id", this._owerm.OWID);
+            return this._dbfactory.Delete(TableStructM.Info_Ower.TABLENAME, where, lstParam);
+
+        }
+
+        /// <summary>
+        /// 通过编号获取数据
+        /// </summary>
+        /// <param name="id">编号</param>
+        /// <param name="connection">链接类</param>
+        /// <returns>数据</returns>
+        public static OwerM GetDataByID(string id, IConnectionD connection)
+        {
+            string where = string.Format(" and {0}={1}", TableStructM.Info_Ower.OW_ID, id);
+            IList<OwerM> lst = ReadDataBase(where,connection);
+            return (lst != null && lst.Count > 0 ? lst.FirstOrDefault() : null);
+        }
+
+        /// <summary>
+        /// 更新业主信息
+        /// </summary>
+        /// <returns>受影响的行数</returns>
+        public int Update()
+        {
+            string updates = @"#ow_name=@ow_name";
+            string where = string.Format("where #ow_id=@id");
+            List<IDataParameter> lstParam = new List<IDataParameter>();
+            updates = updates.Replace("#ow_name", TableStructM.Info_Ower.OW_NAME);
+            this._dbfactory.AddParameter(lstParam, "@ow_name", this._owerm.Name);
+            where = where.Replace("#ow_id", TableStructM.Info_Ower.OW_ID);
+            this._dbfactory.AddParameter(lstParam, "@id", this._owerm.OWID);
+            return this._dbfactory.Update(TableStructM.Info_Ower.TABLENAME, updates, where, lstParam);
         }
         #endregion
     }

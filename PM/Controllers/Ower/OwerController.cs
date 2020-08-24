@@ -75,11 +75,67 @@ namespace PM.Controllers
             if (isExist) return ViewMethods.AlertBack("业主已存在,请重新确认", "-1");
             owerm.Name = owername;
             
-            owerfactory.Infomation = owerm;
+            owerfactory.Infomation_ower = owerm;
             owerfactory.Save();
             return ViewMethods.AlertBack("添加业主成功！", "../../Ower/Ower");
         }
 
-        
+        /// <summary>
+        /// 删除业主信息（Ower页面）
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Delete_Ower()
+        {
+
+            //获取业主编号（id）信息
+            string uid = ViewMethods.GetForm(Request, "uid", CommonEnums.ValueEnum.vlPost).ToString();
+            OwerM owerm = new OwerM();
+            owerm.OWID = uid.ConvertToInt32();
+            OwerFactory owerfactory = new OwerFactory();
+            owerfactory.Infomation_ower = owerm;
+            owerfactory.Del_Ower();
+            return new JsonResult() { Data = PublicMethods.JSonHelper<string>.ObjectToJson(new { status = "0", msg = "删除成功" }), ContentType = "json" };
+        }
+
+        /// <summary>
+        /// 编辑业主信息（Ower_Edit页面）
+        /// </summary>
+        public ActionResult Edit_Ower()
+        {
+            OwerFactory owerfactory = new OwerFactory();
+            //获取用户编号（id）信息
+            string id = ViewMethods.GetForm(Request, "ID", CommonEnums.ValueEnum.vlGet).ToString();
+           
+            IOwerB owerb = owerfactory.GetDataByID(id);
+            OwerM owerm = (owerb == null ? null : owerb.Infomation_ower);
+            //编辑管理组信息
+            string owername = ViewMethods.GetForm(Request, "name", CommonEnums.ValueEnum.vlPost).ToString();
+            owerm.Name = owername;
+            owerfactory.Infomation_ower = owerm;
+            ViewBag.OwerInfo = owerm;
+            bool isSuccess = owerfactory.Update();
+            if (isSuccess)
+                return ViewMethods.AlertBack("修改成功", "../../Ower/Ower");
+            else
+                return ViewMethods.AlertBack("修改失败", "-1");
+        }
+
+        /// <summary>
+        /// Ower_Edit页面行为
+        /// </summary>
+        /// <returns>视图</returns>
+        public ActionResult Ower_Edit()
+        {
+
+            //获取业主用户（id）数据信息
+            string id = ViewMethods.GetForm(Request, "ID", CommonEnums.ValueEnum.vlGet).ToString();
+            OwerFactory owerfactory = new OwerFactory();
+            IOwerB lstOwer = owerfactory.GetDataByID(id);
+            OwerM owerm = (lstOwer != null ? lstOwer.Infomation_ower : null);
+            ViewBag.OwerInfo = owerm;
+            return View();
+        }
+
+       
     }
 }

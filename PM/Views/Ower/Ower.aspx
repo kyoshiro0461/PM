@@ -19,7 +19,7 @@
         </div>
         <div class="tool">
             <a href="../../Main/Index" class="btn btn-gray"><i class="iconfont icon-undo"></i>返回</a>
-            <a href="../../Admin/Customer" class="btn btn-gray"><i class="iconfont icon-refresh"></i>刷新</a>
+            <a href="../../Ower/Ower" class="btn btn-gray"><i class="iconfont icon-refresh"></i>刷新</a>
             <a href="../../Ower/Ower_Add" class="btn btn-primary"><i class="iconfont icon-add"></i>添加</a>
 
             <div class="search">
@@ -30,14 +30,8 @@
         <div class="subwrap_mk_1" data-class="1">
             <table>
                 <tr class="odd">
-                    <th class="sorting js_orderby" data-orderby="UR_ID" data-desc="<%= desc%>">ID</th>
-                    <th>登录名</th>
-                    <th>会员姓名</th>
-                    <th>会员分组</th>
-                    <th>会员手机</th>
-                    <th>会员邮箱</th>
-                    <th>最后登录</th>
-                    <th>开关</th>
+                    <th class="sorting js_orderby" data-orderby="OW_ID" data-desc="<%= desc%>">ID</th>
+                    <th>业主名</th>
                     <th>操作</th>
                 </tr>
                 <% if (OwerInfo != null && OwerInfo.Count > 0)
@@ -48,14 +42,9 @@
                     <td><%=item.OWID %></td>
                     <td><%= item.Name%></td>
                     
+                   
                     <td>
-                        <div class="btn_switch js_onoff">
-                            <input type="checkbox" value="" class="switch onoff" />
-                            <label></label>
-                        </div>
-                    </td>
-                    <td>
-                        <a href="../../Admin/Customer_Edit?ID=<%= item.OWID%>" class="btn_icon gree"><i class="iconfont icon-brush_fill"></i></a>
+                        <a href="../../Ower/Ower_Edit?ID=<%= item.OWID%>" class="btn_icon gree"><i class="iconfont icon-brush_fill"></i></a>
                         <a href="javascript:;" value="" class="btn_icon red btn_del"><i class="iconfont icon-trash_fill"></i></a>
                     </td>
                 </tr>
@@ -91,9 +80,7 @@
             </div>
         </div>
     </div>
-    <div class="primary js_tabcont" data-num="2">
-        企业文化建设中...
-    </div>
+    <script type="text/javascript" src="../../CustomBase/Script/laypage.js"></script>
     <script type="text/javascript">
         //分页
         $('.page_current').on('click', function () {
@@ -101,7 +88,7 @@
             var desc = $('.js_orderby').attr('data-desc');
             var currentpage = $(this).attr('data-page');
             var keys = $('#keys').val();
-            location.href = "../../Admin/Customer?OrderBy=" + orderby + "&Desc=" + desc + "&Page=" + currentpage + "&keys=" + keys;
+            location.href = "../../Ower/Ower?OrderBy=" + orderby + "&Desc=" + desc + "&Page=" + currentpage + "&keys=" + keys;
         });
         //上一页
         $(".first").on('click', function () {
@@ -110,7 +97,7 @@
             var keys = $('#keys').val();
             var lastpage = $(this).attr('data-last');
             lastpage = lastpage - 1;
-            location.href = "../../Admin/Customer?OrderBy=" + orderby + "&Desc=" + desc + "&Page=" + lastpage + "&keys=" + keys;
+            location.href = "../../Ower/Ower?OrderBy=" + orderby + "&Desc=" + desc + "&Page=" + lastpage + "&keys=" + keys;
 
         });
         //下一页
@@ -120,14 +107,14 @@
             var keys = $('#keys').val();
             var nextpage = $(this).attr('data-next');
             nextpage++;
-            location.href = "../../Admin/Customer?OrderBy=" + orderby + "&Desc=" + desc + "&Page=" + nextpage + "&keys=" + keys;
+            location.href = "../../Ower/Ower?OrderBy=" + orderby + "&Desc=" + desc + "&Page=" + nextpage + "&keys=" + keys;
 
         });
         //搜索方法
         $(".search1").on('click', function () {
             keys = $("#keys").val();
 
-            location.href = "../../Admin/Customer?keys=" + keys;
+            location.href = "../../Ower/Ower?keys=" + keys;
         });
         //分页跳转
         $(".page_in").on('click', function () {
@@ -139,7 +126,7 @@
             if (!reg.test(page_go) || page_go == '') {
                 layer.msg("请输入数字!");
             } else {
-                location.href = "../../Admin/Customer?OrderBy=" + orderby + "&Desc=" + desc + "&Page=" + page_go + "&keys=" + keys;
+                location.href = "../../Ower/Ower?OrderBy=" + orderby + "&Desc=" + desc + "&Page=" + page_go + "&keys=" + keys;
             }
         });
         //开关
@@ -166,13 +153,13 @@
             var t = $(this).parents('tr'),
                uid = $(this).parents('tr').attr('data-uid');
             var onoff_del = $(this).find('.btn_del').attr('value');
-            var c = confirm('是否删除该会员？');
+            var c = confirm('是否删除该业主信息？');
             if (c == true) {
                 t.remove();
                 // 调用del删除数据库
                 $.ajax({
                     type: "Post",
-                    url: "../../AdminOperate/Delete_Customer",
+                    url: "../../Ower/Delete_Ower",
                     data: { uid, onoff_del},
                             dataType: "json",
                             success: function(data) {
@@ -189,7 +176,7 @@
             var desc = $(this).attr('data-desc');
             desc = (desc == 0 ? 1 : 0);
             var currentpage = $('.js_listpage a.hover').attr('data-page');
-            location.href = "../../Admin/Customer?OrderBy=" + orderby + "&Desc=" + desc + "&Page=" + currentpage + "&keys=" + keys;
+            location.href = "../../Ower/Ower?OrderBy=" + orderby + "&Desc=" + desc + "&Page=" + currentpage + "&keys=" + keys;
         });
 
     </script>

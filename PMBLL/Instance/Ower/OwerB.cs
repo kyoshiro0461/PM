@@ -17,19 +17,20 @@ namespace PMBLL.Instance
     {
         #region 常量
         const string GROUPNAME = "OwerGroup";                           //SectionGroup名称
-        const string SECTIONNAME = "SetInstance";                           //Section名称
+        const string SECTIONNAME = "SetInstance";                       //Section名称
         #endregion
         #region 变量
-        private IOwerD _owerd;                                                  //业主信息类（数据链路层）
-        private string _methodnm_GetDefaultOwer;                                //GetDefaultOwer方法名
-        private string _methodnm_GetPageData;                           //GetPageData
-        private string _methodnm_IsExist_owername;             //IsExist_owername方法名
-        private IConnectionB _connectionb;                                      //链接类（业务逻辑层）
-        private OwerM _owerm;                                           //业主信息类（模型层）
+        private IOwerD _owerd;                                         //业主信息类（数据链路层）
+        private string _methodnm_GetDefaultOwer;                       //GetDefaultOwer方法名
+        private string _methodnm_GetPageData;                          //GetPageData
+        private string _methodnm_IsExist_owername;                    //IsExist_owername方法名
+        private IConnectionB _connectionb;                            //链接类（业务逻辑层）
+        private OwerM _owerm;                                         //业主信息类（模型层）
+        private string _methodnm_GetDataByID;                         //GetDataByID方法名
         public OwerM Infomation_ower
         {
             get { return this._owerm; }
-            set { this._owerm = value; }
+            set { this._owerm = value; this._owerd.Infomation_ower = this._owerm; }
         }
         #endregion
         #region 初始化
@@ -41,6 +42,16 @@ namespace PMBLL.Instance
         {
             this._connectionb = connectionb;
             InitObject();//初始化对象
+        }
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="info">用户信息类（模型层）</param>
+        /// <param name="connectionb">链接类</param>
+        public OwerB(OwerM info, IConnectionB connectionb)
+            : this(connectionb)
+        {
+            this.Infomation_ower = info;
         }
         #endregion
         #region 方法
@@ -70,6 +81,7 @@ namespace PMBLL.Instance
                 this._methodnm_GetDefaultOwer = section.GetDataOwerMethod;   //GetDefaultOwer方法名
                 this._methodnm_GetPageData = section.GetPageDataMethod;
                 this._methodnm_IsExist_owername = section.IsExist_owernameMethod;//IsExist_owername方法名
+                this._methodnm_GetDataByID = section.GetDataByIDMethod;     //GetDataByID方法名
             }
         }
         /// <summary>
@@ -84,7 +96,7 @@ namespace PMBLL.Instance
         /// <summary>
         /// 转换成业务逻辑层的对象
         /// </summary>
-        /// <param name="lstOwer">后台菜单信息类（模型层）</param>
+        /// <param name="lstOwer">业主信息类（模型层）</param>
         /// <returns>（业务逻辑层）对象</returns>
         List<IOwerB> ConvertToOwerB(List<OwerM> lstOwer)
         {
@@ -143,6 +155,51 @@ namespace PMBLL.Instance
         public bool Save()
         {
             return this._owerd.Save();//存档
+        }
+
+        /// <summary>
+        /// 删除业主信息(Ower页面)
+        /// </summary>
+        /// <returns>受影响的行数</returns>
+        public int Del_Ower()
+        {
+            return this._owerd.Del_Ower();
+        }
+
+        /// <summary>
+        /// 通过编号获取数据
+        /// </summary>
+        /// <param name="id">编号</param>
+        /// <returns>数据</returns>
+        public IOwerB GetDataByID(string id)
+        {
+            OwerM result = Methods.ReflexInvokeMethod(this._owerd, this._methodnm_GetDataByID, new Type[] { typeof(String), typeof(IConnectionD) }, new object[] { id, this._connectionb.ConnectionD }) as OwerM;
+            return ConvertToOwer_B(result);
+        }
+
+        /// <summary>
+        /// 转换成业务逻辑层的对象
+        /// </summary>
+        /// <param name="ower">业主信息（模型层）</param>
+        /// <returns>（业务逻辑层）对象</returns>
+        IOwerB ConvertToOwer_B(OwerM owerm)
+        {
+            IOwerB result = null;
+            if (owerm != null)
+            {
+                result = new OwerB(owerm, this._connectionb);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 更新信息
+        /// </summary>
+        /// <returns>受影响的行数</returns>
+        public bool Update()
+        {
+            int effect = this._owerd.Update();
+            return (effect > 0);
         }
         #endregion
 

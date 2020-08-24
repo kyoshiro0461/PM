@@ -40,5 +40,15 @@ namespace PMBLL.Sections
             get { return this["IsExist_owernameMethod"].ToString(); }
             set { this["IsExist_owernameMethod"] = value; }
         }
+
+        /// <summary>
+        /// 根据编号获取业主数据方法名
+        /// </summary>
+        [ConfigurationProperty("GetDataByIDMethod", IsRequired = true)]
+        internal string GetDataByIDMethod
+        {
+            get { return this["GetDataByIDMethod"].ToString(); }
+            set { this["GetDataByIDMethod"] = value; }
+        }
     }
 }

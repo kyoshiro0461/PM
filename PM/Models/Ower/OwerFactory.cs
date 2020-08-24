@@ -26,7 +26,7 @@ namespace PM.Models
         /// <summary>
         /// 业主信息
         /// </summary>
-        public OwerM Infomation
+        public OwerM Infomation_ower
         {
             get { return this._owerm; }
             set { this._owerm = value; this._owerb.Infomation_ower = this._owerm; }
@@ -112,7 +112,7 @@ namespace PM.Models
             OwerM owerm = this._owerb.IsExist_owername(owername);
             if (owerm != null)
             {
-                this.Infomation = owerm;
+                this.Infomation_ower = owerm;
                 isExist_owername = true;
             }
             return isExist_owername;
@@ -126,6 +126,35 @@ namespace PM.Models
         public bool Save()
         {
             return this._owerb.Save();
+        }
+
+        /// <summary>
+        /// 更新业主信息(禁用属性onoff)
+        /// </summary>
+        /// <returns>T=更新成功；F=更新失败</returns>
+        public int Del_Ower()
+        {
+            return this._owerb.Del_Ower();
+        }
+
+        /// <summary>
+        /// 通过业主编号获取数据
+        /// </summary>
+        /// <param name="id">业主编号</param>
+        /// <returns>用户信息（模型层）集合</returns>
+        public IOwerB GetDataByID(string id)
+        {
+            return this._owerb.GetDataByID(id);
+        }
+
+        /// <summary>
+        /// 更新信息
+        /// </summary>
+        /// <returns>受影响的行数</returns>
+        public bool Update()
+        {
+
+            return this._owerb.Update();
         }
         #endregion
     }
