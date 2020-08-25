@@ -80,5 +80,53 @@ namespace PMModel
 
         }
         #endregion
+
+        #region 劳务队信息表(serviceteam)
+        /// <summary>
+        /// 业主信息表
+        /// </summary>
+        public static class Info_ServiceTeam
+        {
+            /// <summary>
+            /// 表名
+            /// </summary>
+            public static string TABLENAME = "ServiceTeam";
+
+            ///<summary>
+            ///序号
+            /// </summary>
+            public static string ST_ID = "st_id";
+
+            ///<summary>
+            ///名称
+            /// </summary>
+            public static string ST_NAME = "st_name";
+
+        }
+        #endregion
+
+        #region 供应商信息表(Suppliers)
+        /// <summary>
+        /// 业主信息表
+        /// </summary>
+        public static class Info_Suppliers
+        {
+            /// <summary>
+            /// 表名
+            /// </summary>
+            public static string TABLENAME = "Suppliers";
+
+            ///<summary>
+            ///序号
+            /// </summary>
+            public static string SP_ID = "sp_id";
+
+            ///<summary>
+            ///名称
+            /// </summary>
+            public static string SP_NAME = "sp_name";
+
+        }
+        #endregion
     }
 }

@@ -48,6 +48,10 @@
     <Compile Include="Instance\Connection\IConnection.cs" />
     <Compile Include="Instance\Menu\IMenuD.cs" />
     <Compile Include="Instance\Menu\MenuD.cs" />
+    <Compile Include="Instance\Suppliers\ISuppliersD.cs" />
+    <Compile Include="Instance\Suppliers\SuppliersD.cs" />
+    <Compile Include="Instance\ServiceTeam\IServiceTeamD.cs" />
+    <Compile Include="Instance\ServiceTeam\ServiceTeamD.cs" />
     <Compile Include="Instance\Ower\IOwerD.cs" />
     <Compile Include="Instance\Ower\OwerD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

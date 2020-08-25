@@ -9,34 +9,34 @@ using System.Web;
 namespace PM.Models
 {
     /// <summary>
-    /// 后台菜单信息工厂类（UI层）
+    /// 业主信息工厂类（UI层）
     /// </summary>
-    public class OwerFactory
+    public class ServiceTeamFactory
     {
         #region 常量
-        const string GROUPNAME = "OwerGroup";                             //SectionGroup名称
+        const string GROUPNAME = "ServiceTeamGroup";                             //SectionGroup名称
         const string SECTIONNAME = "SetInstance";                         //Section名称
         #endregion
         #region 变量
-        private IOwerB _owerb;                                           //业主信息集合类（业务逻辑层）
-        private OwerM _owerm;                                           //业主类（模型层） 
+        private IServiceTeamB _serviceteamb;                                           //业主信息集合类（业务逻辑层）
+        private ServiceTeamM _serviceteamm;                                           //业主类（模型层） 
         private ConnectionFactory _connectionfactory;                    //链接
         #endregion
         #region 属性
         /// <summary>
         /// 业主信息
         /// </summary>
-        public OwerM Infomation_ower
+        public ServiceTeamM Infomation_serviceteam
         {
-            get { return this._owerm; }
-            set { this._owerm = value; this._owerb.Infomation_ower = this._owerm; }
+            get { return this._serviceteamm; }
+            set { this._serviceteamm = value; this._serviceteamb.Infomation_serviceteam = this._serviceteamm; }
         }
         #endregion
         #region 初始化
         /// <summary>
         /// 初始化
         /// </summary>
-        public OwerFactory()
+        public ServiceTeamFactory()
         {
             this._connectionfactory = ViewMethods.GetConnection();
             InitFactory();
@@ -61,7 +61,7 @@ namespace PM.Models
         {
             string configPath = Methods.CommonMethods.GetConfigPath();
             //读取配置文件的信息
-            Sections.OwerSection section = PublicMethods.Methods.ReadConfigFile_SectionGroup(configPath, GROUPNAME, SECTIONNAME) as Sections.OwerSection;
+            Sections.ServiceTeamSection section = PublicMethods.Methods.ReadConfigFile_SectionGroup(configPath, GROUPNAME, SECTIONNAME) as Sections.ServiceTeamSection;
             if (section != null)
             {
                 strNameSpace = section.NameSpace;//命名空间
@@ -76,15 +76,15 @@ namespace PM.Models
         /// <param name="strInstance">实例名</param>
         void InstanceObject(string strNameSpace, string strInstance)
         {
-            this._owerb = PublicMethods.Methods.InstanceObject(strNameSpace, strInstance, new object[] { this._connectionfactory.ConnectionB }) as IOwerB;
+            this._serviceteamb = PublicMethods.Methods.InstanceObject(strNameSpace, strInstance, new object[] { this._connectionfactory.ConnectionB }) as IServiceTeamB;
         }
         /// <summary>
         /// 获取数据
         /// </summary>
         /// <returns>后台菜单信息（业务逻辑层）集合</returns>
-        public List<IOwerB> GetDataOwer()
+        public List<IServiceTeamB> GetDataServiceTeam()
         {
-            return this._owerb.GetDataOwer();
+            return this._serviceteamb.GetDataServiceTeam();
         }
         /// <summary>
         /// 获取分页数据
@@ -96,26 +96,26 @@ namespace PM.Models
         /// <param name="key">搜索条件</param>
         /// <param name="order">排序</param>
         /// <returns></returns>
-        public List<IOwerB> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway)
+        public List<IServiceTeamB> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway)
         {
-            return this._owerb.GetPageData(ref count, start, size, key, order, orderway);
+            return this._serviceteamb.GetPageData(ref count, start, size, key, order, orderway);
         }
 
         /// <summary>
         /// 判断业主是否存在
         /// </summary>
-        /// <param name="owername">业主名</param>
+        /// <param name="serviceteamname">业主名</param>
         /// <returns>业主类</returns>
-        public bool IsExist_owername(string owername)
+        public bool IsExist_serviceteamname(string serviceteamname)
         {
-            bool isExist_owername = false;
-            OwerM owerm = this._owerb.IsExist_owername(owername);
-            if (owerm != null)
+            bool isExist_serviceteamname = false;
+            ServiceTeamM serviceteamm = this._serviceteamb.IsExist_serviceteamname(serviceteamname);
+            if (serviceteamm != null)
             {
-                this.Infomation_ower = owerm;
-                isExist_owername = true;
+                this.Infomation_serviceteam = serviceteamm;
+                isExist_serviceteamname = true;
             }
-            return isExist_owername;
+            return isExist_serviceteamname;
         }
 
         /// <summary>
@@ -125,16 +125,16 @@ namespace PM.Models
         /// <returns>自动编号</returns>
         public bool Save()
         {
-            return this._owerb.Save();
+            return this._serviceteamb.Save();
         }
 
         /// <summary>
         /// 更新业主信息(禁用属性onoff)
         /// </summary>
         /// <returns>T=更新成功；F=更新失败</returns>
-        public int Del_Ower()
+        public int Del_ServiceTeam()
         {
-            return this._owerb.Del_Ower();
+            return this._serviceteamb.Del_ServiceTeam();
         }
 
         /// <summary>
@@ -142,9 +142,9 @@ namespace PM.Models
         /// </summary>
         /// <param name="id">业主编号</param>
         /// <returns>用户信息（模型层）集合</returns>
-        public IOwerB GetDataByID(string id)
+        public IServiceTeamB GetDataByID(string id)
         {
-            return this._owerb.GetDataByID(id);
+            return this._serviceteamb.GetDataByID(id);
         }
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace PM.Models
         public bool Update()
         {
 
-            return this._owerb.Update();
+            return this._serviceteamb.Update();
         }
         #endregion
     }

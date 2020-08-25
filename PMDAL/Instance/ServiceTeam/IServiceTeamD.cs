@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 namespace PMDAL.Instance
 {
     /// <summary>
-    /// 业主信息接口（数据链路层）
+    /// 劳务队信息接口（数据链路层）
     /// </summary>
-    public interface IOwerD
+    public interface IServiceTeamD
     {
         /// <summary>
-        /// 业主信息类（模型层）
+        /// 劳务队信息类（模型层）
         /// </summary>
-        OwerM Infomation_ower { set; }
+        ServiceTeamM Infomation_serviceteam { set; }
 
         /// <summary>
         /// 存档
@@ -24,10 +24,10 @@ namespace PMDAL.Instance
         bool Save();
 
         /// <summary>
-        /// 删除业主信息(Ower页面)
+        /// 删除劳务队信息(ServiceTeam页面)
         /// </summary>
         /// <returns>受影响的行数</returns>
-        int Del_Ower();
+        int Del_ServiceTeam();
         
         /// <summary>
         /// 更新信息

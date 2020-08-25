@@ -11,16 +11,16 @@ namespace PMBLL.Sections
     /// <summary>
     /// 业主配置节点
     /// </summary>
-    internal class OwerSection : InstanceSection
+    internal class ServiceTeamSection : InstanceSection
     {
         /// <summary>
         /// 获取数据方法名
         /// </summary>
-        [ConfigurationProperty("GetDataOwerMethod", IsRequired = true)]
-        internal string GetDataOwerMethod
+        [ConfigurationProperty("GetDataServiceTeamMethod", IsRequired = true)]
+        internal string GetDataServiceTeamMethod
         {
-            get { return this["GetDataOwerMethod"].ToString(); }
-            set { this["GetDataOwerMethod"] = value; }
+            get { return this["GetDataServiceTeamMethod"].ToString(); }
+            set { this["GetDataServiceTeamMethod"] = value; }
         }
         /// <summary>
         /// 获取分页数据方法名
@@ -34,11 +34,11 @@ namespace PMBLL.Sections
         /// <summary>
         /// 判断业主是否存在方法名
         /// </summary>
-        [ConfigurationProperty("IsExist_owernameMethod", IsRequired = true)]
-        internal string IsExist_owernameMethod
+        [ConfigurationProperty("IsExist_serviceteamnameMethod", IsRequired = true)]
+        internal string IsExist_serviceteamnameMethod
         {
-            get { return this["IsExist_owernameMethod"].ToString(); }
-            set { this["IsExist_owernameMethod"] = value; }
+            get { return this["IsExist_serviceteamnameMethod"].ToString(); }
+            set { this["IsExist_serviceteamnameMethod"] = value; }
         }
 
         /// <summary>

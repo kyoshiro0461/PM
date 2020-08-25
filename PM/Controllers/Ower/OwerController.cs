@@ -33,9 +33,9 @@ namespace PM.Controllers
             string order = orderby;
             OrderType orderway = (desc == 0 ? OrderType.otDesc : OrderType.otAsc);
             long count = 0;
-            
+
             OwerFactory owerfactory = new OwerFactory();
-            List<IOwerB> lstower = owerfactory.GetPageData(ref count ,start, pageSize, keys, order, orderway);
+            List<IOwerB> lstower = owerfactory.GetPageData(ref count, start, pageSize, keys, order, orderway);
             List<OwerM> owerinfo = new List<OwerM>();
             if (lstower != null && lstower.Count > 0) lstower.ForEach(p => owerinfo.Add(p.Infomation_ower));
             int totalpages = 0;
@@ -57,7 +57,7 @@ namespace PM.Controllers
         /// <returns>视图</returns>
         public ActionResult Ower_Add()
         {
-           return View();
+            return View();
         }
 
         /// <summary>
@@ -70,11 +70,11 @@ namespace PM.Controllers
             //添加业主信息
             OwerM owerm = new OwerM();
             string owername = ViewMethods.GetForm(Request, "name", CommonEnums.ValueEnum.vlPost).ToString();
-           
+
             bool isExist = owerfactory.IsExist_owername(owername);
             if (isExist) return ViewMethods.AlertBack("业主已存在,请重新确认", "-1");
             owerm.Name = owername;
-            
+
             owerfactory.Infomation_ower = owerm;
             owerfactory.Save();
             return ViewMethods.AlertBack("添加业主成功！", "../../Ower/Ower");
@@ -103,12 +103,12 @@ namespace PM.Controllers
         public ActionResult Edit_Ower()
         {
             OwerFactory owerfactory = new OwerFactory();
-            //获取用户编号（id）信息
+            //获取业主编号（id）信息
             string id = ViewMethods.GetForm(Request, "ID", CommonEnums.ValueEnum.vlGet).ToString();
-           
+
             IOwerB owerb = owerfactory.GetDataByID(id);
             OwerM owerm = (owerb == null ? null : owerb.Infomation_ower);
-            //编辑管理组信息
+            //编辑业主信息
             string owername = ViewMethods.GetForm(Request, "name", CommonEnums.ValueEnum.vlPost).ToString();
             owerm.Name = owername;
             owerfactory.Infomation_ower = owerm;
@@ -136,6 +136,6 @@ namespace PM.Controllers
             return View();
         }
 
-       
+
     }
 }

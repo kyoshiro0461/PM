@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 namespace PMBLL.Sections
 {
     /// <summary>
-    /// 业主配置节点
+    /// 供应商配置节点
     /// </summary>
-    internal class OwerSection : InstanceSection
+    internal class SuppliersSection : InstanceSection
     {
         /// <summary>
         /// 获取数据方法名
         /// </summary>
-        [ConfigurationProperty("GetDataOwerMethod", IsRequired = true)]
-        internal string GetDataOwerMethod
+        [ConfigurationProperty("GetDataSuppliersMethod", IsRequired = true)]
+        internal string GetDataSuppliersMethod
         {
-            get { return this["GetDataOwerMethod"].ToString(); }
-            set { this["GetDataOwerMethod"] = value; }
+            get { return this["GetDataSuppliersMethod"].ToString(); }
+            set { this["GetDataSuppliersMethod"] = value; }
         }
         /// <summary>
         /// 获取分页数据方法名
@@ -32,17 +32,17 @@ namespace PMBLL.Sections
             set { this["GetPageDataMethod"] = value; }
         }
         /// <summary>
-        /// 判断业主是否存在方法名
+        /// 判断供应商是否存在方法名
         /// </summary>
-        [ConfigurationProperty("IsExist_owernameMethod", IsRequired = true)]
-        internal string IsExist_owernameMethod
+        [ConfigurationProperty("IsExist_suppliersnameMethod", IsRequired = true)]
+        internal string IsExist_suppliersnameMethod
         {
-            get { return this["IsExist_owernameMethod"].ToString(); }
-            set { this["IsExist_owernameMethod"] = value; }
+            get { return this["IsExist_suppliersnameMethod"].ToString(); }
+            set { this["IsExist_suppliersnameMethod"] = value; }
         }
 
         /// <summary>
-        /// 根据编号获取业主数据方法名
+        /// 根据编号获取供应商数据方法名
         /// </summary>
         [ConfigurationProperty("GetDataByIDMethod", IsRequired = true)]
         internal string GetDataByIDMethod
