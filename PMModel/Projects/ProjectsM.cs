@@ -7,23 +7,24 @@ using System.Threading.Tasks;
 namespace PMModel
 {
     /// <summary>
-    /// 供应商信息类（模型层）
+    /// 项目信息类（模型层）
     /// </summary>
-    public class SuppliersM
+    public class ProjectsM
     {
         #region 变量
-        private int _sp_id;                             //编号
+        private int _pr_id;                             //编号
         //private IsDisableEnum _mn_onoff;                //状态
-        private string _sp_name;                        //名称
+        private string _pr_name;                        //名称
+        private string _pr_belong;                      //隶属关系
         #endregion
         #region 属性
         /// <summary>
         /// 编号
         /// </summary>
-        public int SPID
+        public int PRID
         {
-            get { return this._sp_id; }
-            set { this._sp_id = value; }
+            get { return this._pr_id; }
+            set { this._pr_id = value; }
         }
         /// <summary>
         /// 是否被禁用
@@ -37,21 +38,31 @@ namespace PMModel
         /// <summary>
         /// 名称
         /// </summary>
-        public string Name
+        public string PRName
         {
-            get { return this._sp_name; }
-            set { this._sp_name = value; }
+            get { return this._pr_name; }
+            set { this._pr_name = value; }
+        }
+
+        /// <summary>
+        /// 隶属关系
+        /// </summary>
+        public string PRBelong
+        {
+            get { return this._pr_belong; }
+            set { this._pr_belong = value; }
         }
         #endregion
         #region 初始化
         /// <summary>
         /// 初始化
         /// </summary>
-        public SuppliersM()
+        public ProjectsM()
         {
-            this._sp_id = 0;
+            this._pr_id = 0;
            // this._mn_onoff = IsDisableEnum.idNo;
-            this._sp_name = "";
+            this._pr_name = "";
+            this._pr_belong = "";
        }
         #endregion
         #region 方法

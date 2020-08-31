@@ -128,5 +128,60 @@ namespace PMModel
 
         }
         #endregion
+
+        #region 项目信息表(Projects)
+        /// <summary>
+        /// 项目信息表
+        /// </summary>
+        public static class Info_Projects
+        {
+            /// <summary>
+            /// 表名
+            /// </summary>
+            public static string TABLENAME = "Projects";
+
+            ///<summary>
+            ///序号
+            /// </summary>
+            public static string PR_ID = "pr_id";
+
+            ///<summary>
+            ///名称
+            /// </summary>
+            public static string PR_NAME = "pr_name";
+
+            /// <summary>
+            /// 归属
+            /// </summary>
+            public static string PR_BELONG = "pr_belong";
+        }
+        #endregion
+        #region 合同信息表(Contract)
+        /// <summary>
+        /// 合同信息表
+        /// </summary>
+        public static class Info_Contract
+        {
+            /// <summary>
+            /// 表名
+            /// </summary>
+            public static string TABLENAME = "Contract";
+
+            ///<summary>
+            ///序号
+            /// </summary>
+            public static string CT_ID = "ct_id";
+
+            ///<summary>
+            ///名称
+            /// </summary>
+            public static string CT_NAME = "ct_name";
+
+            /// <summary>
+            /// 归属
+            /// </summary>
+            public static string CT_BELONG = "ct_belong";
+        }
+        #endregion
     }
 }

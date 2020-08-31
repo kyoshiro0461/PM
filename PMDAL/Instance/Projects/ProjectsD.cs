@@ -11,22 +11,22 @@ using System.Threading.Tasks;
 namespace PMDAL.Instance
 {
     /// <summary>
-    /// 供应商信息类（数据链路层）
+    /// 集团内项目信息类（数据链路层）
     /// </summary>
-    public class SuppliersD : ISuppliersD
+    public class ProjectsD : IProjectsD
     {
         #region 变量
         private DbFactoryD _dbfactory;                          //数据库工厂类
-        private SuppliersM _suppliersm;                                   //供应商信息类（模型层）
+        private ProjectsM _projectsm;                                   //项目信息类（模型层）
         private IConnectionD _connectiond;                      //链接类
         #endregion
         #region 属性
         /// <summary>
-        /// 供应商信息类（模型层）
+        /// 集团内项目信息类（模型层）
         /// </summary>
-        public SuppliersM Infomation_suppliers
+        public ProjectsM Infomation_projects
         {
-            set { this._suppliersm = value; }
+            set { this._projectsm = value; }
         }
         #endregion
         #region 初始化
@@ -34,7 +34,7 @@ namespace PMDAL.Instance
         /// 初始化
         /// </summary>
         /// <param name="connectiond">链接类</param>
-        public SuppliersD(IConnectionD connectiond)
+        public ProjectsD(IConnectionD connectiond)
         {
             this._connectiond = connectiond;
             this._dbfactory = connectiond.DataBaseFactory;
@@ -48,8 +48,8 @@ namespace PMDAL.Instance
         /// <returns>字段</returns>
         public static string GetField(string alias = "")
         {
-            string result = string.Format("[#alias]{0}[#as]{0}, [#alias]{1}[#as]{1}",
-                TableStructM.Info_Suppliers.SP_ID, TableStructM.Info_Suppliers.SP_NAME);
+            string result = string.Format("[#alias]{0}[#as]{0}, [#alias]{1}[#as]{1}, [#alias]{2}[#as]{2}",
+                TableStructM.Info_Projects.PR_ID, TableStructM.Info_Projects.PR_NAME,TableStructM.Info_Projects.PR_BELONG);
             result = result.Replace("[#alias]", (string.IsNullOrEmpty(alias) ? "" : string.Format("{0}.", alias)));
             result = result.Replace("[#as]", string.Format(" as {0}", CommonMethods.CombineFieldPrefix(alias)));
             return result;
@@ -61,7 +61,7 @@ namespace PMDAL.Instance
         /// <returns>表语法</returns>
         public static string GetFrom()
         {
-            string result = string.Format("{0} ", TableStructM.Info_Suppliers.TABLENAME);
+            string result = string.Format("{0} ", TableStructM.Info_Projects.TABLENAME);
             return result;
         }
         /// <summary>
@@ -72,9 +72,9 @@ namespace PMDAL.Instance
         /// <param name="top">指定笔数</param>
         /// <param name="condition">其他条件（需带入and）</param>
         /// <returns>数据</returns>
-        public static List<SuppliersM> ReadDataBase(string alias, IConnectionD connection, int top = 0, string condition = "")
+        public static List<ProjectsM> ReadDataBase(string alias, IConnectionD connection, int top = 0, string condition = "")
         {
-            List<SuppliersM> result = null;
+            List<ProjectsM> result = null;
 
             string strTop = "";
             if (top != 0) strTop = string.Format("top {0}", top);
@@ -82,7 +82,7 @@ namespace PMDAL.Instance
             string from = GetFrom();
             string where = string.Format("where 1=1");
             if (!string.IsNullOrEmpty(condition)) where = string.Format("{0} {1}", where, condition);
-            string orderby = string.Format("order by {0}", TableStructM.Info_Suppliers.SP_ID);
+            string orderby = string.Format("order by {0}", TableStructM.Info_Projects.PR_ID);
             string sql = string.Format("select {0} {1} from {2} {3} {4}", strTop, fields, from, where, orderby);
             connection.DataBaseFactory.GetDataReader(sql);
 
@@ -98,9 +98,9 @@ namespace PMDAL.Instance
         /// <param name="condition">其他条件（需带入and）</param>
         /// <param name="connection">链接类</param>
         /// <returns>数据</returns>
-        public static List<SuppliersM> ReadDataBase(string condition = "", IConnectionD connection = null)
+        public static List<ProjectsM> ReadDataBase(string condition = "", IConnectionD connection = null)
         {
-            List<SuppliersM> result = null;
+            List<ProjectsM> result = null;
 
             string fields = GetField();
             string from = GetFrom();
@@ -120,9 +120,9 @@ namespace PMDAL.Instance
         /// <param name="dr">数据阅读器</param>
         /// <param name="alias">表别名</param>
         /// <returns>链表</returns>
-        public static List<SuppliersM> AddDataToList(IDataReader dr)
+        public static List<ProjectsM> AddDataToList(IDataReader dr)
         {
-            List<SuppliersM> result = new List<SuppliersM>();
+            List<ProjectsM> result = new List<ProjectsM>();
 
             while (dr.Read())
             {
@@ -137,12 +137,13 @@ namespace PMDAL.Instance
         /// <param name="dr">数据阅读器</param>
         /// <param name="alias">表别名</param>
         /// <returns>数据</returns>
-        public static SuppliersM AddDataToObject(IDataReader dr, string alias = "")
+        public static ProjectsM AddDataToObject(IDataReader dr, string alias = "")
         {
-            SuppliersM result = new SuppliersM();
+            ProjectsM result = new ProjectsM();
 
-            result.SPID = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Suppliers.SP_ID, alias)].ConvertToInt32();
-            result.Name = (dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Suppliers.SP_NAME, alias)].ToString());
+            result.PRID = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Projects.PR_ID, alias)].ConvertToInt32();
+            result.PRName = (dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Projects.PR_NAME, alias)].ToString());
+            result.PRBelong = (dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Projects.PR_BELONG, alias)].ToString());
             // result.SetOnOff(dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Menu.MN_ONOFF, alias)].ConvertToInt32());
 
             return result;
@@ -153,12 +154,13 @@ namespace PMDAL.Instance
         /// <param name="row">数据行</param>
         /// <param name="alias">表别名</param>
         /// <returns>数据</returns>
-        public static SuppliersM AddDataToObject(DataRow row, string alias)
+        public static ProjectsM AddDataToObject(DataRow row, string alias)
         {
-            SuppliersM result = new SuppliersM();
+            ProjectsM result = new ProjectsM();
 
-            result.SPID = row[CommonMethods.CombineFieldAlias(TableStructM.Info_Suppliers.SP_ID, alias)].ConvertToInt32();
-            result.Name = (row[CommonMethods.CombineFieldAlias(TableStructM.Info_Suppliers.SP_NAME, alias)].ToString());
+            result.PRID = row[CommonMethods.CombineFieldAlias(TableStructM.Info_Projects.PR_ID, alias)].ConvertToInt32();
+            result.PRName = (row[CommonMethods.CombineFieldAlias(TableStructM.Info_Projects.PR_NAME, alias)].ToString());
+            result.PRBelong = (row[CommonMethods.CombineFieldAlias(TableStructM.Info_Projects.PR_BELONG, alias)].ToString());
             // result.SetOnOff(row[CommonMethods.CombineFieldAlias(TableStructM.Info_Menu.MN_ONOFF, alias)].ConvertToInt32());
 
             return result;
@@ -168,11 +170,11 @@ namespace PMDAL.Instance
         /// </summary>
         /// <param name="connection">链接类</param>
         /// <returns>数据</returns>
-        public static List<SuppliersM> GetDataSuppliers(IConnectionD connection)
+        public static List<ProjectsM> GetDataProjects(IConnectionD connection)
         {
-            const string ALIAS_Suppliers = "a";
+            const string ALIAS_Projects = "a";
 
-            return ReadDataBase(ALIAS_Suppliers, connection);
+            return ReadDataBase(ALIAS_Projects, connection);
         }
         /// <summary>
         /// 获取分页数据
@@ -185,14 +187,16 @@ namespace PMDAL.Instance
         /// <param name="condition">其他条件（需带入and）</param>
         /// <param name="order">排序条件（无需带入order by）</param>
         /// <returns></returns>
-        public static List<SuppliersM> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, IConnectionD connection)
+        public static List<ProjectsM> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, string belong, IConnectionD connection)
         {
             string where = "", orderby = "";
             string alias = "a";
-            if (!string.IsNullOrEmpty(key)) where = string.Format("{0} and({1} like '%{2}%')", where, TableStructM.Info_Suppliers.SP_NAME, key.ReplaceStr());
+            if (!string.IsNullOrEmpty(key)) where = string.Format("{0} and({1} like '%{2}%')", where, TableStructM.Info_Projects.PR_NAME, key.ReplaceStr());
             if (!string.IsNullOrEmpty(order)) orderby = string.Format("{0} {1}", order, (orderway == OrderType.otAsc ? "asc" : "desc"));
+            if (!string.IsNullOrEmpty(belong )) where = string.Format("{0} and {1} ={2}", where, TableStructM.Info_Projects.PR_BELONG, belong.ReplaceStr());
+          
             string condition = GetFrom();
-            count = connection.DataBaseFactory.GetCount(TableStructM.Info_Suppliers.TABLENAME, string.Format("where 1=1 {0}", where));
+            count = connection.DataBaseFactory.GetCount(TableStructM.Info_Projects.TABLENAME, string.Format("where 1=1 {0}", where));
 
             return ReadPageDataBase(start, size, where, orderby, connection);
 
@@ -207,15 +211,15 @@ namespace PMDAL.Instance
         /// <param name="order">排序条件（无需带入order by）</param>
         /// <param name="connection">链接类</param>
         /// <returns>数据</returns>
-        public static List<SuppliersM> ReadPageDataBase(long start, int size, string condition = "", string order = "", IConnectionD connection = null)
+        public static List<ProjectsM> ReadPageDataBase(long start, int size, string condition = "", string order = "", IConnectionD connection = null)
         {
-            List<SuppliersM> result = null;
-            string tablename = TableStructM.Info_Suppliers.TABLENAME;
+            List<ProjectsM> result = null;
+            string tablename = TableStructM.Info_Projects.TABLENAME;
             string fields = GetField();
             string from = GetFrom();
             string orderby = string.Format("order by {0}", order);
             string condition_where = string.Format("where 1=1");
-            string where = string.Format("where {0} not in (select top {1} {0} from {2} {3}{4}{5})", TableStructM.Info_Suppliers.SP_ID, start, from, condition_where, condition, orderby);
+            string where = string.Format("where {0} not in (select top {1} {0} from {2} {3}{4}{5})", TableStructM.Info_Projects.PR_ID, start, from, condition_where, condition, orderby);
             if (!string.IsNullOrEmpty(condition)) where = string.Format("{0} {1}", where, condition);
             string sql = string.Format("select top {0} {1} from {2} {3} {4}", size, fields, from, where, orderby);
             connection.DataBaseFactory.GetDataReader(sql);
@@ -226,47 +230,49 @@ namespace PMDAL.Instance
             return result;
         }
         /// <summary>
-        /// 判断供应商是否存在
+        /// 判断项目是否存在
         /// </summary>
-        /// <param name="suppliersname">供应商名</param>
+        /// <param name="projectsnname">项目名</param>
         /// <param name="connection">链接类</param>
-        /// <returns>供应商类</returns>
-        public static SuppliersM IsExist_suppliersname(string suppliersname, IConnectionD connection)
+        /// <returns>项目类</returns>
+        public static ProjectsM IsExist_projectsname(string projectsname, IConnectionD connection)
         {
-            SuppliersM result = null;
+            ProjectsM result = null;
 
-            string where = string.Format(" and {0}='{1}'", TableStructM.Info_Suppliers.SP_NAME, suppliersname.ReplaceStr());
-            IList<SuppliersM> lst = ReadDataBase(where, connection);
+            string where = string.Format(" and {0}='{1}'", TableStructM.Info_Projects.PR_NAME, projectsname.ReplaceStr());
+            IList<ProjectsM> lst = ReadDataBase(where, connection);
             if (lst != null) result = lst.FirstOrDefault();
             return result;
         }
         /// <summary>
         /// 存档
         /// </summary>
-        /// <param name="userm">供应商信息类（模型层）</param>
+        /// <param name="userm">项目信息类（模型层）</param>
         /// <returns>T=存档成功；F=存档失败</returns>
         public bool Save()
         {
-            string fields = string.Format("{0}", TableStructM.Info_Suppliers.SP_NAME);
-            string values = string.Format("{0}", "@ow_name");
+            string fields = string.Format("{0},{1}", TableStructM.Info_Projects.PR_NAME,TableStructM.Info_Projects.PR_BELONG);
+            string values = string.Format("{0},{1}", "@pr_name","@pr_belong");
+           
             List<IDataParameter> lstParam = new List<IDataParameter>();
-            _dbfactory.AddParameter(lstParam, "@ow_name", this._suppliersm.Name);
-            int effect = this._dbfactory.Insert(TableStructM.Info_Suppliers.TABLENAME, fields, values, lstParam);
+            _dbfactory.AddParameter(lstParam, "@pr_name", this._projectsm.PRName);
+            _dbfactory.AddParameter(lstParam, "@pr_belong", this._projectsm.PRBelong);
+            int effect = this._dbfactory.Insert(TableStructM.Info_Projects.TABLENAME, fields, values, lstParam);
 
             return (effect > 0);
         }
 
         /// <summary>
-        /// 删除供应商信息
+        /// 删除项目信息
         /// </summary>
-        /// <param name="suppliersm">供应商信息模型类（模型层）</param>
+        /// <param name="projectsnm">项目信息模型类（模型层）</param>
         /// <returns>受影响的行数</returns>
-        public int Del_Suppliers()
+        public int Del_Projects()
         {
-            string where = string.Format("where {0}=@id", TableStructM.Info_Suppliers.SP_ID);
+            string where = string.Format("where {0}=@id", TableStructM.Info_Projects.PR_ID);
             List<IDataParameter> lstParam = new List<IDataParameter>();
-            this._dbfactory.AddParameter(lstParam, "@id", this._suppliersm.SPID);
-            return this._dbfactory.Delete(TableStructM.Info_Suppliers.TABLENAME, where, lstParam);
+            this._dbfactory.AddParameter(lstParam, "@id", this._projectsm.PRID);
+            return this._dbfactory.Delete(TableStructM.Info_Projects.TABLENAME, where, lstParam);
 
         }
 
@@ -276,27 +282,29 @@ namespace PMDAL.Instance
         /// <param name="id">编号</param>
         /// <param name="connection">链接类</param>
         /// <returns>数据</returns>
-        public static SuppliersM GetDataByID(string id, IConnectionD connection)
+        public static ProjectsM GetDataByID(string id, IConnectionD connection)
         {
-            string where = string.Format(" and {0}={1}", TableStructM.Info_Suppliers.SP_ID, id);
-            IList<SuppliersM> lst = ReadDataBase(where, connection);
+            string where = string.Format(" and {0}={1}", TableStructM.Info_Projects.PR_ID, id);
+            IList<ProjectsM> lst = ReadDataBase(where, connection);
             return (lst != null && lst.Count > 0 ? lst.FirstOrDefault() : null);
         }
 
         /// <summary>
-        /// 更新供应商信息
+        /// 更新项目信息
         /// </summary>
         /// <returns>受影响的行数</returns>
         public int Update()
         {
-            string updates = @"#ow_name=@ow_name";
-            string where = string.Format("where #ow_id=@id");
+            string updates = @"#pr_name=@pr_name,#pr_belong=@pr_belong";
+            string where = string.Format("where #pr_id=@id");
             List<IDataParameter> lstParam = new List<IDataParameter>();
-            updates = updates.Replace("#ow_name", TableStructM.Info_Suppliers.SP_NAME);
-            this._dbfactory.AddParameter(lstParam, "@ow_name", this._suppliersm.Name);
-            where = where.Replace("#ow_id", TableStructM.Info_Suppliers.SP_ID);
-            this._dbfactory.AddParameter(lstParam, "@id", this._suppliersm.SPID);
-            return this._dbfactory.Update(TableStructM.Info_Suppliers.TABLENAME, updates, where, lstParam);
+            updates = updates.Replace("#pr_name", TableStructM.Info_Projects.PR_NAME);
+            this._dbfactory.AddParameter(lstParam, "@pr_name", this._projectsm.PRName);
+            updates = updates.Replace("#pr_belong", TableStructM.Info_Projects.PR_BELONG);
+            this._dbfactory.AddParameter(lstParam, "@pr_belong", this._projectsm.PRBelong);
+            where = where.Replace("#pr_id", TableStructM.Info_Projects.PR_ID);
+            this._dbfactory.AddParameter(lstParam, "@id", this._projectsm.PRID);
+            return this._dbfactory.Update(TableStructM.Info_Projects.TABLENAME, updates, where, lstParam);
         }
         #endregion
     }

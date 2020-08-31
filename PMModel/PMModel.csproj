@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="CustomEnum.cs" />
     <Compile Include="Menu\MenuM.cs" />
+    <Compile Include="Contract\ContractM.cs" />
+    <Compile Include="Projects\ProjectsM.cs" />
     <Compile Include="Suppliers\SuppliersM.cs" />
     <Compile Include="ServiceTeam\ServiceTeamM.cs" />
     <Compile Include="Ower\OwerM.cs" />
