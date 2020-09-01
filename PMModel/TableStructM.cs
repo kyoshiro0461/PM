@@ -183,5 +183,32 @@ namespace PMModel
             public static string CT_BELONG = "ct_belong";
         }
         #endregion
+        #region 收付款信息表(Contract)
+        /// <summary>
+        /// 收付款信息表
+        /// </summary>
+        public static class Info_Finance
+        {
+            /// <summary>
+            /// 表名
+            /// </summary>
+            public static string TABLENAME = "Finance";
+
+            ///<summary>
+            ///序号
+            /// </summary>
+            public static string CT_ID = "sf_id";
+
+            ///<summary>
+            ///名称
+            /// </summary>
+            public static string CT_NAME = "sf_name";
+
+            /// <summary>
+            /// 归属
+            /// </summary>
+            public static string CT_BELONG = "sf_belong";
+        }
+        #endregion
     }
 }

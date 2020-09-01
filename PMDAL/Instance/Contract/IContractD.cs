@@ -15,7 +15,7 @@ namespace PMDAL.Instance
         /// <summary>
         /// 合同信息类（模型层）
         /// </summary>
-        ProjectsM Infomation_contract { set; }
+        ContractM Infomation_contract { set; }
 
         /// <summary>
         /// 存档

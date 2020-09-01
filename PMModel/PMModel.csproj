@@ -43,6 +43,7 @@
     <Compile Include="CustomEnum.cs" />
     <Compile Include="Menu\MenuM.cs" />
     <Compile Include="Contract\ContractM.cs" />
+    <Compile Include="Finance\FinanceM.cs" />
     <Compile Include="Projects\ProjectsM.cs" />
     <Compile Include="Suppliers\SuppliersM.cs" />
     <Compile Include="ServiceTeam\ServiceTeamM.cs" />
