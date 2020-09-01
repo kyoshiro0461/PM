@@ -50,6 +50,8 @@
     <Compile Include="Instance\Menu\MenuD.cs" />
     <Compile Include="Instance\Contract\IContractD.cs" />
     <Compile Include="Instance\Contract\ProjectsD.cs" />
+    <Compile Include="Instance\Finance\IFinanceD.cs" />
+    <Compile Include="Instance\Finance\FinanceD.cs" />
     <Compile Include="Instance\Projects\IProjectsD.cs" />
     <Compile Include="Instance\Projects\ProjectsD.cs" />
     <Compile Include="Instance\Suppliers\ISuppliersD.cs" />

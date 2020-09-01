@@ -50,6 +50,8 @@
     <Compile Include="Instance\Menu\MenuB.cs" />
     <Compile Include="Instance\Contract\IContractB.cs" />
     <Compile Include="Instance\Contract\ContractB.cs" />
+    <Compile Include="Instance\Finance\IFinanceB.cs" />
+    <Compile Include="Instance\Finance\FinanceB.cs" />
     <Compile Include="Instance\Projects\IProjectsB.cs" />
     <Compile Include="Instance\Projects\ProjectsB.cs" />
     <Compile Include="Instance\Suppliers\ISuppliersB.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="Sections\ConnectionSection.cs" />
     <Compile Include="Sections\Menu\MenuSection.cs" />
     <Compile Include="Sections\Contract\ContractSection.cs" />
+    <Compile Include="Sections\Finance\FinanceSection.cs" />
     <Compile Include="Sections\Projects\ProjectsSection.cs" />
     <Compile Include="Sections\Suppliers\SuppliersSection.cs" />
     <Compile Include="Sections\ServiceTeam\ServiceTeamSection.cs" />
