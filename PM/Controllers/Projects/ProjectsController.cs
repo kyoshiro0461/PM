@@ -83,13 +83,13 @@ namespace PM.Controllers
         }
 
         /// <summary>
-        /// 删除业主信息（Ower页面）
+        /// 删除项目信息（Projects页面）
         /// </summary>
         /// <returns></returns>
         public ActionResult Delete_Projects()
         {
 
-            //获取业主编号（id）信息
+            //获取项目编号（id）信息
             string uid = ViewMethods.GetForm(Request, "uid", CommonEnums.ValueEnum.vlPost).ToString();
             ProjectsM projectsm = new ProjectsM();
             projectsm.PRID = uid.ConvertToInt32();
@@ -100,17 +100,17 @@ namespace PM.Controllers
         }
 
         /// <summary>
-        /// 编辑业主信息（Ower_Edit页面）
+        /// 编辑项目信息（Projects_Edit页面）
         /// </summary>
         public ActionResult Edit_Projects()
         {
             ProjectsFactory projectsfactory = new ProjectsFactory();
-            //获取业主编号（id）信息
+            //获取项目编号（id）信息
             string id = ViewMethods.GetForm(Request, "ID", CommonEnums.ValueEnum.vlGet).ToString();
 
             IProjectsB projectsb = projectsfactory.GetDataByID(id);
             ProjectsM projectsm = (projectsb == null ? null : projectsb.Infomation_projects);
-            //编辑业主信息
+            //编辑项目信息
             string projectsname = ViewMethods.GetForm(Request, "name", CommonEnums.ValueEnum.vlPost).ToString();
             string projectsbelong = ViewMethods.GetForm(Request, "belong", CommonEnums.ValueEnum.vlPost).ToString();
             projectsm.PRName = projectsname;
@@ -125,13 +125,13 @@ namespace PM.Controllers
         }
 
         /// <summary>
-        /// Ower_Edit页面行为
+        /// Projects_Edit页面行为
         /// </summary>
         /// <returns>视图</returns>
         public ActionResult Projects_Edit()
         {
 
-            //获取业主用户（id）数据信息
+            //获取项目编号（id）数据信息
             string id = ViewMethods.GetForm(Request, "ID", CommonEnums.ValueEnum.vlGet).ToString();
             ProjectsFactory projectsfactory = new ProjectsFactory();
             IProjectsB lstProjects = projectsfactory.GetDataByID(id);

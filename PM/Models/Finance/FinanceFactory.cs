@@ -9,34 +9,34 @@ using System.Web;
 namespace PM.Models
 {
     /// <summary>
-    /// 项目信息工厂类（UI层）
+    /// 收付款信息工厂类（UI层）
     /// </summary>
-    public class ProjectsFactory
+    public class FinanceFactory
     {
         #region 常量
-        const string GROUPNAME = "ProjectsGroup";                             //SectionGroup名称
+        const string GROUPNAME = "FinanceGroup";                             //SectionGroup名称
         const string SECTIONNAME = "SetInstance";                            //Section名称
         #endregion
         #region 变量
-        private IProjectsB _projectsb;                                           //项目信息集合类（业务逻辑层）
-        private ProjectsM _projectsm;                                           //项目类（模型层） 
+        private IFinanceB _financeb;                                           //收付款信息集合类（业务逻辑层）
+        private FinanceM _financem;                                           //收付款类（模型层） 
         private ConnectionFactory _connectionfactory;                           //链接
         #endregion
         #region 属性
         /// <summary>
-        /// 项目信息
+        /// 收付款信息
         /// </summary>
-        public ProjectsM Infomation_projects
+        public FinanceM Infomation_finance
         {
-            get { return this._projectsm; }
-            set { this._projectsm = value; this._projectsb.Infomation_projects = this._projectsm; }
+            get { return this._financem; }
+            set { this._financem = value; this._financeb.Infomation_finance = this._financem; }
         }
         #endregion
         #region 初始化
         /// <summary>
         /// 初始化
         /// </summary>
-        public ProjectsFactory()
+        public FinanceFactory()
         {
             this._connectionfactory = ViewMethods.GetConnection();
             InitFactory();
@@ -61,7 +61,7 @@ namespace PM.Models
         {
             string configPath = Methods.CommonMethods.GetConfigPath();
             //读取配置文件的信息
-            Sections.ProjectsSection section = PublicMethods.Methods.ReadConfigFile_SectionGroup(configPath, GROUPNAME, SECTIONNAME) as Sections.ProjectsSection;
+            Sections.FinanceSection section = PublicMethods.Methods.ReadConfigFile_SectionGroup(configPath, GROUPNAME, SECTIONNAME) as Sections.FinanceSection;
             if (section != null)
             {
                 strNameSpace = section.NameSpace;//命名空间
@@ -76,15 +76,15 @@ namespace PM.Models
         /// <param name="strInstance">实例名</param>
         void InstanceObject(string strNameSpace, string strInstance)
         {
-            this._projectsb = PublicMethods.Methods.InstanceObject(strNameSpace, strInstance, new object[] { this._connectionfactory.ConnectionB }) as IProjectsB;
+            this._financeb = PublicMethods.Methods.InstanceObject(strNameSpace, strInstance, new object[] { this._connectionfactory.ConnectionB }) as IFinanceB;
         }
         /// <summary>
         /// 获取数据
         /// </summary>
-        /// <returns>项目信息（业务逻辑层）集合</returns>
-        public List<IProjectsB> GetDataProjects()
+        /// <returns>收付款信息（业务逻辑层）集合</returns>
+        public List<IFinanceB> GetDataFinance()
         {
-            return this._projectsb.GetDataProjects();
+            return this._financeb.GetDataFinance();
         }
         /// <summary>
         /// 获取分页数据
@@ -97,55 +97,55 @@ namespace PM.Models
         /// <param name="order">排序</param>
         /// <param name="belong">隶属</param>
         /// <returns></returns>
-        public List<IProjectsB> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, string belong)
+        public List<IFinanceB> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, string belong)
         {
-            return this._projectsb.GetPageData(ref count, start, size, key, order, orderway, belong);
+            return this._financeb.GetPageData(ref count, start, size, key, order, orderway, belong);
         }
 
         /// <summary>
-        /// 判断项目是否存在
+        /// 判断收付款是否存在
         /// </summary>
-        /// <param name="projectsname">项目名</param>
-        /// <returns>项目类</returns>
-        public bool IsExist_projectsname(string projectsname)
+        /// <param name="financename">收付款名</param>
+        /// <returns>收付款类</returns>
+        public bool IsExist_financename(string financename)
         {
-            bool isExist_projectsname = false;
-            ProjectsM projectsm = this._projectsb.IsExist_projectsname(projectsname);
-            if (projectsm != null)
+            bool isExist_financename = false;
+            FinanceM financem = this._financeb.IsExist_financename(financename);
+            if (financem != null)
             {
-                this.Infomation_projects = projectsm;
-                isExist_projectsname = true;
+                this.Infomation_finance = financem;
+                isExist_financename = true;
             }
-            return isExist_projectsname;
+            return isExist_financename;
         }
 
         /// <summary>
         /// 存档
         /// </summary>
-        /// <param name="userm">项目信息类（模型层）</param>
+        /// <param name="userm">收付款信息类（模型层）</param>
         /// <returns>自动编号</returns>
         public bool Save()
         {
-            return this._projectsb.Save();
+            return this._financeb.Save();
         }
 
         /// <summary>
-        /// 更新项目信息
+        /// 更新收付款信息
         /// </summary>
         /// <returns>T=更新成功；F=更新失败</returns>
-        public int Del_Projects()
+        public int Del_Finance()
         {
-            return this._projectsb.Del_Projects();
+            return this._financeb.Del_Finance();
         }
 
         /// <summary>
-        /// 通过项目编号获取数据
+        /// 通过收付款编号获取数据
         /// </summary>
-        /// <param name="id">项目编号</param>
-        /// <returns>项目信息（模型层）集合</returns>
-        public IProjectsB GetDataByID(string id)
+        /// <param name="id">收付款编号</param>
+        /// <returns>收付款信息（模型层）集合</returns>
+        public IFinanceB GetDataByID(string id)
         {
-            return this._projectsb.GetDataByID(id);
+            return this._financeb.GetDataByID(id);
         }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace PM.Models
         public bool Update()
         {
 
-            return this._projectsb.Update();
+            return this._financeb.Update();
         }
         #endregion
     }

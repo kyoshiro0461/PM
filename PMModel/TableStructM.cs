@@ -148,12 +148,12 @@ namespace PMModel
             ///<summary>
             ///名称
             /// </summary>
-            public static string SF_NAME = "pr_name";
+            public static string PR_NAME = "pr_name";
 
             /// <summary>
             /// 归属
             /// </summary>
-            public static string SF_BELONG = "pr_belong";
+            public static string PR_BELONG = "pr_belong";
         }
         #endregion
         #region 合同信息表(Contract)

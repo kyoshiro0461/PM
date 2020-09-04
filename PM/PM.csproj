@@ -215,6 +215,7 @@
     <Compile Include="Controllers\Main\MainController.cs" />
     <Compile Include="Controllers\Base\RootController.cs" />
     <Compile Include="Controllers\Contract\ContractController.cs" />
+    <Compile Include="Controllers\Finance\FinanceController.cs" />
     <Compile Include="Controllers\Projects\ProjectsController.cs" />
     <Compile Include="Controllers\Suppliers\SuppliersController.cs" />
     <Compile Include="Controllers\ServiceTeam\ServiceTeamController.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="Models\ConnectionFactory.cs" />
     <Compile Include="Models\MenuFactory.cs" />
     <Compile Include="Models\Contract\ContractFactory.cs" />
+    <Compile Include="Models\Finance\FinanceFactory.cs" />
     <Compile Include="Models\Projects\ProjectsFactory.cs" />
     <Compile Include="Models\Suppliers\SuppliersFactory.cs" />
     <Compile Include="Models\ServiceTeam\ServiceTeamFactory.cs" />
@@ -239,6 +241,7 @@
     <Compile Include="Sections\ConnectionSection.cs" />
     <Compile Include="Sections\Menu\MenuSection.cs" />
     <Compile Include="Sections\Contract\ContractSection.cs" />
+    <Compile Include="Sections\Finance\FinanceSection.cs" />
     <Compile Include="Sections\Projects\ProjectsSection.cs" />
     <Compile Include="Sections\Suppliers\SuppliersSection.cs" />
     <Compile Include="Sections\ServiceTeam\ServiceTeamSection.cs" />
@@ -277,6 +280,27 @@
     </Compile>
     <Compile Include="Views\Contract\Contract_Edit.aspx.designer.cs">
       <DependentUpon>Contract_Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Finance\Finance.aspx.cs">
+      <DependentUpon>Finance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Finance\Finance.aspx.designer.cs">
+      <DependentUpon>Finance.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Finance\Finance_Add.aspx.cs">
+      <DependentUpon>Finance_Add.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Finance\Finance_Add.aspx.designer.cs">
+      <DependentUpon>Finance_Add.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Finance\Finance_Edit.aspx.cs">
+      <DependentUpon>Finance_Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Finance\Finance_Edit.aspx.designer.cs">
+      <DependentUpon>Finance_Edit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Projects\Projects.aspx.cs">
       <DependentUpon>Projects.aspx</DependentUpon>
@@ -396,6 +420,9 @@
     <Content Include="Views\Contract\Contract.aspx" />
     <Content Include="Views\Contract\Contract_Add.aspx" />
     <Content Include="Views\Contract\Contract_Edit.aspx" />
+    <Content Include="Views\Finance\Finance.aspx" />
+    <Content Include="Views\Finance\Finance_Add.aspx" />
+    <Content Include="Views\Finance\Finance_Edit.aspx" />
     <Content Include="Views\Projects\Projects.aspx" />
     <Content Include="Views\Projects\Projects_Add.aspx" />
     <Content Include="Views\Projects\Projects_Edit.aspx" />
