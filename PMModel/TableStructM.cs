@@ -57,74 +57,61 @@ namespace PMModel
         }
         #endregion
 
-        #region 业主信息表(info_ower)
+        #region 往来客户信息表(Clients)
         /// <summary>
         /// 业主信息表
         /// </summary>
-        public static class Info_Ower
+        public static class Info_Clients
         {
             /// <summary>
             /// 表名
             /// </summary>
-            public static string TABLENAME = "Ower";
+            public static string TABLENAME = "Clients";
 
             ///<summary>
             ///序号
             /// </summary>
-            public static string OW_ID = "ow_id";
+            public static string CL_ID = "cl_id";
 
             ///<summary>
             ///名称
             /// </summary>
-            public static string OW_NAME = "ow_name";
-
-        }
-        #endregion
-
-        #region 劳务队信息表(serviceteam)
-        /// <summary>
-        /// 业主信息表
-        /// </summary>
-        public static class Info_ServiceTeam
-        {
-            /// <summary>
-            /// 表名
-            /// </summary>
-            public static string TABLENAME = "ServiceTeam";
+            public static string CL_NAME = "cl_name";
 
             ///<summary>
-            ///序号
+            ///联系人
             /// </summary>
-            public static string ST_ID = "st_id";
+            public static string CL_PERSON = "cl_person";
 
             ///<summary>
-            ///名称
+            ///联系方式
             /// </summary>
-            public static string ST_NAME = "st_name";
-
-        }
-        #endregion
-
-        #region 供应商信息表(Suppliers)
-        /// <summary>
-        /// 业主信息表
-        /// </summary>
-        public static class Info_Suppliers
-        {
-            /// <summary>
-            /// 表名
-            /// </summary>
-            public static string TABLENAME = "Suppliers";
+            public static string CL_TEL = "cl_tel";
 
             ///<summary>
-            ///序号
+            ///地址
             /// </summary>
-            public static string SP_ID = "sp_id";
+            public static string CL_ADDRESS = "cl_address";
 
             ///<summary>
-            ///名称
+            ///社会统一信用代码
+            /// </summary> 
+            public static string CL_CODE = "cl_code";
+
+            ///<summary>
+            ///开户行
             /// </summary>
-            public static string SP_NAME = "sp_name";
+            public static string CL_BANK = "cl_bank";
+
+            ///<summary>
+            ///账号
+            /// </summary>
+            public static string CL_ACCOUNT = "cl_account";
+
+            ///<summary>
+            ///隶属，0=业主，1=施工队，2=供应商
+            /// </summary>
+            public static string CL_BELONG = "cl_belong";
 
         }
         #endregion
@@ -156,6 +143,7 @@ namespace PMModel
             public static string PR_BELONG = "pr_belong";
         }
         #endregion
+
         #region 合同信息表(Contract)
         /// <summary>
         /// 合同信息表
@@ -183,6 +171,7 @@ namespace PMModel
             public static string CT_BELONG = "ct_belong";
         }
         #endregion
+
         #region 收付款信息表(Contract)
         /// <summary>
         /// 收付款信息表

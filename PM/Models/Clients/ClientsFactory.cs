@@ -9,34 +9,34 @@ using System.Web;
 namespace PM.Models
 {
     /// <summary>
-    /// 业主信息工厂类（UI层）
+    /// 客户信息工厂类（UI层）
     /// </summary>
-    public class ServiceTeamFactory
+    public class ClientsFactory
     {
         #region 常量
-        const string GROUPNAME = "ServiceTeamGroup";                             //SectionGroup名称
+        const string GROUPNAME = "ClientsGroup";                             //SectionGroup名称
         const string SECTIONNAME = "SetInstance";                         //Section名称
         #endregion
         #region 变量
-        private IServiceTeamB _serviceteamb;                                           //业主信息集合类（业务逻辑层）
-        private ServiceTeamM _serviceteamm;                                           //业主类（模型层） 
+        private IClientsB _clientsb;                                           //客户信息集合类（业务逻辑层）
+        private ClientsM _clientsm;                                           //客户类（模型层） 
         private ConnectionFactory _connectionfactory;                    //链接
         #endregion
         #region 属性
         /// <summary>
-        /// 业主信息
+        /// 客户信息
         /// </summary>
-        public ServiceTeamM Infomation_serviceteam
+        public ClientsM Infomation_clients
         {
-            get { return this._serviceteamm; }
-            set { this._serviceteamm = value; this._serviceteamb.Infomation_serviceteam = this._serviceteamm; }
+            get { return this._clientsm; }
+            set { this._clientsm = value; this._clientsb.Infomation_clients = this._clientsm; }
         }
         #endregion
         #region 初始化
         /// <summary>
         /// 初始化
         /// </summary>
-        public ServiceTeamFactory()
+        public ClientsFactory()
         {
             this._connectionfactory = ViewMethods.GetConnection();
             InitFactory();
@@ -61,7 +61,7 @@ namespace PM.Models
         {
             string configPath = Methods.CommonMethods.GetConfigPath();
             //读取配置文件的信息
-            Sections.ServiceTeamSection section = PublicMethods.Methods.ReadConfigFile_SectionGroup(configPath, GROUPNAME, SECTIONNAME) as Sections.ServiceTeamSection;
+            Sections.ClientsSection section = PublicMethods.Methods.ReadConfigFile_SectionGroup(configPath, GROUPNAME, SECTIONNAME) as Sections.ClientsSection;
             if (section != null)
             {
                 strNameSpace = section.NameSpace;//命名空间
@@ -76,15 +76,15 @@ namespace PM.Models
         /// <param name="strInstance">实例名</param>
         void InstanceObject(string strNameSpace, string strInstance)
         {
-            this._serviceteamb = PublicMethods.Methods.InstanceObject(strNameSpace, strInstance, new object[] { this._connectionfactory.ConnectionB }) as IServiceTeamB;
+            this._clientsb = PublicMethods.Methods.InstanceObject(strNameSpace, strInstance, new object[] { this._connectionfactory.ConnectionB }) as IClientsB;
         }
         /// <summary>
         /// 获取数据
         /// </summary>
         /// <returns>后台菜单信息（业务逻辑层）集合</returns>
-        public List<IServiceTeamB> GetDataServiceTeam()
+        public List<IClientsB> GetDataClients()
         {
-            return this._serviceteamb.GetDataServiceTeam();
+            return this._clientsb.GetDataClients();
         }
         /// <summary>
         /// 获取分页数据
@@ -96,55 +96,55 @@ namespace PM.Models
         /// <param name="key">搜索条件</param>
         /// <param name="order">排序</param>
         /// <returns></returns>
-        public List<IServiceTeamB> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway)
+        public List<IClientsB> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, string belong)
         {
-            return this._serviceteamb.GetPageData(ref count, start, size, key, order, orderway);
+            return this._clientsb.GetPageData(ref count, start, size, key, order, orderway, belong);
         }
 
         /// <summary>
-        /// 判断业主是否存在
+        /// 判断客户是否存在
         /// </summary>
-        /// <param name="serviceteamname">业主名</param>
-        /// <returns>业主类</returns>
-        public bool IsExist_serviceteamname(string serviceteamname)
+        /// <param name="clientsname">客户名</param>
+        /// <returns>客户类</returns>
+        public bool IsExist_clientsname(string clientsname)
         {
-            bool isExist_serviceteamname = false;
-            ServiceTeamM serviceteamm = this._serviceteamb.IsExist_serviceteamname(serviceteamname);
-            if (serviceteamm != null)
+            bool isExist_clientsname = false;
+            ClientsM clientsm = this._clientsb.IsExist_clientsname(clientsname);
+            if (clientsm != null)
             {
-                this.Infomation_serviceteam = serviceteamm;
-                isExist_serviceteamname = true;
+                this.Infomation_clients = clientsm;
+                isExist_clientsname = true;
             }
-            return isExist_serviceteamname;
+            return isExist_clientsname;
         }
 
         /// <summary>
         /// 存档
         /// </summary>
-        /// <param name="userm">业主信息类（模型层）</param>
+        /// <param name="userm">客户信息类（模型层）</param>
         /// <returns>自动编号</returns>
         public bool Save()
         {
-            return this._serviceteamb.Save();
+            return this._clientsb.Save();
         }
 
         /// <summary>
-        /// 更新业主信息(禁用属性onoff)
+        /// 更新客户信息(禁用属性onoff)
         /// </summary>
         /// <returns>T=更新成功；F=更新失败</returns>
-        public int Del_ServiceTeam()
+        public int Del_Clients()
         {
-            return this._serviceteamb.Del_ServiceTeam();
+            return this._clientsb.Del_Clients();
         }
 
         /// <summary>
-        /// 通过业主编号获取数据
+        /// 通过客户编号获取数据
         /// </summary>
-        /// <param name="id">业主编号</param>
+        /// <param name="id">客户编号</param>
         /// <returns>用户信息（模型层）集合</returns>
-        public IServiceTeamB GetDataByID(string id)
+        public IClientsB GetDataByID(string id)
         {
-            return this._serviceteamb.GetDataByID(id);
+            return this._clientsb.GetDataByID(id);
         }
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace PM.Models
         public bool Update()
         {
 
-            return this._serviceteamb.Update();
+            return this._clientsb.Update();
         }
         #endregion
     }

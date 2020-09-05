@@ -54,21 +54,15 @@
     <Compile Include="Instance\Finance\FinanceB.cs" />
     <Compile Include="Instance\Projects\IProjectsB.cs" />
     <Compile Include="Instance\Projects\ProjectsB.cs" />
-    <Compile Include="Instance\Suppliers\ISuppliersB.cs" />
-    <Compile Include="Instance\Suppliers\SuppliersB.cs" />
-    <Compile Include="Instance\ServiceTeam\IServiceTeamB.cs" />
-    <Compile Include="Instance\ServiceTeam\ServiceTeamB.cs" />
-    <Compile Include="Instance\Ower\IOwerB.cs" />
-    <Compile Include="Instance\Ower\OwerB.cs" />
+    <Compile Include="Instance\Clients\IClientsB.cs" />
+    <Compile Include="Instance\Clients\ClientsB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sections\ConnectionSection.cs" />
     <Compile Include="Sections\Menu\MenuSection.cs" />
     <Compile Include="Sections\Contract\ContractSection.cs" />
     <Compile Include="Sections\Finance\FinanceSection.cs" />
     <Compile Include="Sections\Projects\ProjectsSection.cs" />
-    <Compile Include="Sections\Suppliers\SuppliersSection.cs" />
-    <Compile Include="Sections\ServiceTeam\ServiceTeamSection.cs" />
-    <Compile Include="Sections\Ower\OwerSection.cs" />
+    <Compile Include="Sections\Clients\ClientsSection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PMCommon\PMCommon.csproj">

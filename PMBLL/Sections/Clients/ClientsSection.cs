@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 namespace PMBLL.Sections
 {
     /// <summary>
-    /// 业主配置节点
+    /// 客户配置节点
     /// </summary>
-    internal class ServiceTeamSection : InstanceSection
+    internal class ClientsSection : InstanceSection
     {
         /// <summary>
         /// 获取数据方法名
         /// </summary>
-        [ConfigurationProperty("GetDataServiceTeamMethod", IsRequired = true)]
-        internal string GetDataServiceTeamMethod
+        [ConfigurationProperty("GetDataClientsMethod", IsRequired = true)]
+        internal string GetDataClientsMethod
         {
-            get { return this["GetDataServiceTeamMethod"].ToString(); }
-            set { this["GetDataServiceTeamMethod"] = value; }
+            get { return this["GetDataClientsMethod"].ToString(); }
+            set { this["GetDataClientsMethod"] = value; }
         }
         /// <summary>
         /// 获取分页数据方法名
@@ -32,17 +32,17 @@ namespace PMBLL.Sections
             set { this["GetPageDataMethod"] = value; }
         }
         /// <summary>
-        /// 判断业主是否存在方法名
+        /// 判断客户是否存在方法名
         /// </summary>
-        [ConfigurationProperty("IsExist_serviceteamnameMethod", IsRequired = true)]
-        internal string IsExist_serviceteamnameMethod
+        [ConfigurationProperty("IsExist_clientsnameMethod", IsRequired = true)]
+        internal string IsExist_clientsnameMethod
         {
-            get { return this["IsExist_serviceteamnameMethod"].ToString(); }
-            set { this["IsExist_serviceteamnameMethod"] = value; }
+            get { return this["IsExist_clientsnameMethod"].ToString(); }
+            set { this["IsExist_clientsnameMethod"] = value; }
         }
 
         /// <summary>
-        /// 根据编号获取业主数据方法名
+        /// 根据编号获取客户数据方法名
         /// </summary>
         [ConfigurationProperty("GetDataByIDMethod", IsRequired = true)]
         internal string GetDataByIDMethod

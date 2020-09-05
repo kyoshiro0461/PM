@@ -9,7 +9,7 @@ namespace PM.Sections
     /// <summary>
     /// 业主信息集合配置节点
     /// </summary>
-    public class OwerSection : InstanceSection
+    public class ClientsSection : InstanceSection
     {
 
     }

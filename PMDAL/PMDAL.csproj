@@ -54,12 +54,8 @@
     <Compile Include="Instance\Finance\FinanceD.cs" />
     <Compile Include="Instance\Projects\IProjectsD.cs" />
     <Compile Include="Instance\Projects\ProjectsD.cs" />
-    <Compile Include="Instance\Suppliers\ISuppliersD.cs" />
-    <Compile Include="Instance\Suppliers\SuppliersD.cs" />
-    <Compile Include="Instance\ServiceTeam\IServiceTeamD.cs" />
-    <Compile Include="Instance\ServiceTeam\ServiceTeamD.cs" />
-    <Compile Include="Instance\Ower\IOwerD.cs" />
-    <Compile Include="Instance\Ower\OwerD.cs" />
+    <Compile Include="Instance\Clients\IClientsD.cs" />
+    <Compile Include="Instance\Clients\ClientsD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sections\DataBaseSection.cs" />
   </ItemGroup>
