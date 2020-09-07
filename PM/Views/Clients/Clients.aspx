@@ -118,8 +118,8 @@
         //搜索方法
         $(".search1").on('click', function () {
             keys = $("#keys").val();
-
-            location.href = "../../Clients/Clients?keys=" + keys;
+            var belong = $('.js_orderby').attr('data-belong');
+            location.href = "../../Clients/Clients?keys=" + keys + "&BELONG=" + belong;
         });
         //分页跳转
         $(".page_in").on('click', function () {
