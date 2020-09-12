@@ -142,10 +142,10 @@ namespace PMBLL.Instance
         /// </summary>
         /// <param name="clientsname">业主名</param>
         /// <returns>业主信息类</returns>
-        public ClientsM IsExist_clientsname(string clientsname)
+        public ClientsM IsExist_clientsname(string clientsname, string id)
         {
             //通过反射调用数据链路层的用户类IsExist_clientsname判断客户是否存在
-            return Methods.ReflexInvokeMethod(this._clientsd, this._methodnm_IsExist_clientsname, new Type[] { typeof(String), typeof(IConnectionD) }, new object[] { clientsname, this._connectionb.ConnectionD }) as ClientsM;
+            return Methods.ReflexInvokeMethod(this._clientsd, this._methodnm_IsExist_clientsname, new Type[] { typeof(String), typeof(string),  typeof(IConnectionD) }, new object[] { clientsname, id, this._connectionb.ConnectionD }) as ClientsM;
         }
 
         /// <summary>

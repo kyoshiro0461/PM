@@ -106,10 +106,10 @@ namespace PM.Models
         /// </summary>
         /// <param name="clientsname">客户名</param>
         /// <returns>客户类</returns>
-        public bool IsExist_clientsname(string clientsname)
+        public bool IsExist_clientsname(string clientsname, string id)
         {
             bool isExist_clientsname = false;
-            ClientsM clientsm = this._clientsb.IsExist_clientsname(clientsname);
+            ClientsM clientsm = this._clientsb.IsExist_clientsname(clientsname, id);
             if (clientsm != null)
             {
                 this.Infomation_clients = clientsm;

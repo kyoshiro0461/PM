@@ -242,13 +242,22 @@ namespace PMDAL.Instance
         /// <param name="clientsname">客户名称</param>
         /// <param name="connection">链接类</param>
         /// <returns>业主类</returns>
-        public static ClientsM IsExist_clientsname(string clientsname, IConnectionD connection)
+        public static ClientsM IsExist_clientsname(string clientsname, string id, IConnectionD connection)
         {
             ClientsM result = null;
+            if (id != "")
+            {
+                string where = string.Format(" and {0}='{1}' and {2} <> {3}", TableStructM.Info_Clients.CL_NAME, clientsname.ReplaceStr(), TableStructM.Info_Clients.CL_ID, id.ReplaceStr());
+                IList<ClientsM> lst = ReadDataBase(where, connection);
+                if (lst != null) result = lst.FirstOrDefault();
+            }
+            else
+            {
+                string where = string.Format(" and {0}='{1}' ", TableStructM.Info_Clients.CL_NAME, clientsname.ReplaceStr(), TableStructM.Info_Clients.CL_ID, id.ReplaceStr());
+                IList<ClientsM> lst = ReadDataBase(where, connection);
+                if (lst != null) result = lst.FirstOrDefault();
+            }
 
-            string where = string.Format(" and {0}='{1}'", TableStructM.Info_Clients.CL_NAME, clientsname.ReplaceStr());
-            IList<ClientsM> lst = ReadDataBase(where, connection);
-            if (lst != null) result = lst.FirstOrDefault();
             return result;
         }
         /// <summary>

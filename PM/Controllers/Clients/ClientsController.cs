@@ -70,7 +70,7 @@ namespace PM.Controllers
         /// </summary>
         public ActionResult Add_Clients()
         {
-
+            string id = "";
             ClientsFactory clientsfactory = new ClientsFactory();
             //添加客户信息
             ClientsM clientsm = new ClientsM();
@@ -82,8 +82,9 @@ namespace PM.Controllers
             string clientscode = ViewMethods.GetForm(Request, "code", CommonEnums.ValueEnum.vlPost).ToString();
             string clientsbank = ViewMethods.GetForm(Request, "bank", CommonEnums.ValueEnum.vlPost).ToString();
             string clientsaccount = ViewMethods.GetForm(Request, "account", CommonEnums.ValueEnum.vlPost).ToString();
-            bool isExist = clientsfactory.IsExist_clientsname(clientsname);
+            bool isExist = clientsfactory.IsExist_clientsname(clientsname, id);
             if (isExist) return ViewMethods.AlertBack("客户已存在,请重新确认", "-1");
+            if (clientsname == "") return ViewMethods.AlertBack("名称不能为空", "-1");
             clientsm.CLNAME = clientsname;
             clientsm.CLBELONG = clientsbelong.ConvertToInt32();
             clientsm.CLPERSON = clientsperson;
@@ -135,6 +136,9 @@ namespace PM.Controllers
             string clientscode = ViewMethods.GetForm(Request, "code", CommonEnums.ValueEnum.vlPost).ToString();
             string clientsbank = ViewMethods.GetForm(Request, "bank", CommonEnums.ValueEnum.vlPost).ToString();
             string clientsaccount = ViewMethods.GetForm(Request, "account", CommonEnums.ValueEnum.vlPost).ToString();
+            bool isExist = clientsfactory.IsExist_clientsname(clientsname, id);
+            if (isExist) return ViewMethods.AlertBack("客户已存在,请重新确认", "-1");
+            if (clientsname == "") return ViewMethods.AlertBack("名称不能为空", "-1");
             clientsm.CLNAME = clientsname;
             clientsm.CLBELONG = clientsbelong.ConvertToInt32();
             clientsm.CLPERSON = clientsperson;

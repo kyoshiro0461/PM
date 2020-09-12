@@ -18,7 +18,7 @@
         <form action="../../Clients/Edit_Clients?ID=<%=clientsinfo.CLID %>" method="post">
             <div class="wrap_mk wball">
                 <h1>编辑客户信息
-                      <a href="../../Clients/Clients"><i class="iconfont icon-close"></i></a>
+                      <a href="../../Clients/Clients?BELONG=<%=clientsinfo.CLBELONG %>"><i class="iconfont icon-close"></i></a>
                 </h1>
                 <div class="subwrap_mk_2 top">
                     <div class="formbox w50">

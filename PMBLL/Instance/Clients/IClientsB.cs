@@ -40,7 +40,7 @@ namespace PMBLL.Instance
         /// </summary>
         /// <param name="clientsname">客户名</param>
         /// <returns>客户信息类</returns>
-        ClientsM IsExist_clientsname(string clientsname);
+        ClientsM IsExist_clientsname(string clientsname, string id);
 
         /// <summary>
         /// 存档
