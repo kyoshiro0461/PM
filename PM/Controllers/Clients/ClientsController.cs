@@ -172,6 +172,20 @@ namespace PM.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Clients_List页面行为
+        /// </summary>
+        /// <returns>视图</returns>
+        public ActionResult Clients_List()
+        {
 
+            //获取客户用户（id）数据信息
+            string id = ViewMethods.GetForm(Request, "ID", CommonEnums.ValueEnum.vlGet).ToString();
+            ClientsFactory clientsfactory = new ClientsFactory();
+            IClientsB lstClients = clientsfactory.GetDataByID(id);
+            ClientsM clientsm = (lstClients != null ? lstClients.Infomation_clients : null);
+            ViewBag.ClientsInfo = clientsm;
+            return View();
+        }
     }
 }

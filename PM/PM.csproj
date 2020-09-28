@@ -249,6 +249,13 @@
     <Compile Include="Views\Base\BaseTemplate.Master.designer.cs">
       <DependentUpon>BaseTemplate.Master</DependentUpon>
     </Compile>
+    <Compile Include="Views\Clients\Clients_List.aspx.cs">
+      <DependentUpon>Clients_List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Clients\Clients_List.aspx.designer.cs">
+      <DependentUpon>Clients_List.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Main\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -319,27 +326,6 @@
     <Compile Include="Views\Projects\Projects_Edit.aspx.designer.cs">
       <DependentUpon>Projects_Edit.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Suppliers\Suppliers.aspx.cs">
-      <DependentUpon>Suppliers.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\Suppliers\Suppliers.aspx.designer.cs">
-      <DependentUpon>Suppliers.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Suppliers\Suppliers_Add.aspx.cs">
-      <DependentUpon>Suppliers_Add.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\Suppliers\Suppliers_Add.aspx.designer.cs">
-      <DependentUpon>Suppliers_Add.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Suppliers\Suppliers_Edit.aspx.cs">
-      <DependentUpon>Suppliers_Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\Suppliers\Suppliers_Edit.aspx.designer.cs">
-      <DependentUpon>Suppliers_Edit.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Views\Clients\Clients.aspx.cs">
       <DependentUpon>Clients.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -360,27 +346,6 @@
     </Compile>
     <Compile Include="Views\Clients\Clients_Edit.aspx.designer.cs">
       <DependentUpon>Clients_Edit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ServiceTeam\ServiceTeam.aspx.cs">
-      <DependentUpon>ServiceTeam.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\ServiceTeam\ServiceTeam.aspx.designer.cs">
-      <DependentUpon>ServiceTeam.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ServiceTeam\ServiceTeam_Add.aspx.cs">
-      <DependentUpon>ServiceTeam_Add.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\ServiceTeam\ServiceTeam_Add.aspx.designer.cs">
-      <DependentUpon>ServiceTeam_Add.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ServiceTeam\ServiceTeam_Edit.aspx.cs">
-      <DependentUpon>ServiceTeam_Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\ServiceTeam\ServiceTeam_Edit.aspx.designer.cs">
-      <DependentUpon>ServiceTeam_Edit.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -412,6 +377,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Clients\Clients_List.aspx" />
     <Content Include="Views\Main\Index.aspx" />
     <Content Include="Views\Contract\Contract.aspx" />
     <Content Include="Views\Contract\Contract_Add.aspx" />
@@ -422,15 +388,9 @@
     <Content Include="Views\Projects\Projects.aspx" />
     <Content Include="Views\Projects\Projects_Add.aspx" />
     <Content Include="Views\Projects\Projects_Edit.aspx" />
-    <Content Include="Views\Suppliers\Suppliers.aspx" />
-    <Content Include="Views\Suppliers\Suppliers_Add.aspx" />
-    <Content Include="Views\Suppliers\Suppliers_Edit.aspx" />
     <Content Include="Views\Clients\Clients.aspx" />
     <Content Include="Views\Clients\Clients_Add.aspx" />
     <Content Include="Views\Clients\Clients_Edit.aspx" />
-    <Content Include="Views\ServiceTeam\ServiceTeam.aspx" />
-    <Content Include="Views\ServiceTeam\ServiceTeam_Add.aspx" />
-    <Content Include="Views\ServiceTeam\ServiceTeam_Edit.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

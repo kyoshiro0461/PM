@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace PM.Views.Suppliers
+namespace PM.Views.Clients
 {
-    public partial class WebForm2 : System.Web.UI.Page
+    public partial class Clients_List : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

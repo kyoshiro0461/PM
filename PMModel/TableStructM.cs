@@ -159,11 +159,36 @@ namespace PMModel
             ///序号
             /// </summary>
             public static string CT_ID = "ct_id";
-
+            
+            ///<summary>
+            ///项目编号
+            /// </summary>
+            public static string CT_PRID = "ct_prid";
+            
             ///<summary>
             ///名称
             /// </summary>
             public static string CT_NAME = "ct_name";
+           
+            ///<summary>
+            ///编号
+            /// </summary>
+            public static string CT_NO = "ct_no";
+
+            ///<summary>
+            ///往来客户编号
+            /// </summary>
+            public static string CT_CLID = "ct_clid";
+
+            ///<summary>
+            ///金额
+            /// </summary>
+            public static string CT_MONEY = "ct_money";
+
+            ///<summary>
+            ///签订日期
+            /// </summary>
+            public static string CT_DATE = "ct_date";
 
             /// <summary>
             /// 归属

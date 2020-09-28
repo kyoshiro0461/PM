@@ -48,8 +48,8 @@ namespace PMDAL.Instance
         /// <returns>字段</returns>
         public static string GetField(string alias = "")
         {
-            string result = string.Format("[#alias]{0}[#as]{0}, [#alias]{1}[#as]{1}, [#alias]{2}[#as]{2}",
-                TableStructM.Info_Contract.CT_ID,TableStructM.Info_Contract.CT_NAME,TableStructM.Info_Contract.CT_BELONG);
+            string result = string.Format("[#alias]{0}[#as]{0}, [#alias]{1}[#as]{1}, [#alias]{2}[#as]{2}, [#alias]{3}[#as]{3}, [#alias]{4}[#as]{4}, [#alias]{5}[#as]{5}, [#alias]{6}[#as]{6}, [#alias]{7}[#as]{7}, ",
+                TableStructM.Info_Contract.CT_ID,TableStructM.Info_Contract.CT_PRID,TableStructM.Info_Contract.CT_NAME,TableStructM.Info_Contract.CT_NO,TableStructM.Info_Contract.CT_CLID,TableStructM.Info_Contract.CT_MONEY,TableStructM.Info_Contract.CT_DATE,TableStructM.Info_Contract.CT_BELONG);
             result = result.Replace("[#alias]", (string.IsNullOrEmpty(alias) ? "" : string.Format("{0}.", alias)));
             result = result.Replace("[#as]", string.Format(" as {0}", CommonMethods.CombineFieldPrefix(alias)));
             return result;
@@ -142,7 +142,12 @@ namespace PMDAL.Instance
             ContractM result = new ContractM();
 
             result.CTID = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Contract.CT_ID, alias)].ConvertToInt32();
+            result.CTPrid = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Contract.CT_PRID, alias)].ConvertToInt32();
             result.CTName = (dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Contract.CT_NAME, alias)].ToString());
+            result.CTNo = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Contract.CT_NO, alias)].ToString();
+            result.CTClid = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Contract.CT_CLID, alias)].ConvertToInt32();
+            result.CTMoney = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Contract.CT_MONEY, alias)].ConvertToInt32();
+            result.CTDate = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Contract.CT_DATE, alias)].ConvertToDateTime();
             result.CTBelong = (dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Contract.CT_BELONG, alias)].ToString());
             // result.SetOnOff(dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Menu.MN_ONOFF, alias)].ConvertToInt32());
 
@@ -251,11 +256,16 @@ namespace PMDAL.Instance
         /// <returns>T=存档成功；F=存档失败</returns>
         public bool Save()
         {
-            string fields = string.Format("{0},{1}", TableStructM.Info_Contract.CT_NAME,TableStructM.Info_Contract.CT_BELONG);
-            string values = string.Format("{0},{1}", "@ct_name","@ct_belong");
+            string fields = string.Format("{0},{1},{2},{3},{4},{5},{6}", TableStructM.Info_Contract.CT_PRID, TableStructM.Info_Contract.CT_NAME, TableStructM.Info_Contract.CT_NO, TableStructM.Info_Contract.CT_CLID, TableStructM.Info_Contract.CT_MONEY, TableStructM.Info_Contract.CT_DATE,TableStructM.Info_Contract.CT_BELONG);
+            string values = string.Format("{0},{1},{2},{3},{4},{5},{6}", "@ct_prid","@ct_name", "@ct_no", "@ct_clid", "@ct_money", "@ct_date","@ct_belong");
            
             List<IDataParameter> lstParam = new List<IDataParameter>();
+            _dbfactory.AddParameter(lstParam, "@ct_prid", this._contractm.CTPrid);
             _dbfactory.AddParameter(lstParam, "@ct_name", this._contractm.CTName);
+            _dbfactory.AddParameter(lstParam, "@ct_no", this._contractm.CTNo);
+            _dbfactory.AddParameter(lstParam, "@ct_clid", this._contractm.CTClid);
+            _dbfactory.AddParameter(lstParam, "@ct_money", this._contractm.CTMoney);
+            _dbfactory.AddParameter(lstParam, "@ct_date", this._contractm.CTDate);
             _dbfactory.AddParameter(lstParam, "@ct_belong", this._contractm.CTBelong);
             int effect = this._dbfactory.Insert(TableStructM.Info_Contract.TABLENAME, fields, values, lstParam);
 

@@ -49,7 +49,7 @@
     <Compile Include="Instance\Menu\IMenuD.cs" />
     <Compile Include="Instance\Menu\MenuD.cs" />
     <Compile Include="Instance\Contract\IContractD.cs" />
-    <Compile Include="Instance\Contract\ProjectsD.cs" />
+    <Compile Include="Instance\Contract\ContractD.cs" />
     <Compile Include="Instance\Finance\IFinanceD.cs" />
     <Compile Include="Instance\Finance\FinanceD.cs" />
     <Compile Include="Instance\Projects\IProjectsD.cs" />

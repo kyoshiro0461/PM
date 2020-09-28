@@ -42,7 +42,7 @@
                     { %>
                 <tr data-uid='<%=item.CLID%>'>
                     <td><%=item.CLID %></td>
-                    <td><%= item.CLNAME%></td>
+                    <td><a href="../../Clients/Clients_List?ID=<%= item.CLID%>"><%= item.CLNAME%></td>
 
 
                     <td>
