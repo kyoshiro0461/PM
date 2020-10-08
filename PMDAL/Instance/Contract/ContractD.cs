@@ -48,7 +48,7 @@ namespace PMDAL.Instance
         /// <returns>字段</returns>
         public static string GetField(string alias = "")
         {
-            string result = string.Format("[#alias]{0}[#as]{0}, [#alias]{1}[#as]{1}, [#alias]{2}[#as]{2}, [#alias]{3}[#as]{3}, [#alias]{4}[#as]{4}, [#alias]{5}[#as]{5}, [#alias]{6}[#as]{6}, [#alias]{7}[#as]{7}, ",
+            string result = string.Format("[#alias]{0}[#as]{0}, [#alias]{1}[#as]{1}, [#alias]{2}[#as]{2}, [#alias]{3}[#as]{3}, [#alias]{4}[#as]{4}, [#alias]{5}[#as]{5}, [#alias]{6}[#as]{6}, [#alias]{7}[#as]{7} ",
                 TableStructM.Info_Contract.CT_ID,TableStructM.Info_Contract.CT_PRID,TableStructM.Info_Contract.CT_NAME,TableStructM.Info_Contract.CT_NO,TableStructM.Info_Contract.CT_CLID,TableStructM.Info_Contract.CT_MONEY,TableStructM.Info_Contract.CT_DATE,TableStructM.Info_Contract.CT_BELONG);
             result = result.Replace("[#alias]", (string.IsNullOrEmpty(alias) ? "" : string.Format("{0}.", alias)));
             result = result.Replace("[#as]", string.Format(" as {0}", CommonMethods.CombineFieldPrefix(alias)));
@@ -222,7 +222,7 @@ namespace PMDAL.Instance
             string tablename = TableStructM.Info_Contract.TABLENAME;
             string fields = GetField();
             string from = GetFrom();
-            string orderby = string.Format("order by {0}", order);
+            string orderby = string.Format(" order by {0}", order);
             string condition_where = string.Format("where 1=1");
             string where = string.Format("where {0} not in (select top {1} {0} from {2} {3}{4}{5})", TableStructM.Info_Contract.CT_ID, start, from, condition_where, condition, orderby);
             if (!string.IsNullOrEmpty(condition)) where = string.Format("{0} {1}", where, condition);
@@ -308,8 +308,18 @@ namespace PMDAL.Instance
             string updates = @"#ct_name=@ct_name,#ct_belong=@ct_belong";
             string where = string.Format("where #ct_id=@id");
             List<IDataParameter> lstParam = new List<IDataParameter>();
+            updates = updates.Replace("#ct_prid", TableStructM.Info_Contract.CT_PRID);
+            this._dbfactory.AddParameter(lstParam, "@ct_prid", this._contractm.CTPrid);
             updates = updates.Replace("#ct_name", TableStructM.Info_Contract.CT_NAME);
             this._dbfactory.AddParameter(lstParam, "@ct_name", this._contractm.CTName);
+            updates = updates.Replace("#ct_clid", TableStructM.Info_Contract.CT_CLID);
+            this._dbfactory.AddParameter(lstParam, "@ct_clid", this._contractm.CTClid);
+            updates = updates.Replace("#ct_date", TableStructM.Info_Contract.CT_DATE);
+            this._dbfactory.AddParameter(lstParam, "@ct_date", this._contractm.CTDate);
+            updates = updates.Replace("#ct_money", TableStructM.Info_Contract.CT_MONEY);
+            this._dbfactory.AddParameter(lstParam, "@ct_money", this._contractm.CTMoney);
+            updates = updates.Replace("#ct_no", TableStructM.Info_Contract.CT_NO);
+            this._dbfactory.AddParameter(lstParam, "@ct_no", this._contractm.CTNo);
             updates = updates.Replace("#ct_belong", TableStructM.Info_Contract.CT_BELONG);
             this._dbfactory.AddParameter(lstParam, "@ct_belong", this._contractm.CTBelong);
             where = where.Replace("#ct_id", TableStructM.Info_Contract.CT_ID);

@@ -73,10 +73,15 @@ namespace PM.Controllers
             ContractM contractm = new ContractM();
             string contractname = ViewMethods.GetForm(Request, "name", CommonEnums.ValueEnum.vlPost).ToString();
             string ctbelong = ViewMethods.GetForm(Request, "belong", CommonEnums.ValueEnum.vlPost).ToString();
+            string ctno = ViewMethods.GetForm(Request, "ctno", CommonEnums.ValueEnum.vlPost).ToString();
+            decimal ctmoney = ViewMethods.GetForm(Request, "money", CommonEnums.ValueEnum.vlPost).ConvertToDecimal();
+
             bool isExist = contractfactory.IsExist_contractname(contractname);
             if (isExist) return ViewMethods.AlertBack("合同已存在,请重新确认", "-1");
             contractm.CTName = contractname;
             contractm.CTBelong = ctbelong;
+            contractm.CTNo = ctno;
+            contractm.CTMoney = ctmoney;
             contractfactory.Infomation_contract = contractm;
             contractfactory.Save();
             return ViewMethods.AlertBack("添加合同成功！", "../../Contract/Contract");

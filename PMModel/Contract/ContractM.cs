@@ -18,7 +18,7 @@ namespace PMModel
         private string _ct_name;                        //名称
         private string _ct_no;                          //合同编号
         private int _ct_clid;                        //客户ID
-        private int _ct_money;                       //合同金额
+        private decimal _ct_money;                       //合同金额
         private DateTime? _ct_date;                        //签订日期 
         private string _ct_belong;                      //隶属关系
         #endregion
@@ -78,7 +78,7 @@ namespace PMModel
         /// <summary>
         /// 合同金额
         /// </summary>
-        public int CTMoney
+        public decimal CTMoney
         {
             get { return this._ct_money; }
             set { this._ct_money = value; }

@@ -20,7 +20,7 @@
             </h1>
             <div class="subwrap_mk_2 top">
                 <div class="formbox w50">
-                    <label>合同名</label>
+                    <label>合同名称</label>
                     <input type="text" name="name" id="name" />
                 </div>
                  <div class="formbox w50">
@@ -29,10 +29,18 @@
                             <option value="0">业主合同</option>
                             <option value="1">供应商合同</option>
                             <option value="2">施工队合同</option>
-                          
                         </select>
                     </div>
                 
+                <div class="formbox w50">
+                    <label>合同编号</label>
+                    <input type="text" name="ctno" id="ctno" />
+                </div>
+                
+                <div class="formbox w50">
+                    <label>合同金额</label>
+                    <input type="text" name="money" id="money" />
+                </div>
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>

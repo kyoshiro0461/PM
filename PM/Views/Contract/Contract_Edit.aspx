@@ -27,7 +27,7 @@
 
                     </div>
                     <div class="formbox w50">
-                        <label>合同名</label>
+                        <label>合同名称</label>
                         <input type="text" value="<%=contractinfo.CTName %>" name="name" id="name" />
                     </div>
                     <div class="formbox w50">
