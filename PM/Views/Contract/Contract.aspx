@@ -14,6 +14,15 @@
         int allpage = ViewBag.TotalPages;
         int pagecurrent = TempData["CurrentPage"].ConvertToInt32();
         int belong = TempData["belong"].ConvertToInt32();
+        string prid = null;
+        if (TempData["prid"] != null)
+        {
+            prid = TempData["prid"].ToString();
+        }
+        else
+        {
+            prid = "-1";
+        }
     %>
     <div class="wrap_mk wball">
         <div class="crumbs">
@@ -22,12 +31,13 @@
         <div class="tool">
             <a href="../../Main/Index" class="btn btn-gray"><i class="iconfont icon-undo"></i>返回</a>
             <a href="../../Contract/Contract" class="btn btn-gray"><i class="iconfont icon-refresh"></i>刷新</a>
-            <a href="../../Contract/Contract?BELONG=0" class="btn btn-primary"><i class="iconfont icon-refresh"></i>业主合同</a>
-            <a href="../../Contract/Contract?BELONG=1" class="btn btn-primary"><i class="iconfont icon-refresh"></i>供应商合同</a>
-            <a href="../../Contract/Contract?BELONG=2" class="btn btn-primary"><i class="iconfont icon-refresh"></i>施工队合同</a>
-           
-            <a href="../../Contract/Contract_Add" class="btn btn-primary"><i class="iconfont icon-add"></i>添加</a>
-
+            <a href="../../Contract/Contract?BELONG=0&PRID=<%=prid %>" class="btn btn-primary"><i class="iconfont icon-refresh"></i>业主合同</a>
+            <a href="../../Contract/Contract?BELONG=1&PRID=<%=prid %>" class="btn btn-primary"><i class="iconfont icon-refresh"></i>供应商合同</a>
+            <a href="../../Contract/Contract?BELONG=2&PRID=<%=prid %>" class="btn btn-primary"><i class="iconfont icon-refresh"></i>施工队合同</a>
+            <%if (prid != null && prid != "-1")
+                { %>
+            <a href="../../Contract/Contract_Add?PRID=<%= prid %>" class="btn btn-primary"><i class="iconfont icon-add"></i>添加</a>
+            <%} %>
             <div class="search">
                 <input type="text" value="<%=keys%>" placeholder="请输入关键词" id="keys" />
                 <a href="javascript:;" id="search" class="search1">搜索</a>
@@ -63,7 +73,7 @@
                    
 
                     <td>
-                        <a href="../../Contract/Contract_Edit?ID=<%= item.CTID%>" class="btn_icon gree"><i class="iconfont icon-brush_fill"></i></a>
+                        <a href="../../Contract/Contract_Edit?ID=<%= item.CTID%>&PRID=<%= prid %>" class="btn_icon gree"><i class="iconfont icon-brush_fill"></i></a>
                         <a href="javascript:;" value="" class="btn_icon red btn_del"><i class="iconfont icon-trash_fill"></i></a>
                     </td>
                 </tr>

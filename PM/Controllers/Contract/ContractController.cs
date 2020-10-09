@@ -19,6 +19,8 @@ namespace PM.Controllers
         // GET: Ower
         public ActionResult Contract()
         {
+            string  prid = ViewMethods.GetForm(Request, "PRID");
+           
             int pageSize = 12; //每页要显示的行数 
             string belong = ViewMethods.GetForm(Request, "BELONG");
             string orderby = ViewMethods.GetForm(Request, "OrderBy", CommonEnums.ValueEnum.vlGet);
@@ -34,22 +36,53 @@ namespace PM.Controllers
             string order = orderby;
             OrderType orderway = (desc == 0 ? OrderType.otDesc : OrderType.otAsc);
             long count = 0;
-
-            ContractFactory contractfactory = new ContractFactory();
-            List<IContractB> lstcontract = contractfactory.GetPageData(ref count, start, pageSize, keys, order, orderway, belong);
-            List<ContractM> contractinfo = new List<ContractM>();
-            if (lstcontract != null && lstcontract.Count > 0) lstcontract.ForEach(p => contractinfo.Add(p.Infomation_contract));
-            int totalpages = 0;
-            if ((count % pageSize) > 0)
-                totalpages = (int)Math.Ceiling((float)((count / pageSize) + 1));
+            if (prid != null && prid != "-1")
+            {
+                ProjectsFactory projectsfactory = new ProjectsFactory();
+                IProjectsB projectsb = projectsfactory.GetDataByID(prid);
+                if (projectsb != null)
+                {
+                    ProjectsM projectsm = projectsb.Infomation_projects;
+                    ContractFactory contractfactory = new ContractFactory();
+                    List<IContractB> lstcontract = contractfactory.GetPageData(ref count, start, pageSize, keys, order, orderway, belong, prid);
+                    List<ContractM> contractinfo = new List<ContractM>();
+                    if (lstcontract != null && lstcontract.Count > 0) lstcontract.ForEach(p => contractinfo.Add(p.Infomation_contract));
+                    int totalpages = 0;
+                    if ((count % pageSize) > 0)
+                        totalpages = (int)Math.Ceiling((float)((count / pageSize) + 1));
+                    else
+                        totalpages = (int)Math.Ceiling((float)(count / pageSize));//算出分页的总数
+                    ViewBag.Projects = projectsm;
+                    ViewBag.TotalPages = totalpages;
+                    ViewBag.Contract = contractinfo;
+                    TempData["OrderBy"] = desc;
+                    TempData["CurrentPage"] = pagecurrent;
+                    TempData["keys"] = objkeys;
+                    TempData["belong"] = belong;
+                    TempData["prid"] = prid;
+                }
+            }
             else
-                totalpages = (int)Math.Ceiling((float)(count / pageSize));//算出分页的总数
-            ViewBag.TotalPages = totalpages;
-            ViewBag.Contract = contractinfo;
-            TempData["OrderBy"] = desc;
-            TempData["CurrentPage"] = pagecurrent;
-            TempData["keys"] = objkeys;
-            TempData["belong"] = belong;
+            {
+               
+                ContractFactory contractfactory = new ContractFactory();
+                List<IContractB> lstcontract = contractfactory.GetPageData(ref count, start, pageSize, keys, order, orderway, belong, prid);
+                List<ContractM> contractinfo = new List<ContractM>();
+                if (lstcontract != null && lstcontract.Count > 0) lstcontract.ForEach(p => contractinfo.Add(p.Infomation_contract));
+                int totalpages = 0;
+                if ((count % pageSize) > 0)
+                    totalpages = (int)Math.Ceiling((float)((count / pageSize) + 1));
+                else
+                    totalpages = (int)Math.Ceiling((float)(count / pageSize));//算出分页的总数
+                
+                ViewBag.TotalPages = totalpages;
+                ViewBag.Contract = contractinfo;
+                TempData["OrderBy"] = desc;
+                TempData["CurrentPage"] = pagecurrent;
+                TempData["keys"] = objkeys;
+                TempData["belong"] = belong;
+               
+            }
             return View();
         }
 
@@ -59,6 +92,8 @@ namespace PM.Controllers
         /// <returns>视图</returns>
         public ActionResult Contract_Add()
         {
+            string prid = ViewMethods.GetForm(Request, "PRID");
+            TempData["prid"] = prid;
             return View();
         }
 
@@ -67,7 +102,7 @@ namespace PM.Controllers
         /// </summary>
         public ActionResult Add_Contract()
         {
-
+            string  prid = ViewMethods.GetForm(Request, "PRID");
             ContractFactory contractfactory = new ContractFactory();
             //添加业主信息
             ContractM contractm = new ContractM();
@@ -82,9 +117,11 @@ namespace PM.Controllers
             contractm.CTBelong = ctbelong;
             contractm.CTNo = ctno;
             contractm.CTMoney = ctmoney;
+            contractm.CTDate = DateTime.Now;
+            contractm.CTPrid = prid.ConvertToInt32();
             contractfactory.Infomation_contract = contractm;
             contractfactory.Save();
-            return ViewMethods.AlertBack("添加合同成功！", "../../Contract/Contract");
+            return ViewMethods.AlertBack("添加合同成功！", "../../Contract/Contract?PRID="+prid);
         }
 
         /// <summary>

@@ -130,10 +130,10 @@ namespace PMBLL.Instance
         /// <param name="key">搜索条件</param>
         /// <param name="order">排序</param>
         /// <returns></returns>
-        public List<IContractB> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, string belong)
+        public List<IContractB> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, string belong, string prid)
         {
-            object[] args = new object[] { count, start, size, key, order, orderway, belong , this._connectionb.ConnectionD };
-            List<ContractM> lstcontract = Methods.ReflexInvokeMethod(this._contractd, this._methodnm_GetPageData, new Type[] { typeof(long).MakeByRefType(), typeof(long), typeof(int), typeof(string), typeof(string),  typeof(OrderType), typeof(string), typeof(IConnectionD) }, args) as List<ContractM>;
+            object[] args = new object[] { count, start, size, key, order, orderway, belong , prid, this._connectionb.ConnectionD };
+            List<ContractM> lstcontract = Methods.ReflexInvokeMethod(this._contractd, this._methodnm_GetPageData, new Type[] { typeof(long).MakeByRefType(), typeof(long), typeof(int), typeof(string), typeof(string),  typeof(OrderType), typeof(string), typeof(string), typeof(IConnectionD) }, args) as List<ContractM>;
             count = args[0].ConvertToInt64();
             return ConvertToContractB(lstcontract);
         }

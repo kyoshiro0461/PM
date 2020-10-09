@@ -33,7 +33,7 @@ namespace PMBLL.Instance
         /// <param name="key">搜索条件</param>
         /// <param name="order">排序</param>
         /// <returns></returns>
-        List<IContractB> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, string belong);
+        List<IContractB> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, string belong, string prid);
 
         /// <summary>
         /// 判断合同是否存在

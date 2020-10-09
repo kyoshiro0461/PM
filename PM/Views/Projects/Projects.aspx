@@ -66,8 +66,11 @@
                     <%} %>
 
                     <td>
-                        <a href="../../Projects/Projects_Edit?ID=<%= item.PRID%>" class="btn_icon gree"><i class="iconfont icon-brush_fill"></i></a>
-                        <a href="javascript:;" value="" class="btn_icon red btn_del"><i class="iconfont icon-trash_fill"></i></a>
+                        <a href="../../Contract/Contract?PRID=<%= item.PRID%>" class="btn_icon gree"><i class="iconfont icon-brush_fill"></i>合同管理</a>
+                        <a href="../../Projects/Projects_Edit?ID=<%= item.PRID%>" class="btn_icon gree"><i class="iconfont icon-brush_fill"></i>收付款管理</a>
+                        <a href="../../Projects/Projects_Edit?ID=<%= item.PRID%>" class="btn_icon gree"><i class="iconfont icon-brush_fill"></i>工程量</a>
+                        <a href="../../Projects/Projects_Edit?ID=<%= item.PRID%>" class="btn_icon gree"><i class="iconfont icon-brush_fill"></i>修改项目信息</a>
+                        <a href="javascript:;" value="" class="btn_icon red btn_del"><i class="iconfont icon-trash_fill"></i>删除项目</a>
                     </td>
                 </tr>
                 <% } %>

@@ -10,10 +10,11 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <% 
         List<ContractM> ContractInfo = (ViewBag.ContractInfo as List<ContractM>);
+        string prid = TempData["prid"].ToString();
     %>
 
     <div class="center js_tabbody">
-        <form action ="../../Contract/Add_Contract" method="post">
+        <form action ="../../Contract/Add_Contract?PRID=<%=prid %>" method="post">
         <div class="wrap_mk wball">
             <h1>添加合同
                 <a href="../../Contract/Contract"><i class="iconfont icon-close"></i></a>
@@ -48,7 +49,7 @@
         <div class="clear"></div>
         <div class="footerbtn">
             <button type="submit" class="btn btn-primary js_submit">保存</button>
-            <a href="../../Contract/Contract" class="btn btn-gray">取消</a>
+            <a href="../../Contract/Contract?PRID=<%= prid %>" class="btn btn-gray">取消</a>
         </div>
         </form>
         <div class="clear"></div>

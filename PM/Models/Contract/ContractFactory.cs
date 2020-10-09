@@ -96,9 +96,9 @@ namespace PM.Models
         /// <param name="key">搜索条件</param>
         /// <param name="order">排序</param>
         /// <returns></returns>
-        public List<IContractB> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, string belong)
+        public List<IContractB> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, string belong, string prid)
         {
-            return this._contractb.GetPageData(ref count, start, size, key, order, orderway, belong);
+            return this._contractb.GetPageData(ref count, start, size, key, order, orderway, belong, prid);
         }
 
         /// <summary>
