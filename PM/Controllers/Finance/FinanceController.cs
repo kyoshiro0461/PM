@@ -19,8 +19,9 @@ namespace PM.Controllers
         // GET: Ower
         public ActionResult Finance()
         {
+            string prid = ViewMethods.GetForm(Request, "PRID");
             int pageSize = 12; //每页要显示的行数 
-            string belong = ViewMethods.GetForm(Request, "BELONG");
+            string collectpay = ViewMethods.GetForm(Request, "Collectpay");
             string orderby = ViewMethods.GetForm(Request, "OrderBy", CommonEnums.ValueEnum.vlGet);
             if (string.IsNullOrEmpty(orderby)) orderby = "SF_ID";
             int desc = ViewMethods.GetForm(Request, "Desc", CommonEnums.ValueEnum.vlGet).ConvertToInt32();
@@ -36,7 +37,7 @@ namespace PM.Controllers
             long count = 0;
 
             FinanceFactory financefactory = new FinanceFactory();
-            List<IFinanceB> lstfinance = financefactory.GetPageData(ref count, start, pageSize, keys, order, orderway, belong);
+            List<IFinanceB> lstfinance = financefactory.GetPageData(ref count, start, pageSize, keys, order, orderway, collectpay);
             List<FinanceM> financeinfo = new List<FinanceM>();
             if (lstfinance != null && lstfinance.Count > 0) lstfinance.ForEach(p => financeinfo.Add(p.Infomation_finance));
             int totalpages = 0;
@@ -49,7 +50,7 @@ namespace PM.Controllers
             TempData["OrderBy"] = desc;
             TempData["CurrentPage"] = pagecurrent;
             TempData["keys"] = objkeys;
-            TempData["belong"] = belong;
+            TempData["collectpay"] = collectpay;
             return View();
         }
 
@@ -75,8 +76,8 @@ namespace PM.Controllers
             string prbelong = ViewMethods.GetForm(Request, "belong", CommonEnums.ValueEnum.vlPost).ToString();
             bool isExist = financefactory.IsExist_financename(financename);
             if (isExist) return ViewMethods.AlertBack("收付款已存在,请重新确认", "-1");
-            financem.SFName = financename;
-            financem.SFBelong = prbelong;
+            //financem.SFName = financename;
+            //financem.SFBelong = prbelong;
             financefactory.Infomation_finance = financem;
             financefactory.Save();
             return ViewMethods.AlertBack("添加收付款成功！", "../../Finance/Finance");
@@ -113,8 +114,8 @@ namespace PM.Controllers
             //编辑收付款信息
             string financename = ViewMethods.GetForm(Request, "name", CommonEnums.ValueEnum.vlPost).ToString();
             string financebelong = ViewMethods.GetForm(Request, "belong", CommonEnums.ValueEnum.vlPost).ToString();
-            financem.SFName = financename;
-            financem.SFBelong = financebelong;
+            //financem.SFName = financename;
+            //financem.SFBelong = financebelong;
             financefactory.Infomation_finance = financem;
             ViewBag.FinanceInfo = financem;
             bool isSuccess = financefactory.Update();

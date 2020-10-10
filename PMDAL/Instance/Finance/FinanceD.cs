@@ -48,8 +48,8 @@ namespace PMDAL.Instance
         /// <returns>字段</returns>
         public static string GetField(string alias = "")
         {
-            string result = string.Format("[#alias]{0}[#as]{0}, [#alias]{1}[#as]{1}, [#alias]{2}[#as]{2}",
-                TableStructM.Info_Finance.SF_ID, TableStructM.Info_Finance.SF_NAME,TableStructM.Info_Finance.SF_BELONG);
+            string result = string.Format("[#alias]{0}[#as]{0}, [#alias]{1}[#as]{1}, [#alias]{2}[#as]{2}, [#alias]{3}[#as]{3}, [#alias]{4}[#as]{4}, [#alias]{5}[#as]{5}, [#alias]{6}[#as]{6}",
+                TableStructM.Info_Finance.SF_ID, TableStructM.Info_Finance.SF_COLLECTPAY, TableStructM.Info_Finance.SF_PRID, TableStructM.Info_Finance.SF_CNID,  TableStructM.Info_Finance.SF_DATE,  TableStructM.Info_Finance.SF_MONEY, TableStructM.Info_Finance.SF_ACCOUNT);
             result = result.Replace("[#alias]", (string.IsNullOrEmpty(alias) ? "" : string.Format("{0}.", alias)));
             result = result.Replace("[#as]", string.Format(" as {0}", CommonMethods.CombineFieldPrefix(alias)));
             return result;
@@ -142,8 +142,12 @@ namespace PMDAL.Instance
             FinanceM result = new FinanceM();
 
             result.SFID = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_ID, alias)].ConvertToInt32();
-            result.SFName = (dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_NAME, alias)].ToString());
-            result.SFBelong = (dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_BELONG, alias)].ToString());
+            result.SFCOLLECTPAY = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_COLLECTPAY, alias)].ConvertToInt32();
+            result.SFPRID = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_PRID, alias)].ConvertToInt32();
+            result.SFCNID = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_CNID, alias)].ConvertToInt32();
+            result.SFDATE = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_DATE, alias)].ConvertToDateTime();
+            result.SFMONEY = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_MONEY, alias)].ConvertToDecimal();
+            result.SFACCOUNT = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_PRID, alias)].ToString();
             // result.SetOnOff(dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Menu.MN_ONOFF, alias)].ConvertToInt32());
 
             return result;
@@ -159,8 +163,12 @@ namespace PMDAL.Instance
             FinanceM result = new FinanceM();
 
             result.SFID = row[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_ID, alias)].ConvertToInt32();
-            result.SFName = (row[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_NAME, alias)].ToString());
-            result.SFBelong = (row[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_BELONG, alias)].ToString());
+            result.SFCOLLECTPAY = row[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_COLLECTPAY, alias)].ConvertToInt32();
+            result.SFPRID = row[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_PRID, alias)].ConvertToInt32();
+            result.SFCNID = row[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_CNID, alias)].ConvertToInt32();
+            result.SFDATE = row[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_DATE, alias)].ConvertToDateTime();
+            result.SFMONEY = row[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_PRID, alias)].ConvertToDecimal();
+            result.SFACCOUNT = row[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_PRID, alias)].ToString();
             // result.SetOnOff(row[CommonMethods.CombineFieldAlias(TableStructM.Info_Menu.MN_ONOFF, alias)].ConvertToInt32());
 
             return result;
@@ -191,9 +199,9 @@ namespace PMDAL.Instance
         {
             string where = "", orderby = "";
             string alias = "a";
-            if (!string.IsNullOrEmpty(key)) where = string.Format("{0} and({1} like '%{2}%')", where, TableStructM.Info_Finance.SF_NAME, key.ReplaceStr());
+            //if (!string.IsNullOrEmpty(key)) where = string.Format("{0} and({1} like '%{2}%')", where, TableStructM.Info_Finance.SF_NAME, key.ReplaceStr());
             if (!string.IsNullOrEmpty(order)) orderby = string.Format("{0} {1}", order, (orderway == OrderType.otAsc ? "asc" : "desc"));
-            if (!string.IsNullOrEmpty(belong )) where = string.Format("{0} and {1} ={2}", where, TableStructM.Info_Finance.SF_BELONG, belong.ReplaceStr());
+            //if (!string.IsNullOrEmpty(belong )) where = string.Format("{0} and {1} ={2}", where, TableStructM.Info_Finance.SF_BELONG, belong.ReplaceStr());
           
             string condition = GetFrom();
             count = connection.DataBaseFactory.GetCount(TableStructM.Info_Finance.TABLENAME, string.Format("where 1=1 {0}", where));
@@ -239,7 +247,7 @@ namespace PMDAL.Instance
         {
             FinanceM result = null;
 
-            string where = string.Format(" and {0}='{1}'", TableStructM.Info_Finance.SF_NAME, financename.ReplaceStr());
+            string where = string.Format(" and {0}='{1}'", TableStructM.Info_Finance.SF_CNID, financename.ReplaceStr());
             IList<FinanceM> lst = ReadDataBase(where, connection);
             if (lst != null) result = lst.FirstOrDefault();
             return result;
@@ -251,12 +259,16 @@ namespace PMDAL.Instance
         /// <returns>T=存档成功；F=存档失败</returns>
         public bool Save()
         {
-            string fields = string.Format("{0},{1}", TableStructM.Info_Finance.SF_NAME,TableStructM.Info_Finance.SF_BELONG);
-            string values = string.Format("{0},{1}", "@pr_name","@pr_belong");
+            string fields = string.Format("{0},{1},{2},{3},{4},{5}", TableStructM.Info_Finance.SF_COLLECTPAY, TableStructM.Info_Finance.SF_PRID, TableStructM.Info_Finance.SF_CNID, TableStructM.Info_Finance.SF_DATE, TableStructM.Info_Finance.SF_MONEY, TableStructM.Info_Finance.SF_ACCOUNT);
+            string values = string.Format("{0},{1},{2},{3},{4},{5}", "@sf_collectpay","@sf_prid", "@sf_cnid", "@sf_date", "@sf_money", "@sf_account");
            
             List<IDataParameter> lstParam = new List<IDataParameter>();
-            _dbfactory.AddParameter(lstParam, "@pr_name", this._financem.SFName);
-            _dbfactory.AddParameter(lstParam, "@pr_belong", this._financem.SFBelong);
+            _dbfactory.AddParameter(lstParam, "@sf_collectpay", this._financem.SFCOLLECTPAY);
+            _dbfactory.AddParameter(lstParam, "@sf_prid", this._financem.SFPRID);
+            _dbfactory.AddParameter(lstParam, "@sf_cnid", this._financem.SFCNID);
+            _dbfactory.AddParameter(lstParam, "@sf_date", this._financem.SFDATE);
+            _dbfactory.AddParameter(lstParam, "@sf_money", this._financem.SFMONEY);
+            _dbfactory.AddParameter(lstParam, "@sf_account", this._financem.SFACCOUNT);
             int effect = this._dbfactory.Insert(TableStructM.Info_Finance.TABLENAME, fields, values, lstParam);
 
             return (effect > 0);
@@ -298,11 +310,20 @@ namespace PMDAL.Instance
             string updates = @"#pr_name=@pr_name,#pr_belong=@pr_belong";
             string where = string.Format("where #pr_id=@id");
             List<IDataParameter> lstParam = new List<IDataParameter>();
-            updates = updates.Replace("#pr_name", TableStructM.Info_Finance.SF_NAME);
-            this._dbfactory.AddParameter(lstParam, "@pr_name", this._financem.SFName);
-            updates = updates.Replace("#pr_belong", TableStructM.Info_Finance.SF_BELONG);
-            this._dbfactory.AddParameter(lstParam, "@pr_belong", this._financem.SFBelong);
-            where = where.Replace("#pr_id", TableStructM.Info_Finance.SF_ID);
+            updates = updates.Replace("#sf_collectpay", TableStructM.Info_Finance.SF_COLLECTPAY);
+            this._dbfactory.AddParameter(lstParam, "@sf_collectpay", this._financem.SFCOLLECTPAY);
+            updates = updates.Replace("#sf_prid", TableStructM.Info_Finance.SF_PRID);
+            this._dbfactory.AddParameter(lstParam, "@sf_prid", this._financem.SFPRID);
+            updates = updates.Replace("#sf_cnid", TableStructM.Info_Finance.SF_CNID);
+            this._dbfactory.AddParameter(lstParam, "@sf_cnid", this._financem.SFCNID);
+            updates = updates.Replace("#sf_date", TableStructM.Info_Finance.SF_DATE);
+            this._dbfactory.AddParameter(lstParam, "@sf_date", this._financem.SFDATE);
+            updates = updates.Replace("#sf_money", TableStructM.Info_Finance.SF_MONEY);
+            this._dbfactory.AddParameter(lstParam, "@sf_money", this._financem.SFMONEY);
+            updates = updates.Replace("#sf_account", TableStructM.Info_Finance.SF_ACCOUNT);
+            this._dbfactory.AddParameter(lstParam, "@sf_account", this._financem.SFACCOUNT);
+
+            where = where.Replace("#sf_id", TableStructM.Info_Finance.SF_ID);
             this._dbfactory.AddParameter(lstParam, "@id", this._financem.SFID);
             return this._dbfactory.Update(TableStructM.Info_Finance.TABLENAME, updates, where, lstParam);
         }

@@ -213,15 +213,35 @@ namespace PMModel
             /// </summary>
             public static string SF_ID = "sf_id";
 
-            ///<summary>
-            ///名称
+            /// <summary>
+            /// 收付款性质
             /// </summary>
-            public static string SF_NAME = "sf_name";
+            public static string SF_COLLECTPAY = "sf_collectpay";
 
             /// <summary>
-            /// 归属
+            /// 对应项目编号
             /// </summary>
-            public static string SF_BELONG = "sf_belong";
+            public static string SF_PRID = "sf_prid";
+
+            /// <summary>
+            /// 对应合同编号
+            /// </summary>
+            public static string SF_CNID = "sf_cnid";
+
+            /// <summary>
+            /// 收付款日期
+            /// </summary>
+            public static string SF_DATE = "sf_date";
+
+            /// <summary>
+            /// 收付款金额
+            /// </summary>
+            public static string SF_MONEY = "sf_money";
+
+            /// <summary>
+            /// 记账凭证编号
+            /// </summary>
+            public static string SF_ACCOUNT = "sf_account";
         }
         #endregion
     }

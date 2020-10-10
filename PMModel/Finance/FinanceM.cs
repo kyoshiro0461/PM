@@ -14,8 +14,12 @@ namespace PMModel
         #region 变量
         private int _sf_id;                             //编号
         //private IsDisableEnum _mn_onoff;                //状态
-        private string _sf_name;                        //名称
-        private string _sf_belong;                      //隶属关系
+        private int _sf_collectpay;                      //收付款性质
+        private int _sf_prid;                           //对应项目编号
+        private int _sf_cnid;                           //对应合同编号
+        private DateTime? _sf_date;                     //收付款日期
+        private decimal _sf_money;                      //收付款金额
+        private string _sf_account;                     //记账凭证编号
         #endregion
         #region 属性
         /// <summary>
@@ -34,24 +38,60 @@ namespace PMModel
         //    get { return this._mn_onoff; }
         //}
        
-
         /// <summary>
-        /// 名称
+        /// 收付款性质
         /// </summary>
-        public string SFName
+            public int SFCOLLECTPAY
         {
-            get { return this._sf_name; }
-            set { this._sf_name = value; }
+            get { return this._sf_collectpay; }
+            set { this._sf_collectpay = value; }
         }
 
         /// <summary>
-        /// 隶属关系
+        /// 对应项目编号
         /// </summary>
-        public string SFBelong
+        public int SFPRID
         {
-            get { return this._sf_belong; }
-            set { this._sf_belong = value; }
+            get { return this._sf_prid; }
+            set { this._sf_prid = value; }
         }
+
+        /// <summary>
+        /// 对应合同编号
+        /// </summary>
+        public int SFCNID
+        {
+            get { return this._sf_cnid; }
+            set { this._sf_cnid = value; }
+        }
+
+        /// <summary>
+        /// 收付款日期
+        /// </summary>
+        public DateTime? SFDATE
+        {
+            get { return this._sf_date; }
+            set { this._sf_date = value; }
+        }
+
+        /// <summary>
+        /// 收付款金额
+        /// </summary> 
+        public decimal SFMONEY
+        {
+            get { return this._sf_money; }
+            set { this._sf_money = value; }
+        }
+
+        /// <summary>
+        /// 对应记账凭证编号
+        /// </summary>
+        public string SFACCOUNT
+        {
+            get { return this._sf_account; }
+            set { this._sf_account = value; }
+        }
+
         #endregion
         #region 初始化
         /// <summary>
@@ -60,9 +100,13 @@ namespace PMModel
         public FinanceM()
         {
             this._sf_id = 0;
-           // this._mn_onoff = IsDisableEnum.idNo;
-            this._sf_name = "";
-            this._sf_belong = "";
+            // this._mn_onoff = IsDisableEnum.idNo;
+            this._sf_prid = 0;
+            this._sf_cnid = 0;
+            this._sf_date = null;
+            this._sf_money = 0;
+            this._sf_account = null;
+            this._sf_collectpay = 0;
        }
         #endregion
         #region 方法

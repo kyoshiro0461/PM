@@ -13,7 +13,7 @@
         int desc = TempData["Orderby"].ConvertToInt32();
         int allpage = ViewBag.TotalPages;
         int pagecurrent = TempData["CurrentPage"].ConvertToInt32();
-        int belong = TempData["belong"].ConvertToInt32();
+        int collectpay = TempData["collectpay"].ConvertToInt32();
     %>
     <div class="wrap_mk wball">
         <div class="crumbs">
@@ -22,10 +22,10 @@
         <div class="tool">
             <a href="../../Main/Index" class="btn btn-gray"><i class="iconfont icon-undo"></i>返回</a>
             <a href="../../Finance/Finance" class="btn btn-gray"><i class="iconfont icon-refresh"></i>刷新</a>
-            <a href="../../Finance/Finance?BELONG=0" class="btn btn-primary"><i class="iconfont icon-refresh"></i>集团内收付款</a>
+           <%-- <a href="../../Finance/Finance?BELONG=0" class="btn btn-primary"><i class="iconfont icon-refresh"></i>集团内收付款</a>
             <a href="../../Finance/Finance?BELONG=1" class="btn btn-primary"><i class="iconfont icon-refresh"></i>集团外收付款</a>
             <a href="../../Finance/Finance?BELONG=2" class="btn btn-primary"><i class="iconfont icon-refresh"></i>挂靠收付款</a>
-            <a href="../../Finance/Finance?BELONG=3" class="btn btn-primary"><i class="iconfont icon-refresh"></i>借用资质收付款</a>
+            <a href="../../Finance/Finance?BELONG=3" class="btn btn-primary"><i class="iconfont icon-refresh"></i>借用资质收付款</a>--%>
             <a href="../../Finance/Finance_Add" class="btn btn-primary"><i class="iconfont icon-add"></i>添加</a>
 
             <div class="search">
@@ -36,9 +36,10 @@
         <div class="subwrap_mk_1" data-class="1">
             <table>
                 <tr class="odd">
-                    <th class="sorting js_orderby" data-orderby="PR_ID" data-desc="<%= desc%>">ID</th>
-                    <th>收付款名</th>
-                    <th>隶属</th>
+                    <th class="sorting js_orderby" data-orderby="SF_ID" data-desc="<%= desc%>">ID</th>
+                    <th>项目名称</th>
+                    <th>收付款性质</th>
+                    <th>收付款金额</th>
                     <th>操作</th>
                 </tr>
                 <% if (FinanceInfo != null && FinanceInfo.Count > 0)
@@ -47,24 +48,16 @@
                     { %>
                 <tr data-uid='<%=item.SFID%>'>
                     <td><%=item.SFID %></td>
-                    <td><%= item.SFName%></td>
-                    <%if (item.SFBelong.ConvertToInt32() == 0)
+                    <td><%=item.SFPRID %></td>
+                    <%if (item.SFCOLLECTPAY == 1)
                         { %>
-                    <td>集团内收付款</td>
+                    <td>收款</td>
+                    <% } %>
+                    <% else %>
+                    <% { %>
+                    <td>付款</td>
                     <%} %>
-                     <%if (item.SFBelong.ConvertToInt32() == 1)
-                        { %>
-                    <td>集团外收付款</td>
-                    <%} %>
-                     <%if (item.SFBelong.ConvertToInt32() == 2)
-                        { %>
-                    <td>挂靠收付款</td>
-                    <%} %> 
-                    <%if (item.SFBelong.ConvertToInt32() == 3)
-                        { %>
-                    <td>借用资质收付款</td>
-                    <%} %>
-
+                    <td><%=item.SFMONEY %></td>
                     <td>
                         <a href="../../Finance/Finance_Edit?ID=<%= item.SFID%>" class="btn_icon gree"><i class="iconfont icon-brush_fill"></i></a>
                         <a href="javascript:;" value="" class="btn_icon red btn_del"><i class="iconfont icon-trash_fill"></i></a>
