@@ -143,7 +143,7 @@ namespace PM.Models
         /// </summary>
         /// <param name="id">项目编号</param>
         /// <returns>项目信息（模型层）集合</returns>
-        public IProjectsB GetDataByID(string id)
+        public List<IProjectsB> GetDataByID(string id)
         {
             return this._projectsb.GetDataByID(id);
         }

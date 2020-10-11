@@ -20,6 +20,13 @@ namespace PM.Controllers
         public ActionResult Finance()
         {
             string prid = ViewMethods.GetForm(Request, "PRID");
+            if (prid != null && prid != "-1")
+            {
+                ProjectsFactory projectsfactory = new ProjectsFactory();
+                List<IProjectsB> lstprojects = projectsfactory.GetDataByID(prid);
+                List<ProjectsM> projectsm = new List<ProjectsM>();
+                if (lstprojects != null && lstprojects.Count > 0) lstprojects.ForEach(p => projectsm.Add(p.Infomation_projects));
+            }
             int pageSize = 12; //每页要显示的行数 
             string collectpay = ViewMethods.GetForm(Request, "Collectpay");
             string orderby = ViewMethods.GetForm(Request, "OrderBy", CommonEnums.ValueEnum.vlGet);

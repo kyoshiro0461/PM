@@ -59,7 +59,7 @@ namespace PMBLL.Instance
         /// </summary>
         /// <param name="id">编号</param>
         /// <returns>数据</returns>
-        IProjectsB GetDataByID(string id);
+        List<IProjectsB> GetDataByID(string id);
 
         /// <summary>
         /// 更新信息
