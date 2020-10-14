@@ -103,6 +103,16 @@ namespace PM.Models
         }
 
         /// <summary>
+        /// 获取数据
+        /// </summary>
+        /// <returns>活动分类信息（业务逻辑层）集合</returns>
+        //public List<IProjectsB> AllGetData()
+        //{
+        //    return this._projectsb.AllGetData();
+        //}
+
+
+        /// <summary>
         /// 判断项目是否存在
         /// </summary>
         /// <param name="projectsname">项目名</param>
@@ -143,7 +153,7 @@ namespace PM.Models
         /// </summary>
         /// <param name="id">项目编号</param>
         /// <returns>项目信息（模型层）集合</returns>
-        public List<IProjectsB> GetDataByID(string id)
+        public IProjectsB GetDataByID(string id)
         {
             return this._projectsb.GetDataByID(id);
         }

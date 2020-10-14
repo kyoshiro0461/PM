@@ -36,52 +36,26 @@ namespace PM.Controllers
             string order = orderby;
             OrderType orderway = (desc == 0 ? OrderType.otDesc : OrderType.otAsc);
             long count = 0;
-            if (prid != null && prid != "-1")
-            {
-                ProjectsFactory projectsfactory = new ProjectsFactory();
-                IProjectsB projectsb = projectsfactory.GetDataByID(prid);
-                if (projectsb != null)
-                {
-                    ProjectsM projectsm = projectsb.Infomation_projects;
-                    ContractFactory contractfactory = new ContractFactory();
-                    List<IContractB> lstcontract = contractfactory.GetPageData(ref count, start, pageSize, keys, order, orderway, belong, prid);
-                    List<ContractM> contractinfo = new List<ContractM>();
-                    if (lstcontract != null && lstcontract.Count > 0) lstcontract.ForEach(p => contractinfo.Add(p.Infomation_contract));
-                    int totalpages = 0;
-                    if ((count % pageSize) > 0)
-                        totalpages = (int)Math.Ceiling((float)((count / pageSize) + 1));
-                    else
-                        totalpages = (int)Math.Ceiling((float)(count / pageSize));//算出分页的总数
-                    ViewBag.Projects = projectsm;
-                    ViewBag.TotalPages = totalpages;
-                    ViewBag.Contract = contractinfo;
-                    TempData["OrderBy"] = desc;
-                    TempData["CurrentPage"] = pagecurrent;
-                    TempData["keys"] = objkeys;
-                    TempData["belong"] = belong;
-                    TempData["prid"] = prid;
-                }
-            }
+
+            ContractFactory contractfactory = new ContractFactory();
+            List<IContractB> lstcontract = contractfactory.GetPageData(ref count, start, pageSize, keys, order, orderway, belong, prid);
+            List<ContractM> contractinfo = new List<ContractM>();
+            if (lstcontract != null && lstcontract.Count > 0) lstcontract.ForEach(p => contractinfo.Add(p.Infomation_contract));
+            int totalpages = 0;
+            if ((count % pageSize) > 0)
+                totalpages = (int)Math.Ceiling((float)((count / pageSize) + 1));
             else
+                totalpages = (int)Math.Ceiling((float)(count / pageSize));//算出分页的总数
+
+            ViewBag.TotalPages = totalpages;
+            ViewBag.Contract = contractinfo;
+            TempData["OrderBy"] = desc;
+            TempData["CurrentPage"] = pagecurrent;
+            TempData["keys"] = objkeys;
+            TempData["belong"] = belong;
+            if(prid != null || prid != "")
             {
-               
-                ContractFactory contractfactory = new ContractFactory();
-                List<IContractB> lstcontract = contractfactory.GetPageData(ref count, start, pageSize, keys, order, orderway, belong, prid);
-                List<ContractM> contractinfo = new List<ContractM>();
-                if (lstcontract != null && lstcontract.Count > 0) lstcontract.ForEach(p => contractinfo.Add(p.Infomation_contract));
-                int totalpages = 0;
-                if ((count % pageSize) > 0)
-                    totalpages = (int)Math.Ceiling((float)((count / pageSize) + 1));
-                else
-                    totalpages = (int)Math.Ceiling((float)(count / pageSize));//算出分页的总数
-                
-                ViewBag.TotalPages = totalpages;
-                ViewBag.Contract = contractinfo;
-                TempData["OrderBy"] = desc;
-                TempData["CurrentPage"] = pagecurrent;
-                TempData["keys"] = objkeys;
-                TempData["belong"] = belong;
-               
+                TempData["prid"] = prid;
             }
             return View();
         }

@@ -9,7 +9,7 @@
 
     <% 
         List<FinanceM> FinanceInfo = ViewBag.Finance as List<FinanceM>;
-
+        List<ProjectsM> ProjectsInfo = ViewBag.Projects as List<ProjectsM>;
         object keys = TempData["keys"];
         int desc = TempData["Orderby"].ConvertToInt32();
         int allpage = ViewBag.TotalPages;
@@ -49,7 +49,9 @@
                     { %>
                 <tr data-uid='<%=item.SFID%>'>
                     <td><%=item.SFID %></td>
-                    <td><%=item.SFPRID %></td>
+                    <td><% foreach (ProjectsM projectsm in ProjectsInfo) { %>
+	    				     <%=(item.SFPRID==projectsm.PRID ?  projectsm.PRName:"") %>
+                                <%} %></td>
                     <%if (item.SFCOLLECTPAY == 1)
                         { %>
                     <td>收款</td>

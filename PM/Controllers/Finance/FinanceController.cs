@@ -20,13 +20,13 @@ namespace PM.Controllers
         public ActionResult Finance()
         {
             string prid = ViewMethods.GetForm(Request, "PRID");
-            if (prid != null && prid != "-1")
-            {
-                ProjectsFactory projectsfactory = new ProjectsFactory();
-                List<IProjectsB> lstprojects = projectsfactory.GetDataByID(prid);
-                List<ProjectsM> projectsm = new List<ProjectsM>();
-                if (lstprojects != null && lstprojects.Count > 0) lstprojects.ForEach(p => projectsm.Add(p.Infomation_projects));
-            }
+
+            ProjectsFactory projectsfactory = new ProjectsFactory();
+            List<IProjectsB> lstprojects = projectsfactory.GetDataProjects();
+            List<ProjectsM> projectsm = new List<ProjectsM>();
+            if (lstprojects != null && lstprojects.Count > 0) lstprojects.ForEach(p => projectsm.Add(p.Infomation_projects));
+            ViewBag.Projects = projectsm;
+
             int pageSize = 12; //每页要显示的行数 
             string collectpay = ViewMethods.GetForm(Request, "Collectpay");
             string orderby = ViewMethods.GetForm(Request, "OrderBy", CommonEnums.ValueEnum.vlGet);
@@ -54,6 +54,7 @@ namespace PM.Controllers
                 totalpages = (int)Math.Ceiling((float)(count / pageSize));//算出分页的总数
             ViewBag.TotalPages = totalpages;
             ViewBag.Finance = financeinfo;
+           
             TempData["OrderBy"] = desc;
             TempData["CurrentPage"] = pagecurrent;
             TempData["keys"] = objkeys;

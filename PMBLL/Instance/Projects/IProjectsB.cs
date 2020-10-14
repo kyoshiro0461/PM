@@ -36,6 +36,12 @@ namespace PMBLL.Instance
         List<IProjectsB> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, string belong);
 
         /// <summary>
+        /// 获取数据
+        /// </summary>
+        /// <returns>活动分类信息（业务逻辑层）集合</returns>
+        //List<IProjectsB> AllGetData();
+
+        /// <summary>
         /// 判断项目是否存在
         /// </summary>
         /// <param name="projectsname">项目名</param>
@@ -59,7 +65,7 @@ namespace PMBLL.Instance
         /// </summary>
         /// <param name="id">编号</param>
         /// <returns>数据</returns>
-        List<IProjectsB> GetDataByID(string id);
+        IProjectsB GetDataByID(string id);
 
         /// <summary>
         /// 更新信息

@@ -23,6 +23,7 @@ namespace PMBLL.Instance
         private IProjectsD _projectsd;                                         //项目信息类（数据链路层）
         private string _methodnm_GetDefaultProjects;                           //GetDefaultProjects方法名
         private string _methodnm_GetPageData;                                 //GetPageData
+        //private string _methodnm_GetData;                                      //GetData方法名
         private string _methodnm_IsExist_projectsname;                        //IsExist_projectsname方法名
         private IConnectionB _connectionb;                                    //链接类（业务逻辑层）
         private ProjectsM _projectsm;                                       //项目信息类（模型层）
@@ -79,6 +80,7 @@ namespace PMBLL.Instance
                 strNameSpace = section.NameSpace;//命名空间
                 strInstance = section.Instance;//实例
                 this._methodnm_GetDefaultProjects = section.GetDataProjectsMethod;   //GetDefaultProjects方法名
+                
                 this._methodnm_GetPageData = section.GetPageDataMethod;
                 this._methodnm_IsExist_projectsname = section.IsExist_projectsnameMethod;//IsExist_projectsname方法名
                 this._methodnm_GetDataByID = section.GetDataByIDMethod;     //GetDataByID方法名
@@ -137,6 +139,8 @@ namespace PMBLL.Instance
             count = args[0].ConvertToInt64();
             return ConvertToProjectsB(lstprojects);
         }
+
+        
         /// <summary>
         /// 判断集团内项目是否存在
         /// </summary>
