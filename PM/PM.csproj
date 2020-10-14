@@ -256,6 +256,13 @@
     <Compile Include="Views\Clients\Clients_List.aspx.designer.cs">
       <DependentUpon>Clients_List.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Finance\Finance_List.aspx.cs">
+      <DependentUpon>Finance_List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Finance\Finance_List.aspx.designer.cs">
+      <DependentUpon>Finance_List.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Main\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -378,6 +385,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Clients\Clients_List.aspx" />
+    <Content Include="Views\Finance\Finance_List.aspx" />
     <Content Include="Views\Main\Index.aspx" />
     <Content Include="Views\Contract\Contract.aspx" />
     <Content Include="Views\Contract\Contract_Add.aspx" />

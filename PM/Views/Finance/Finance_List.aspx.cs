@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace PM.Views.Finance
 {
-    public partial class Finance_List : System.Web.UI.Page
+    public partial class Finance : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
