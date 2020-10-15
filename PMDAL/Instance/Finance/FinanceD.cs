@@ -147,7 +147,7 @@ namespace PMDAL.Instance
             result.SFCNID = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_CNID, alias)].ConvertToInt32();
             result.SFDATE = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_DATE, alias)].ConvertToDateTime();
             result.SFMONEY = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_MONEY, alias)].ConvertToDecimal();
-            result.SFACCOUNT = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_PRID, alias)].ToString();
+            result.SFACCOUNT = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_ACCOUNT, alias)].ToString();
             // result.SetOnOff(dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Menu.MN_ONOFF, alias)].ConvertToInt32());
 
             return result;

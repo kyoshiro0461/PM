@@ -149,6 +149,26 @@ namespace PM.Controllers
             return View();
         }
 
-
+        /// <summary>
+        /// Finance_List页面行为
+        /// </summary>
+        /// <return>视图</return>
+        public ActionResult Finance_List()
+        {
+            //获取项目信息
+            ProjectsFactory projectsfactory = new ProjectsFactory();
+            List<IProjectsB> lstprojects = projectsfactory.GetDataProjects();
+            List<ProjectsM> projectsm = new List<ProjectsM>();
+            if (lstprojects != null && lstprojects.Count > 0) lstprojects.ForEach(p => projectsm.Add(p.Infomation_projects));
+            ViewBag.Projects = projectsm;
+            
+            //获取收付款单ID数据信息
+            string sfid = ViewMethods.GetForm(Request, "ID", CommonEnums.ValueEnum.vlGet).ToString();
+            FinanceFactory financeFactory = new FinanceFactory();
+            IFinanceB lstFinance = financeFactory.GetDataByID(sfid);
+            FinanceM financem = (lstFinance != null ? lstFinance.Infomation_finance : null);
+            ViewBag.FinanceInfo = financem;
+            return View();
+        }
     }
 }

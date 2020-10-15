@@ -68,6 +68,7 @@
     <Compile Include="Projects\ProjectsM.cs" />
     <Compile Include="Clients\ClientsM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Quantity\QuantityM.cs" />
     <Compile Include="TableStructM.cs" />
   </ItemGroup>
   <ItemGroup>

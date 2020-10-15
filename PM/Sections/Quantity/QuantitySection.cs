@@ -7,9 +7,9 @@ using System.Web;
 namespace PM.Sections
 {
     /// <summary>
-    /// 供应商信息集合配置节点
+    /// 工程量信息集合配置节点
     /// </summary>
-    public class SuppliersSection : InstanceSection
+    public class QuantitySection : InstanceSection
     {
 
     }

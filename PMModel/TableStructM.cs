@@ -244,5 +244,65 @@ namespace PMModel
             public static string SF_ACCOUNT = "sf_account";
         }
         #endregion
+
+        #region 工程量信息表(Quantity)
+        /// <summary>
+        /// 工程量信息表
+        /// </summary>
+        public static class Info_Quantity
+        {
+            /// <summary>
+            /// 表名
+            /// </summary>
+            public static string TABLENAME = "Quantity";
+
+            ///<summary>
+            ///序号
+            /// </summary>
+            public static string QT_ID = "qt_id";
+
+            /// <summary>
+            /// 项目编号
+            /// </summary>
+            public static string QT_PRID = "qt_prid";
+
+            /// <summary>
+            /// 对应合同编号
+            /// </summary>
+            public static string QT_CNID = "qt_cnid";
+
+            /// <summary>
+            /// 对应往来客户编号
+            /// </summary>
+            public static string QT_CLID = "qt_clid";
+
+            /// <summary>
+            /// 施工内容
+            /// </summary>
+            public static string QT_CONTENT = "qt_content";
+
+            /// <summary>
+            /// 计量单位
+            /// </summary>
+            public static string QT_MEASUREMENT = "qt_measurement";
+
+            /// <summary>
+            /// 工程量
+            /// </summary>
+            public static string QT_QUANTITY = "qt_quantity";
+
+            /// <summary>
+            /// 单价
+            /// </summary>
+            public static string QT_PRICE = "qt_price";
+
+            /// <summary>
+            /// 金额
+            /// </summary>
+            public static string QT_MONEY = "qt_money";
+        }
+        #endregion
+
+
     }
 }

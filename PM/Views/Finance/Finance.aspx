@@ -48,7 +48,7 @@
                 <% foreach (FinanceM item in FinanceInfo)
                     { %>
                 <tr data-uid='<%=item.SFID%>'>
-                    <td><%=item.SFID %></td>
+                    <td><a href="../../Finance/Finance_List?ID=<%=item.SFID %>"><%=item.SFID %></a></td>
                     <td><% foreach (ProjectsM projectsm in ProjectsInfo) { %>
 	    				     <%=(item.SFPRID==projectsm.PRID ?  projectsm.PRName:"") %>
                                 <%} %></td>
@@ -57,7 +57,7 @@
                     <td>收款</td>
                     <% } %>
                     <% else %>
-                    <% { %>
+                    <% if(item.SFCOLLECTPAY == 2){ %>
                     <td>付款</td>
                     <%} %>
                     <td><%=item.SFMONEY %></td>
