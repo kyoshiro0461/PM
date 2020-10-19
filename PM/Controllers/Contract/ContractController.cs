@@ -99,7 +99,7 @@ namespace PM.Controllers
         }
 
         /// <summary>
-        /// 删除业主信息（Ower页面）
+        /// 删除业主信息（Contract页面）
         /// </summary>
         /// <returns></returns>
         public ActionResult Delete_Contract()
@@ -116,7 +116,7 @@ namespace PM.Controllers
         }
 
         /// <summary>
-        /// 编辑业主信息（Ower_Edit页面）
+        /// 编辑业主信息（Contract_Edit页面）
         /// </summary>
         public ActionResult Edit_Contract()
         {
@@ -141,13 +141,13 @@ namespace PM.Controllers
         }
 
         /// <summary>
-        /// Ower_Edit页面行为
+        /// Contract_Edit页面行为
         /// </summary>
         /// <returns>视图</returns>
         public ActionResult Contract_Edit()
         {
 
-            //获取业主用户（id）数据信息
+            //获取往来客户（id）数据信息
             string id = ViewMethods.GetForm(Request, "ID", CommonEnums.ValueEnum.vlGet).ToString();
             ContractFactory contractfactory = new ContractFactory();
             IContractB lstContract = contractfactory.GetDataByID(id);
@@ -156,6 +156,33 @@ namespace PM.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Contract_List页面行为
+        /// </summary>
+        /// <returns>视图</returns>
+        public ActionResult Contract_List()
+        {
+            //获取往来客户信息
+            ClientsFactory clientsfactory = new ClientsFactory();
+            List<IClientsB> lstclients = clientsfactory.GetDataClients();
+            List<ClientsM> clientsm = new List<ClientsM>();
+            if (lstclients != null && lstclients.Count > 0) lstclients.ForEach(p => clientsm.Add(p.Infomation_clients));
+            ViewBag.ClientsInfo = clientsm;
 
+            //获取项目信息
+            ProjectsFactory projectsfactory = new ProjectsFactory();
+            List<IProjectsB> lstprojects = projectsfactory.GetDataProjects();
+            List<ProjectsM> projectsm = new List<ProjectsM>();
+            if (lstprojects != null && lstprojects.Count > 0) lstprojects.ForEach(p => projectsm.Add(p.Infomation_projects));
+            ViewBag.ProjectsInfo = projectsm;
+
+            //获取合同信息
+            string id = ViewMethods.GetForm(Request, "ID", CommonEnums.ValueEnum.vlGet).ToString();
+            ContractFactory contractfactory = new ContractFactory();
+            IContractB lstContract = contractfactory.GetDataByID(id);
+            ContractM contractm = (lstContract != null ? lstContract.Infomation_contract : null);
+            ViewBag.ContractInfo = contractm;
+            return View();
+        }
     }
 }

@@ -57,7 +57,7 @@
                     { %>
                 <tr data-uid='<%=item.CTID%>'>
                     <td><%=item.CTID %></td>
-                    <td><%= item.CTName%></td>
+                    <td><a href="../../Contract/Contract_List?ID=<%=item.CTID %>"><%=item.CTName %></a> </td>
                     <%if (item.CTBelong.ConvertToInt32() == 0)
                         { %>
                     <td>业主合同</td>
