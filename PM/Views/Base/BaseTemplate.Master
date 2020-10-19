@@ -15,46 +15,67 @@
         <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
     </title>
     <link rel="stylesheet" href="../../CustomBase/Style/common.css" />
-    <link href="../../CustomBase/Script/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" href="../../CustomBase/Style/webuploader.min.css" />
     <script type="text/javascript" src="../../CustomBase/Script/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../../CustomBase/Script/layer/layer.js"></script>
+    <style>
+        .custom-combobox {
+            position: relative;
+            display: inline-block;
+        }
+
+        .custom-combobox-toggle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin-left: -1px;
+            padding: 0;
+            /* 支持： IE7 */
+            *height: 1.7em;
+            *top: 0.1em;
+        }
+
+        .custom-combobox-input {
+            margin: 0;
+            padding: 0.3em;
+        }
+    </style>
+
 </head>
 <body>
-     <div class="bar">
+    <div class="bar">
         <div class="cont">
             <a href="../../Main/" class="logo">华鼎管理系统</a>
             <div class="m_nav"><i class="iconfont icon-manage"></i></div>
             <div class="m_subnav ">
-                              
-              <div class="menu">
+
+                <div class="menu">
                     <%
                         List<MenuM> MenuInfo = (ViewBag.BaseController as List<MenuM>);
                         List<MenuM> MenuLevel1 = (MenuInfo != null ? MenuInfo.Where(p => p.Level == 1).OrderBy(p => p.Order).ToList() : null);//一级菜单
                         List<MenuM> MenuLevel2 = MenuInfo.Where(p => p.Level == 2).ToList();//二级菜单
-                       
+
                     %>
                     <% if (MenuLevel1 != null)
-                    { %>
+                        { %>
                     <% foreach (MenuM level1 in MenuLevel1)
-                    { %>
+                        { %>
                     <% string ahref = ""; %>
-                  
-                    
+
+
                     <div class="lastmenu">
                         <a href="javascript:;" class="last js_sub"><%= level1.Name %><span></span></a>
                         <% MenuLevel2 = MenuInfo.Where(p => p.Level == 2 && p.MNTID == level1.MNID).OrderBy(p => p.Order).ToList();//获取二级菜单 %>
                         <% if (MenuLevel2 != null && MenuLevel2.Count > 0)
-                        { %>
+                            { %>
                         <div class="othermenu">
                             <% foreach (MenuM level2 in MenuLevel2)
-                            { %>
-                            <a href="<%= level2.Link %>" target="_blank" ><%= level2.Name %></a>
+                                { %>
+                            <a href="<%= level2.Link %>" target="_blank"><%= level2.Name %></a>
                             <% } %>
                         </div>
                         <%} %>
                     </div>
-                    
+
                     <% } %>
                     <% } %>
                 </div>
@@ -63,7 +84,7 @@
     </div>
     <div class="container pd0">
         <div class="cont">
-   
+
             <div class="center js_tabbody">
                 <div class="tips js_tabtop">
                     <asp:ContentPlaceHolder ID="PathContent" runat="server">
@@ -79,155 +100,148 @@
         </div>
     </div>
     <script type="text/javascript" src="../../CustomBase/Script/common.js"></script>
-     <script type="text/javascript" src="../../CustomBase/Script/jquery.datetimepicker.full.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../CustomBase/Style/jquery.datetimepicker.css" />
+
+    <script type="text/javascript" src="../../Custombase/Script/jquery-ui-1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../CustomBase/Script/jquery-ui-1.12.1/jquery-ui.css" />
     <script type="text/javascript">
-        var t = null;
-        t = setTimeout(time, 1000); //开始执行
-        function time() {
-            clearTimeout(t); //清除定时器
-            var father = $('.father').val();
-            $.ajax({
-                type: "POST",
-                url: "../../AdminBase/GetTimers",
-                data: {father:father},
-                dataType: "json",
-                success: function (res) {
-                    var jsondata = JSON.parse(res);
-                    var data = jsondata.Data;
-                    thisData(data);
-                    if ($('.js_ShowNewsList').length > 0)
-                    {
-                        father = 0;
-                        $.ajax({
-                            type: "POST",
-                            url: "../../AdminBase/GetTimers",
-                            data: {father:father},
-                            dataType: "json",
-                            success: function (res) {
-                                var jsondata = JSON.parse(res);
-                                var data = jsondata.Data;
-                                thisDataIndex(data);
-                            }
+
+
+        (function ($) {
+            $.widget("custom.combobox", {
+                _create: function () {
+                    this.wrapper = $("<span>")
+                        .addClass("custom-combobox")
+                        .insertAfter(this.element);
+
+                    this.element.hide();
+                    this._createAutocomplete();
+                    this._createShowAllButton();
+                },
+
+                _createAutocomplete: function () {
+                    var selected = this.element.children(":selected"),
+                        value = selected.val() ? selected.text() : "";
+
+                    this.input = $("<input>")
+                        .appendTo(this.wrapper)
+                        .val(value)
+                        .attr("title", "")
+                        .addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left")
+                        .autocomplete({
+                            delay: 0,
+                            minLength: 0,
+                            source: $.proxy(this, "_source")
+                        })
+                        .tooltip({
+                            tooltipClass: "ui-state-highlight"
                         });
+
+                    this._on(this.input, {
+                        autocompleteselect: function (event, ui) {
+                            ui.item.option.selected = true;
+                            this._trigger("select", event, {
+                                item: ui.item.option
+                            });
+                        },
+
+                        autocompletechange: "_removeIfInvalid"
+                    });
+                },
+
+                _createShowAllButton: function () {
+                    var input = this.input,
+                        wasOpen = false;
+
+                    $("<a>")
+                        .attr("tabIndex", -1)
+                        .attr("title", "Show All Items")
+                        .tooltip()
+                        .appendTo(this.wrapper)
+                        .button({
+                            icons: {
+                                primary: "ui-icon-triangle-1-s"
+                            },
+                            text: false
+                        })
+                        .removeClass("ui-corner-all")
+                        .addClass("custom-combobox-toggle ui-corner-right")
+                        .mousedown(function () {
+                            wasOpen = input.autocomplete("widget").is(":visible");
+                        })
+                        .click(function () {
+                            input.focus();
+
+                            // 如果已经可见则关闭
+                            if (wasOpen) {
+                                return;
+                            }
+
+                            // 传递空字符串作为搜索的值，显示所有的结果
+                            input.autocomplete("search", "");
+                        });
+                },
+
+                _source: function (request, response) {
+                    var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                    response(this.element.children("option").map(function () {
+                        var text = $(this).text();
+                        if (this.value && (!request.term || matcher.test(text)))
+                            return {
+                                label: text,
+                                value: text,
+                                option: this
+                            };
+                    }));
+                },
+
+                _removeIfInvalid: function (event, ui) {
+
+                    // 选择一项，不执行其他动作
+                    if (ui.item) {
+                        return;
                     }
-                    //展示数据
+
+                    // 搜索一个匹配（不区分大小写）
+                    var value = this.input.val(),
+                        valueLowerCase = value.toLowerCase(),
+                        valid = false;
+                    this.element.children("option").each(function () {
+                        if ($(this).text().toLowerCase() === valueLowerCase) {
+                            this.selected = valid = true;
+                            return false;
+                        }
+                    });
+
+                    // 找到一个匹配，不执行其他动作
+                    if (valid) {
+                        return;
+                    }
+
+                    // 移除无效的值
+                    this.input
+                        .val("")
+                        .attr("title", value + " didn't match any item")
+                        .tooltip("open");
+                    this.element.val("");
+                    this._delay(function () {
+                        this.input.tooltip("close").attr("title", "");
+                    }, 2500);
+                    this.input.data("ui-autocomplete").term = "";
+                },
+
+                _destroy: function () {
+                    this.wrapper.remove();
+                    this.element.show();
                 }
             });
-        
-            t = setTimeout(time, 60000);
-        }
-            var thisData = function (data) {
-                var str = '', content = '';
-               
-                var msgn = $('.icon  span').text();
-                var count = $('.count').val();
-                if (data.length != count) {
-                    if (data.length != 0) {
-                        $('.icon  span').text(data.length);
-                        //content+='<ul class="m_list_mk sorting js_orderby" data-orderby="OD_ID"';
-                        for (var i = 0; i < 5; i++) {
+        })(jQuery);
 
-                            var bill = data[i];
-                                // var biller = data[i].Take(5).ToList();
-                                var btn = '', href = '';
-                                //var date = jsonDateFormat(bill.LoginTime, "yyyy-MM-dd hh:mm:ss");
-                                // var onoff = bill.OnOff;
-                                edit = '../../Admin/Prompt_Edit?ID=' + bill.ID;
-                                prompt = '../../Admin/Prompt';
-                                var date = jsonDateFormat(bill.Addtime, "yyyy-MM-dd hh:mm:ss");
-                                btn += '<a href=' + edit + '>';
-                                btn += '<div class="stips unread">未读</div>' + bill.Content;
-                                btn += '<span>' + date + '</span>';
-                                btn += '</a>';
-                                content += '' + btn;
-                            }
-                        
-
-                        if (bill.length != 0) {
-                            content += '<a href=' + prompt + ' class="last">查看更多>></a>';
-                        } else {
-                            暂无消息
-                        }
-                        str += content;
-
-                        $('.msglist').html(str);
-                    }
-                }
-            }
-       
-        var thisDataIndex= function (data) {
-                 var str = '', content = '';
-                 // var msgn = $('.timers a ').text();
-                     var count_index = $('.count_index').val();
-                     if (data.length != count_index) {
-                         //if (data.length != 0) {
-                             //   $('.timers a ').text(data.length);
-                             //content+='<ul class="m_list_mk sorting js_orderby" data-orderby="OD_ID"';
-                             for (var i = 0; i < 5; i++) {
-
-                                 var bill = data[i];
-                                 // var biller = data[i].Take(5).ToList();
-                                 var btn = '', href = '';
-                                 //var date = jsonDateFormat(bill.LoginTime, "yyyy-MM-dd hh:mm:ss");
-                                 // var onoff = bill.OnOff;
-                                 edit = '../../Admin/Prompt_Edit?ID=' + bill.ID;
-                                 prompt = '../../Admin/Prompt';
-                                 var date = jsonDateFormat(bill.Addtime, "yyyy-MM-dd hh:mm:ss");
-                                 btn += '<a href=' + edit + '>';
-                                
-
-                                 btn += '<span>' + date + '</span>';
-                                 btn += '</a>'
-                                 content += '' + btn;
-                             }
-
-
-                             str += content;
-                        
-                     $('.js_ShowNewsList').html(str);
-                     }
-                 }
-             
-        
-        
-
-
-        //JSon日期格式转换
-        function jsonDateFormat(jsonDt, format) {
-
-            var date, timestamp, dtObj;
-
-            timestamp = jsonDt.replace(/\/Date\((\d+)\)\//, "$1");
-
-            date = new Date(Number(timestamp));
-
-            dtObj = {
-                "M+": date.getMonth() + 1,   //月
-                "d+": date.getDate(),        //日
-                "h+": date.getHours(),       //时
-                "m+": date.getMinutes(),     //分
-                "s+": date.getSeconds(),     //秒
-            };
-
-            //因为年份是4位数，所以单独拿出来处理
-            if (/(y+)/.test(format)) {
-                format = format.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-            }
-
-            //遍历dtObj
-            for (var k in dtObj) {
-
-                //dtObj的属性名作为正则进行匹配
-                if (new RegExp("(" + k + ")").test(format)) {
-
-                    //月，日，时，分，秒 小于10时前面补 0
-                    format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? dtObj[k] : ("00" + dtObj[k]).substr(("" + dtObj[k]).length));
-                }
-            }
-
-            return format;
-        }
+        $(function () {
+            $("#combobox").combobox();
+            $("#toggle").click(function () {
+                $("#combobox").toggle();
+            });
+        });
     </script>
 </body>
 </html>

@@ -72,12 +72,12 @@ namespace PMDAL.Instance
         /// <param name="top">指定笔数</param>
         /// <param name="condition">其他条件（需带入and）</param>
         /// <returns>数据</returns>
-        public static List<ClientsM> ReadDataBase(string alias, IConnectionD connection, int top = 0, string condition = "")
+        public static List<ClientsM> ReadDataBase(string condition = "", IConnectionD connection = null, int top = 0)
         {
             List<ClientsM> result = null;
             string strTop = "";
             if (top != 0) strTop = string.Format("top {0}", top);
-            string fields = GetField(alias);
+            string fields = GetField();
             string from = GetFrom();
             string where = string.Format("where 1=1");
             if (!string.IsNullOrEmpty(condition)) where = string.Format("{0} {1}", where, condition);
@@ -97,14 +97,15 @@ namespace PMDAL.Instance
         /// <param name="condition">其他条件（需带入and）</param>
         /// <param name="connection">链接类</param>
         /// <returns>数据</returns>
-        public static List<ClientsM> ReadDataBase(string condition = "", IConnectionD connection = null)
+        //public static List<ClientsM> ReadDataBase(string condition = "", IConnectionD connection = null)
+        public static List<ClientsM> ReadDataBase(IConnectionD connection = null)
         {
             List<ClientsM> result = null;
 
             string fields = GetField();
             string from = GetFrom();
             string where = string.Format("where 1=1");
-            if (!string.IsNullOrEmpty(condition)) where = string.Format("{0} {1}", where, condition);
+            //if (!string.IsNullOrEmpty(condition)) where = string.Format("{0} {1}", where, condition);
             string sql = string.Format("select {0} from {1} {2} ", fields, from, where);
             connection.DataBaseFactory.GetDataReader(sql);
 
@@ -178,11 +179,11 @@ namespace PMDAL.Instance
         /// </summary>
         /// <param name="connection">链接类</param>
         /// <returns>数据</returns>
-        public static List<ClientsM> GetDataOwer(IConnectionD connection)
+        public static List<ClientsM> GetDataClients(IConnectionD connection)
         {
-            const string ALIAS_Clients = "a";
-
-            return ReadDataBase(ALIAS_Clients, connection);
+            //const string ALIAS_Clients = "a";
+            return ReadDataBase(connection);
+            //return ReadDataBase(ALIAS_Clients, connection);
         }
         /// <summary>
         /// 获取分页数据
@@ -305,7 +306,7 @@ namespace PMDAL.Instance
         /// <returns>数据</returns>
         public static ClientsM GetDataByID(string clid, IConnectionD connection)
         {
-            string where = string.Format(" and {0}={1}", TableStructM.Info_Clients.CL_ID , clid);
+            string where = string.Format("and {0}={1}", TableStructM.Info_Clients.CL_ID , clid);
             IList<ClientsM> lst = ReadDataBase(where, connection);
             return (lst != null && lst.Count > 0 ? lst.FirstOrDefault() : null);
         }

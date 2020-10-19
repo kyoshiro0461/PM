@@ -106,6 +106,7 @@
         </div>
     </div>
     <script type="text/javascript" src="../../CustomBase/Script/laypage.js"></script>
+
     <script type="text/javascript">
         //分页
         $('.page_current').on('click', function () {

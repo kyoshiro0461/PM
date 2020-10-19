@@ -59,6 +59,13 @@ namespace PM.Controllers
         /// <returns>视图</returns>
         public ActionResult Projects_Add()
         {
+            //获取往来客户信息
+            ClientsFactory clientsFactory = new ClientsFactory();
+            List<IClientsB> lstClients = clientsFactory.GetDataClients();
+            List<ClientsM> ClientsInfo = new List<ClientsM>();
+            lstClients.ForEach(p => ClientsInfo.Add(p.Infomation_clients));
+            TempData["ClientsInfo"] = ClientsInfo;
+
             return View();
         }
 
@@ -140,6 +147,25 @@ namespace PM.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 根据隶属编号获取隶属分类
+        /// </summary>
+        /// <returns>隶属JSon对象</returns>
+        public ActionResult GetBelong()
+        {
+            int belong = ViewMethods.GetForm(Request, "belong", CommonEnums.ValueEnum.vlPost).ConvertToInt32();
+            List<ClientsM> ClientsInfo = (TempData["ClientsInfo"] as List<ClientsM>);
+            List<ClientsM> lstClientsM = null;
+            lstClientsM = new List<ClientsM>();
+            if (ClientsInfo != null && belong != -1) lstClientsM = ClientsInfo.Where(p => p.CLBELONG == belong).ToList();
 
+            JsonResult result = new JsonResult();
+            result.Data = PublicMethods.JSonHelper<string>.ObjectToJson(lstClientsM);
+            result.ContentType = "json";
+
+            TempData["ClientsInfo"] = ClientsInfo;
+
+            return result;
+        }
     }
 }
