@@ -167,5 +167,48 @@ namespace PM.Controllers
 
             return result;
         }
+
+        /// <summary>
+        /// Projects_List页面
+        /// </summary>
+        /// <returns>页面</returns>
+        public ActionResult Projects_List()
+        {
+            //获取项目编号（id）数据信息
+            string id = ViewMethods.GetForm(Request, "ID", CommonEnums.ValueEnum.vlGet).ToString();
+
+            //根据项目编号（id）获取项目信息
+            ProjectsFactory projectsfactory = new ProjectsFactory();
+            IProjectsB lstProjects = projectsfactory.GetDataByID(id);
+            ProjectsM projectsm = (lstProjects != null ? lstProjects.Infomation_projects : null);
+            ViewBag.ProjectsInfo = projectsm;
+
+            //获取往来客户信息
+            ClientsFactory clientsFactory = new ClientsFactory();
+            List<IClientsB> lstClients = clientsFactory.GetDataClients();
+            List<ClientsM> clientsm = new List<ClientsM>();
+            if (lstClients != null && lstClients.Count > 0) lstClients.ForEach(p => clientsm.Add(p.Infomation_clients));
+            ViewBag.ClientsInfo = clientsm;
+
+            //获取收付款信息
+            FinanceFactory financeFactory = new FinanceFactory();
+            List<IFinanceB> lstFinance = financeFactory.GetDataFinance();
+            List<FinanceM> financem = new List<FinanceM>();
+            if (lstFinance != null && lstFinance.Count > 0) lstFinance.ForEach(p => financem.Add(p.Infomation_finance));
+            ViewBag.FinanceInfo = financem;
+
+            //获取工程量信息
+            QuantityFactory quantityFactory = new QuantityFactory();
+            List<IQuantityB> lstQuantity = quantityFactory.GetDataQuantity();
+            List<QuantityM> quantity = new List<QuantityM>();
+            if (lstQuantity != null && lstQuantity.Count > 0) lstQuantity.ForEach(p => quantity.Add(p.Infomation_Quantity));
+            ViewBag.QuantityInfo = quantity;
+
+            return View();
+        }
+
+        
+
+        
     }
 }

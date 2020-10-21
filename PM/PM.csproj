@@ -26,6 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -264,6 +265,13 @@
     <Compile Include="Views\Contract\Contract_List.aspx.designer.cs">
       <DependentUpon>Contract_List.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Projects\Projects_List.aspx.cs">
+      <DependentUpon>Projects_List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Projects\Projects_List.aspx.designer.cs">
+      <DependentUpon>Projects_List.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Quantity\Quantity.aspx.cs">
       <DependentUpon>Quantity.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -422,6 +430,7 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Clients\Clients_List.aspx" />
     <Content Include="Views\Contract\Contract_List.aspx" />
+    <Content Include="Views\Projects\Projects_List.aspx" />
     <Content Include="Views\Quantity\Quantity.aspx" />
     <Content Include="Views\Quantity\Quantity_Add.aspx" />
     <Content Include="Views\Quantity\Quantity_Edit.aspx" />

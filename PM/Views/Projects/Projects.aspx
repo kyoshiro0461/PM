@@ -47,7 +47,7 @@
                     { %>
                 <tr data-uid='<%=item.PRID%>'>
                     <td><%=item.PRID %></td>
-                    <td><%= item.PRName%></td>
+                    <td><a href="../../Projects/Projects_List"> <%= item.PRName%></a></td>
                     <%if (item.PRBelong.ConvertToInt32() == 0)
                         { %>
                     <td>集团内项目</td>
