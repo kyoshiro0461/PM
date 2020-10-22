@@ -72,7 +72,7 @@ namespace PMDAL.Instance
         /// <param name="top">指定笔数</param>
         /// <param name="condition">其他条件（需带入and）</param>
         /// <returns>数据</returns>
-        public static List<ProjectsM> ReadDataBase(string alias, IConnectionD connection, int top = 0, string condition = "")
+        public static List<ProjectsM> ReadDataBase(string condition , IConnectionD connection, int top = 0, string alias = "")
         {
             List<ProjectsM> result = null;
 
@@ -286,7 +286,7 @@ namespace PMDAL.Instance
         public static ProjectsM GetDataByID(string id, IConnectionD connection)
         {
             string where = string.Format(" and {0}={1}", TableStructM.Info_Projects.PR_ID, id);
-            IList<ProjectsM> lst = ReadDataBase(where, connection);
+            IList<ProjectsM> lst = ReadDataBase(where,connection);
             return (lst != null && lst.Count > 0 ? lst.FirstOrDefault() : null);
         }
 

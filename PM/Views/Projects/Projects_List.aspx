@@ -5,11 +5,17 @@
 <%@ Import Namespace="System.IO" %>
 <%@ Import Namespace="PublicMethods" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    客户信息
+    项目信息
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
+    <% 
+        List<ProjectsM> ProjectsInfo = (ViewBag.ProjectsInfo as List<ProjectsM>);
+        List<ClientsM> ClientsInfo = (ViewBag.ClientsInfo as List<ClientsM>);
+        List<ContractM> ContractInfo = (ViewBag.ContractInfo as List<ContractM>);
+        List<FinanceM> FinanceInfo = (ViewBag.FinanceInfo as List<FinanceM>);
+        ProjectsM projectsInfo = (ViewBag.ProjectsInfo as ProjectsM);
+    %>
 
     <div class="center js_tabbody">
 
@@ -19,40 +25,75 @@
                 <h1>项目概览</h1>
                 <div class="formbox w30">
                     <label>项目编号</label>
-                    <span></span>
+                    <span><%=projectsInfo.PRID%></span>
                 </div>
 
                 <div class="formbox w30">
                     <label>项目名称</label>
-                    <span></span>
+                    <span><%=projectsInfo.PRName%> </span>
                 </div>
                 <div class="formbox w30">
                     <label>项目性质</label>
-                    <span></span>
+                    <% if (projectsInfo.PRBelong.ConvertToInt32() == 0)
+                        {
+                    %>
+
+                    <span>集团内项目</span>
+                    <% } %>
+                    <% if (projectsInfo.PRBelong.ConvertToInt32() == 1)
+                        {
+                    %>
+
+                    <span>集团外项目</span>
+                    <% } %>
+                    <% if (projectsInfo.PRBelong.ConvertToInt32() == 2)
+                        {
+                    %>
+
+                    <span>借用资质项目</span>
+                    <% } %>
+                    <% if (projectsInfo.PRBelong.ConvertToInt32() == 3)
+                        {
+                    %>
+
+                    <span>挂靠项目</span>
+                    <% } %>
                 </div>
                 <div class="formbox w30">
                     <label>项目业主</label>
-                    <span></span>
+                    <span>
+                        <% foreach (ClientsM clients in ClientsInfo)
+                            { %>
+                        <%=(clients.CLID==projectsInfo.PRID ?  clients.CLNAME:"") %>
+                        <%} %>
+
+                    </span>
                 </div>
+                <% foreach (ContractM contract in ContractInfo)
+                    { %>
+                <%if (contract.CTPrid == projectsInfo.PRID)
+                    { %>
                 <div class="formbox w30">
                     <label>合同名称</label>
-                    <span></span>
+                    <span><% =(contract.CTPrid == projectsInfo.PRID ? contract.CTName : "")%></span>
                 </div>
                 <div class="formbox w30">
                     <label>合同编号</label>
-                    <span></span>
+                    <span><%=(contract.CTPrid == projectsInfo.PRID ? contract.CTNo : "")%></span>
                 </div>
                 <div class="formbox w30">
                     <label>合同金额</label>
-                    <span></span>
+                    <span><%=(contract.CTPrid == projectsInfo.PRID ? contract.CTMoney.ToString() : "") %></span>
                 </div>
+                <%} %>
+                <%  } %>
                 <div class="formbox w30">
                     <label>预算成本</label>
                     <span></span>
                 </div>
                 <div class="formbox w30">
                     <label>已收款额</label>
-                    <span></span>
+                    <span id="sk"></span>
                 </div>
                 <div class="formbox w30">
                     <label>已付款额</label>
@@ -69,17 +110,25 @@
                             <th>付款金额</th>
                             <th>付款时间</th>
                         </tr>
-
+                        <%if (FinanceInfo != null && FinanceInfo.Count > 0) {%>
+                        <%foreach (FinanceM finance in FinanceInfo)
+                            { %>
+                        <% if (finance.SFPRID == projectsInfo.PRID)
+                            { %>
                         <tr class="trmoney">
-                            <td>1</td>
-                            <td>131</td>
-                            <td class="tdmoney">2000</td>
-                            <td>2222-22-22</td>
-                        </tr>
-
-                        <tr id="sum">
                             
+                            <td><%=finance.SFID%> </td>
+                            <td></td>
+                            <td class="tdmoney"><%=finance.SFMONEY %></td>
+                            <td><%=finance.SFDATE %></td>
                         </tr>
+                         <% } %>
+                        <% } %>
+                        <tr id="sum">
+                        </tr>
+                       
+                       
+                        <% } %>
                     </table>
                 </div>
                 <div class="clear"></div>
@@ -109,17 +158,18 @@
         });
 
         //table求和
-        $(document).ready(function() {
-	
-	var totalRow = 0
-	$('#mytable tr').each(function() {
-		$(this).find('td:eq(2)').each(function(){
-				totalRow += parseFloat($(this).text()); 
-		});
-	});
-	
-	$('#sum').append('<td>合计</td><td></td><td>'+totalRow+'</td><td></td>');
-});
+        $(document).ready(function () {
+
+            var totalRow = 0
+            $('#mytable tr').each(function () {
+                $(this).find('td:eq(2)').each(function () {
+                    totalRow += parseFloat($(this).text());
+                });
+            });
+
+            $('#sum').append('<td>合计</td><td></td><td>' + totalRow + '</td><td></td>');
+            $('#sk').text(totalRow);
+        });
 
 
     </script>

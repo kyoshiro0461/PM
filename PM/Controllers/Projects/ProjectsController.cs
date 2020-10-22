@@ -175,7 +175,7 @@ namespace PM.Controllers
         public ActionResult Projects_List()
         {
             //获取项目编号（id）数据信息
-            string id = ViewMethods.GetForm(Request, "ID", CommonEnums.ValueEnum.vlGet).ToString();
+            string id = ViewMethods.GetForm(Request, "PRID", CommonEnums.ValueEnum.vlGet).ToString();
 
             //根据项目编号（id）获取项目信息
             ProjectsFactory projectsfactory = new ProjectsFactory();
@@ -203,6 +203,13 @@ namespace PM.Controllers
             List<QuantityM> quantity = new List<QuantityM>();
             if (lstQuantity != null && lstQuantity.Count > 0) lstQuantity.ForEach(p => quantity.Add(p.Infomation_Quantity));
             ViewBag.QuantityInfo = quantity;
+
+            //获取合同信息
+            ContractFactory contractFactory = new ContractFactory();
+            List<IContractB> lstContract = contractFactory.GetDataContract();
+            List<ContractM> contracts = new List<ContractM>();
+            if (lstContract != null && lstContract.Count > 0) lstContract.ForEach(p => contracts.Add(p.Infomation_contract));
+            ViewBag.ContractInfo = contracts;
 
             return View();
         }

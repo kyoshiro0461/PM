@@ -98,14 +98,14 @@ namespace PMDAL.Instance
         /// <param name="condition">其他条件（需带入and）</param>
         /// <param name="connection">链接类</param>
         /// <returns>数据</returns>
-        public static List<FinanceM> ReadDataBase(string condition = "", IConnectionD connection = null)
+        public static List<FinanceM> ReadDataBase(IConnectionD connection = null)
         {
             List<FinanceM> result = null;
 
             string fields = GetField();
             string from = GetFrom();
             string where = string.Format("where 1=1");
-            if (!string.IsNullOrEmpty(condition)) where = string.Format("{0} {1}", where, condition);
+            //if (!string.IsNullOrEmpty(condition)) where = string.Format("{0} {1}", where, condition);
             string sql = string.Format("select {0} from {1} {2} ", fields, from, where);
             connection.DataBaseFactory.GetDataReader(sql);
 
@@ -180,9 +180,10 @@ namespace PMDAL.Instance
         /// <returns>数据</returns>
         public static List<FinanceM> GetDataFinance(IConnectionD connection)
         {
-            const string ALIAS_Finance = "a";
+            //const string ALIAS_Finance = "a";
 
-            return ReadDataBase(ALIAS_Finance, connection);
+            //return ReadDataBase(ALIAS_Finance, connection);
+            return ReadDataBase(connection);
         }
         /// <summary>
         /// 获取分页数据
