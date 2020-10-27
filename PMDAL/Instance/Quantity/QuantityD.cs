@@ -98,14 +98,13 @@ namespace PMDAL.Instance
         /// <param name="condition">其他条件（需带入and）</param>
         /// <param name="connection">链接类</param>
         /// <returns>数据</returns>
-        public static List<QuantityM> ReadDataBase(string condition = "", IConnectionD connection = null)
+        public static List<QuantityM> ReadDataBase(IConnectionD connection = null)
         {
             List<QuantityM> result = null;
 
             string fields = GetField();
             string from = GetFrom();
             string where = string.Format("where 1=1");
-            if (!string.IsNullOrEmpty(condition)) where = string.Format("{0} {1}", where, condition);
             string sql = string.Format("select {0} from {1} {2} ", fields, from, where);
             connection.DataBaseFactory.GetDataReader(sql);
 
@@ -180,11 +179,9 @@ namespace PMDAL.Instance
         /// </summary>
         /// <param name="connection">链接类</param>
         /// <returns>数据</returns>
-        public static List<QuantityM> GetDataFinance(IConnectionD connection)
+        public static List<QuantityM> GetDataQuantity(IConnectionD connection)
         {
-            const string ALIAS_Quantity = "a";
-
-            return ReadDataBase(ALIAS_Quantity, connection);
+              return ReadDataBase(connection);
         }
         /// <summary>
         /// 获取分页数据
@@ -200,7 +197,6 @@ namespace PMDAL.Instance
         public static List<QuantityM> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, IConnectionD connection)
         {
             string where = "", orderby = "";
-            string alias = "a";
            
             if (!string.IsNullOrEmpty(order)) orderby = string.Format("{0} {1}", order, (orderway == OrderType.otAsc ? "asc" : "desc"));
                       

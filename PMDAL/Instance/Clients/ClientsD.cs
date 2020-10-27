@@ -199,7 +199,6 @@ namespace PMDAL.Instance
         public static List<ClientsM> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, string belong, IConnectionD connection)
         {
             string where = "", orderby = "";
-            string alias = "a";
             if (!string.IsNullOrEmpty(key)) where = string.Format("{0} and({1} like '%{2}%')", where, TableStructM.Info_Clients.CL_NAME, key.ReplaceStr());
             if (!string.IsNullOrEmpty(order)) orderby = string.Format("{0} {1}", order, (orderway == OrderType.otAsc ? "asc" : "desc"));
             if (!string.IsNullOrEmpty(belong)) where = string.Format("{0} and {1} ={2}", where, TableStructM.Info_Clients.CL_BELONG, belong.ReplaceStr());
