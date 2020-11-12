@@ -42,6 +42,10 @@
                     <label>合同金额</label>
                     <input type="text" name="money" id="money" />
                 </div>
+                <div class ="formbox w50">
+                    <label>签订时间</label>
+                    <input type="text"  id="time_contract" name="time_contract" value="" >
+                </div>
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>
@@ -54,55 +58,15 @@
         </form>
         <div class="clear"></div>
     </div>
-   
+    <link rel="stylesheet" type="text/css" href="../../CustomBase/Style/jquery.datetimepicker.css"/>
+    <script type="text/javascript" src="../../CustomBase/Script/jquery.datetimepicker.full.min.js" ></script>
     <script type="text/javascript">
-       ////提交
-       // $('.js_submit').on('click', function () {
-       //     var name = $('.js_top').parents().find('#name').val();
-       //     $.ajax({
-       //         type: "POST",
-       //         url: "../../Ower/Add_Ower",
-       //         data: { name: name },
-       //         dataType: "json",
-       //         success: function (data) {
-       //             var result = JSON.parse(data);
-       //             if (result.status == "1") {
-       //                 alert(result.msg);
-       //                 javascript: history.go(-1);
-       //                 location.reload();
-       //             } else if (result.status == "0") {
-       //                 layer.msg(result.msg);
-       //             }
-       //         }
-       //     });
-       // });
-
-        //取消
-        $('#closelayer').click(function () {
-        })
-        ////实例化编辑器
-        //var um = UM.getEditor('myEditor');
-        //um.addListener('blur', function () {
-        //    $('#focush2').html('编辑器失去焦点了')
-        //});
-        //um.addListener('focus', function () {
-        //    $('#focush2').html('')
-        //});
-        ////按钮的操作
-        //function insertHtml() {
-        //    var value = prompt('插入html代码', '');
-        //    um.execCommand('insertHtml', value)
-        //}
-        //function isFocus() {
-        //    alert(um.isFocus())
-        //}
-        //function doBlur() {
-        //    um.blur()
-        //}
-        //function createEditor() {
-        //    enableBtn();
-        //    um = UM.getEditor('myEditor');
-        //};
+        $.datetimepicker.setLocale('ch');
+        $("#time_contract").datetimepicker({
+            format: "Y-m-d",
+            timepicker: false,
+            todayButton:true,
+        });
     </script>
 </asp:Content>
 

@@ -84,6 +84,7 @@ namespace PM.Controllers
             string ctbelong = ViewMethods.GetForm(Request, "belong", CommonEnums.ValueEnum.vlPost).ToString();
             string ctno = ViewMethods.GetForm(Request, "ctno", CommonEnums.ValueEnum.vlPost).ToString();
             decimal ctmoney = ViewMethods.GetForm(Request, "money", CommonEnums.ValueEnum.vlPost).ConvertToDecimal();
+            string contractdate = ViewMethods.GetForm(Request, "time_contract", CommonEnums.ValueEnum.vlPost).ToString();
 
             bool isExist = contractfactory.IsExist_contractname(contractname);
             if (isExist) return ViewMethods.AlertBack("合同已存在,请重新确认", "-1");
@@ -91,7 +92,7 @@ namespace PM.Controllers
             contractm.CTBelong = ctbelong;
             contractm.CTNo = ctno;
             contractm.CTMoney = ctmoney;
-            contractm.CTDate = DateTime.Now;
+            contractm.CTDate = contractdate.ConvertToDateTime();
             contractm.CTPrid = prid.ConvertToInt32();
             contractfactory.Infomation_contract = contractm;
             contractfactory.Save();

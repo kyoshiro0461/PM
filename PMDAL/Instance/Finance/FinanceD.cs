@@ -48,8 +48,8 @@ namespace PMDAL.Instance
         /// <returns>字段</returns>
         public static string GetField(string alias = "")
         {
-            string result = string.Format("[#alias]{0}[#as]{0}, [#alias]{1}[#as]{1}, [#alias]{2}[#as]{2}, [#alias]{3}[#as]{3}, [#alias]{4}[#as]{4}, [#alias]{5}[#as]{5}, [#alias]{6}[#as]{6}",
-                TableStructM.Info_Finance.SF_ID, TableStructM.Info_Finance.SF_COLLECTPAY, TableStructM.Info_Finance.SF_PRID, TableStructM.Info_Finance.SF_CNID,  TableStructM.Info_Finance.SF_DATE,  TableStructM.Info_Finance.SF_MONEY, TableStructM.Info_Finance.SF_ACCOUNT);
+            string result = string.Format("[#alias]{0}[#as]{0}, [#alias]{1}[#as]{1}, [#alias]{2}[#as]{2}, [#alias]{3}[#as]{3}, [#alias]{4}[#as]{4}, [#alias]{5}[#as]{5}, [#alias]{6}[#as]{6}, [#alias]{7}[#as]{7}",
+                TableStructM.Info_Finance.SF_ID, TableStructM.Info_Finance.SF_COLLECTPAY, TableStructM.Info_Finance.SF_PRID, TableStructM.Info_Finance.SF_CNID,  TableStructM.Info_Finance.SF_DATE,  TableStructM.Info_Finance.SF_MONEY, TableStructM.Info_Finance.SF_ACCOUNT, TableStructM.Info_Finance.SF_CLID);
             result = result.Replace("[#alias]", (string.IsNullOrEmpty(alias) ? "" : string.Format("{0}.", alias)));
             result = result.Replace("[#as]", string.Format(" as {0}", CommonMethods.CombineFieldPrefix(alias)));
             return result;
@@ -145,6 +145,7 @@ namespace PMDAL.Instance
             result.SFCOLLECTPAY = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_COLLECTPAY, alias)].ConvertToInt32();
             result.SFPRID = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_PRID, alias)].ConvertToInt32();
             result.SFCNID = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_CNID, alias)].ConvertToInt32();
+            result.SFCLID = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_CLID, alias)].ConvertToInt32();
             result.SFDATE = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_DATE, alias)].ConvertToDateTime();
             result.SFMONEY = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_MONEY, alias)].ConvertToDecimal();
             result.SFACCOUNT = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_ACCOUNT, alias)].ToString();
@@ -166,6 +167,7 @@ namespace PMDAL.Instance
             result.SFCOLLECTPAY = row[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_COLLECTPAY, alias)].ConvertToInt32();
             result.SFPRID = row[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_PRID, alias)].ConvertToInt32();
             result.SFCNID = row[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_CNID, alias)].ConvertToInt32();
+            result.SFCLID = row[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_CLID, alias)].ConvertToInt32();
             result.SFDATE = row[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_DATE, alias)].ConvertToDateTime();
             result.SFMONEY = row[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_PRID, alias)].ConvertToDecimal();
             result.SFACCOUNT = row[CommonMethods.CombineFieldAlias(TableStructM.Info_Finance.SF_PRID, alias)].ToString();
@@ -259,13 +261,14 @@ namespace PMDAL.Instance
         /// <returns>T=存档成功；F=存档失败</returns>
         public bool Save()
         {
-            string fields = string.Format("{0},{1},{2},{3},{4},{5}", TableStructM.Info_Finance.SF_COLLECTPAY, TableStructM.Info_Finance.SF_PRID, TableStructM.Info_Finance.SF_CNID, TableStructM.Info_Finance.SF_DATE, TableStructM.Info_Finance.SF_MONEY, TableStructM.Info_Finance.SF_ACCOUNT);
-            string values = string.Format("{0},{1},{2},{3},{4},{5}", "@sf_collectpay","@sf_prid", "@sf_cnid", "@sf_date", "@sf_money", "@sf_account");
+            string fields = string.Format("{0},{1},{2},{3},{4},{5},{6}", TableStructM.Info_Finance.SF_COLLECTPAY, TableStructM.Info_Finance.SF_PRID, TableStructM.Info_Finance.SF_CNID, TableStructM.Info_Finance.SF_DATE, TableStructM.Info_Finance.SF_MONEY, TableStructM.Info_Finance.SF_ACCOUNT, TableStructM.Info_Finance.SF_CLID);
+            string values = string.Format("{0},{1},{2},{3},{4},{5}", "@sf_collectpay","@sf_prid", "@sf_cnid", "@sf_date", "@sf_money", "@sf_account", "@sf_clid");
            
             List<IDataParameter> lstParam = new List<IDataParameter>();
             _dbfactory.AddParameter(lstParam, "@sf_collectpay", this._financem.SFCOLLECTPAY);
             _dbfactory.AddParameter(lstParam, "@sf_prid", this._financem.SFPRID);
             _dbfactory.AddParameter(lstParam, "@sf_cnid", this._financem.SFCNID);
+            _dbfactory.AddParameter(lstParam, "@sf_clid", this._financem.SFCLID);
             _dbfactory.AddParameter(lstParam, "@sf_date", this._financem.SFDATE);
             _dbfactory.AddParameter(lstParam, "@sf_money", this._financem.SFMONEY);
             _dbfactory.AddParameter(lstParam, "@sf_account", this._financem.SFACCOUNT);
@@ -316,6 +319,8 @@ namespace PMDAL.Instance
             this._dbfactory.AddParameter(lstParam, "@sf_prid", this._financem.SFPRID);
             updates = updates.Replace("#sf_cnid", TableStructM.Info_Finance.SF_CNID);
             this._dbfactory.AddParameter(lstParam, "@sf_cnid", this._financem.SFCNID);
+            updates = updates.Replace("#sf_clid", TableStructM.Info_Finance.SF_CLID);
+            this._dbfactory.AddParameter(lstParam, "@sf_clid", this._financem.SFCLID);
             updates = updates.Replace("#sf_date", TableStructM.Info_Finance.SF_DATE);
             this._dbfactory.AddParameter(lstParam, "@sf_date", this._financem.SFDATE);
             updates = updates.Replace("#sf_money", TableStructM.Info_Finance.SF_MONEY);

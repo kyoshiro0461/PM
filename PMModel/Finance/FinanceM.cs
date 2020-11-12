@@ -17,6 +17,7 @@ namespace PMModel
         private int _sf_collectpay;                      //收付款性质
         private int _sf_prid;                           //对应项目编号
         private int _sf_cnid;                           //对应合同编号
+        private int _sf_clid;                           //对应往来客户编号
         private DateTime? _sf_date;                     //收付款日期
         private decimal _sf_money;                      //收付款金额
         private string _sf_account;                     //记账凭证编号
@@ -66,6 +67,15 @@ namespace PMModel
         }
 
         /// <summary>
+        /// 对应往来客户编号
+        /// </summary>
+        public int SFCLID
+        {
+            get { return this._sf_clid; }
+            set { this._sf_clid = value; }
+        }
+
+        /// <summary>
         /// 收付款日期
         /// </summary>
         public DateTime? SFDATE
@@ -103,6 +113,7 @@ namespace PMModel
             // this._mn_onoff = IsDisableEnum.idNo;
             this._sf_prid = 0;
             this._sf_cnid = 0;
+            this._sf_clid = 0;
             this._sf_date = null;
             this._sf_money = 0;
             this._sf_account = null;

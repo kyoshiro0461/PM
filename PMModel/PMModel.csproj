@@ -65,6 +65,7 @@
     <Compile Include="Menu\MenuM.cs" />
     <Compile Include="Contract\ContractM.cs" />
     <Compile Include="Finance\FinanceM.cs" />
+    <Compile Include="ProjectsTeam\ProjectsTeamM.cs" />
     <Compile Include="Projects\ProjectsM.cs" />
     <Compile Include="Clients\ClientsM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

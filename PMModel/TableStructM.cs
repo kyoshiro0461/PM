@@ -229,6 +229,11 @@ namespace PMModel
             public static string SF_CNID = "sf_cnid";
 
             /// <summary>
+            /// 对应往来客户编号
+            /// </summary>
+            public static string SF_CLID = "sf_clid";
+
+            /// <summary>
             /// 收付款日期
             /// </summary>
             public static string SF_DATE = "sf_date";
@@ -300,6 +305,30 @@ namespace PMModel
             /// 金额
             /// </summary>
             public static string QT_MONEY = "qt_money";
+        }
+        #endregion
+
+        #region 工程组信息表(ProjectTeam)
+        /// <summary>
+        /// 工程组信息表
+        /// </summary>
+        public static class Info_ProjectTeam
+        {
+            /// <summary>
+            /// 表名
+            /// </summary>
+            public static string TABLENAME = "ProjectTeam";
+
+            ///<summary>
+            ///项目组编号
+            /// </summary>
+            public static string PT_ID = "pt_id";
+
+            /// <summary>
+            /// 项目组名称
+            /// </summary>
+            public static string PT_NAME = "pt_name";
+
         }
         #endregion
 

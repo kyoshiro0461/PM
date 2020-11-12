@@ -67,6 +67,8 @@
     <Compile Include="Common\CommonParams.cs" />
     <Compile Include="Instance\ConnectionB\ConnectionB.cs" />
     <Compile Include="Instance\ConnectionB\IConnectionB.cs" />
+    <Compile Include="Instance\ProjectsTeam\IProjectsTeamB.cs" />
+    <Compile Include="Instance\ProjectsTeam\ProjectsTeamB.cs" />
     <Compile Include="Instance\Quantity\QuantityB.cs" />
     <Compile Include="Instance\Quantity\IQuantityB.cs" />
     <Compile Include="Instance\Menu\IMenuB.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="Instance\Clients\ClientsB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sections\ConnectionSection.cs" />
+    <Compile Include="Sections\ProjectsTeam\ProjectsTeamSection.cs" />
     <Compile Include="Sections\Quantity\QuantitySection.cs" />
     <Compile Include="Sections\Menu\MenuSection.cs" />
     <Compile Include="Sections\Contract\ContractSection.cs" />

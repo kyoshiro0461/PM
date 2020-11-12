@@ -22,9 +22,6 @@ namespace PM.Controllers
             try
             {
                 //初始化网站需要的参数
-                //CommonParams.Init = new Initialization();
-                //ViewMethods.SetCookie(Response, CommonParams.COOKIE_LOGINIP, CommonMethods.GetClientIP());
-                //CommonParams.SITETITLE = CommonParams.Init.LanguageInfo.SiteTitle;
             }
             catch (Exception ex)
             {

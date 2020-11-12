@@ -84,6 +84,10 @@
                     <span></span>
                 </div>
                 <div class="formbox w30">
+                    <label>已收量工程量成本</label>
+                    <span id="quantity"></span>
+                </div>
+                <div class="formbox w30">
                     <label>已收款额</label>
                     <span id="sk"></span>
                 </div>
@@ -143,7 +147,14 @@
                         <tr class="trmoney">
 
                             <td><%=finance.SFID%> </td>
-                            <td></td>
+                            <td><% if (ClientsInfo != null && ClientsInfo.Count > 0)
+                                    { %>
+                                <% foreach (ClientsM clients in ClientsInfo)
+                                    { %>
+                                <%=(finance.SFCLID == clients.CLID ? clients.CLNAME : "") %>
+                                <%  } %>
+                                <% } %>
+                            </td>
                             <td class="tdmoney"><%=finance.SFMONEY %></td>
                             <td><%=finance.SFDATE %></td>
                         </tr>
@@ -176,7 +187,13 @@
                         <tr class="trmoney">
 
                             <td><%=finance.SFID%> </td>
-                            <td></td>
+                            <td><% if (ClientsInfo != null && ClientsInfo.Count > 0)
+                                    { %>
+                                <% foreach (ClientsM clients in ClientsInfo)
+                                    { %>
+                                <%=(finance.SFCLID == clients.CLID ? clients.CLNAME : "") %>
+                                <%  } %>
+                                <% } %></td>
                             <td class="tdmoney"><%=finance.SFMONEY %></td>
 
                         </tr>
@@ -195,6 +212,7 @@
                     <table id="qttable">
                         <thead>
                             <tr class="odd">
+                                <th style="display:none">CLID</th>
                                 <th>往来客户名称</th>
                                 <th>施工项目</th>
                                 <th>工程量</th>
@@ -206,12 +224,20 @@
                                 {%>
                             <%foreach (QuantityM quantity in QuantityInfo)
                                 {%>
+
                             <% if (quantity.QTPRID == projectsInfo.PRID)
                                 { %>
 
                             <tr class="trmoney">
 
-                                <td id="clid"><%=quantity.QTCLID %></td>
+                                <td id="clid" style="display: none"><%=quantity.QTCLID %></td>
+                                <td><% if (ClientsInfo != null && ClientsInfo.Count > 0)
+                                    { %>
+                                <% foreach (ClientsM clients in ClientsInfo)
+                                    { %>
+                                <%=(quantity.QTCLID == clients.CLID ? clients.CLNAME : "") %>
+                                <%  } %>
+                                <% } %></td>
                                 <td><%=quantity.QTCONTENT %></td>
                                 <td class="tdmoney"><%=quantity.QTQUANTITY %></td>
 
@@ -340,14 +366,14 @@
             var table = document.getElementById("qttable");
             var tbody = table.tBodies[0];
             var tr = tbody.rows;
-            
+
 
             var trValue = new Array();
             for (var i = 0; i < tr.length; i++) {
                 trValue[i] = tr[i];  //将表格中各行的信息存储在新建的数组中
                 arr = tr[i];
             }
-            
+
             //trValue.sort(compareTrs());  //进行排序
             trValue.sort(function (tr1, tr2) {
                 var value1 = tr1.cells[0].innerHTML;
@@ -359,14 +385,18 @@
                 fragment.appendChild(trValue[i]);
             }
             tbody.appendChild(fragment); //将排序的结果替换掉之前的值
-             var totalRow = 0
+
+            //求和
+            var totalRow = 0
             $('#qttable tr').each(function () {
-                $(this).find('td:eq(2)').each(function () {
+                $(this).find('td:eq(3)').each(function () {
                     totalRow += parseFloat($(this).text());
                 });
             });
             //在table最后增加一行合计
-            $('#qttable').append('<tr><td>合计</td><td>' + totalRow + '</td><td></td></tr>');
+            $('#qttable').append('<tr><td colspan='+"2"+'>合计</td><td><font color='+"#FF0000"+' >'+ totalRow + '</font></td></tr>');
+            $('#quantity').text(totalRow);
+
             //声明小计数据
             var totalSum = 0;
 
@@ -378,27 +408,24 @@
                 if (b == -1) {
                     b = tr.length - 1;
                 }
-                console.log(i);
-                console.log(j);
-                console.log(b);
                 if (j < tr.length) {
                     var beforTr = tr[b].cells[0].innerHTML;//beforTr为本次循环行中的上一行
                     var nowTr = tr[i].cells[0].innerHTML;//nowTr为本次循环行中的行
                     var nextTr = tr[j].cells[0].innerHTML;//nextTr为本次循环行中的下一行
-                    
+
                     var nowName = tr[i].cells[0].className//nowName为本次循环行中的类名用于判断此行是不是合计行；
                     if (nowTr == nextTr || (nowTr == beforTr && nowTr !== nextTr)) {//判断本行与下一行是否相等或者本行与上一行相等且本行不等于下一行
                         if (nowTr == nextTr) {//本行和下一行相等合计数据等于+=这一行的数据
-                            totalSum += Number(tr[i].cells[2].innerHTML);
+                            totalSum += Number(tr[i].cells[3].innerHTML);
                         } else {
                             // 本行与上一行相等且本行不等于下一行（此行是相同的最后一行数据要加上）
-                            totalSum += Number(tr[i].cells[2].innerHTML);
+                            totalSum += Number(tr[i].cells[3].innerHTML);
                         }
                     } else if (nowTr !== nextTr && nowTr !== beforTr && nowName !== "ad") {//判断本次只有一行数据且不是合计行
-                    totalSum = Number(tr[i].cells[2].innerHTML);
+                        totalSum = Number(tr[i].cells[3].innerHTML);
                     }
                     if (nowTr !== nextTr && nowName !== "ad") {//在本行不等于下一行且本行不是合计行的情况下添加小计行
-                        var Wtr = "<tr>+<td class='ad'colspan='2'>小计</td><td>" + totalSum+"</td> +</tr > ";
+                        var Wtr = "<tr>+<td class='ad'colspan='2'>小计</td><td><font color='#00FF00'>" + totalSum + "</font></td> +</tr > ";
                         $(tr[i]).after(Wtr);
                         totalSum = 0;
                     }

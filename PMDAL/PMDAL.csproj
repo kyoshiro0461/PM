@@ -67,6 +67,8 @@
     <Compile Include="DataBase\DbFactory.cs" />
     <Compile Include="Instance\Connection\ConnectionD.cs" />
     <Compile Include="Instance\Connection\IConnection.cs" />
+    <Compile Include="Instance\ProjectsTeam\IProjectsTeamD.cs" />
+    <Compile Include="Instance\ProjectsTeam\ProjectsTeamD.cs" />
     <Compile Include="Instance\Quantity\QuantityD.cs" />
     <Compile Include="Instance\Quantity\IQuantityD.cs" />
     <Compile Include="Instance\Menu\IMenuD.cs" />

@@ -191,6 +191,8 @@
 
 /* to make room for the icon, a width needs to be set here */
 .ui-button-icon-only {
+	top:-0.08em;
+	height:3.15em;
 	width: 2em;
 	box-sizing: border-box;
 	text-indent: -9999px;
