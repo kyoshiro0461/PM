@@ -33,7 +33,7 @@ namespace PMBLL.Instance
         /// <param name="key">搜索条件</param>
         /// <param name="order">排序</param>
         /// <returns></returns>
-        List<IProjectsB> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, string belong);
+        List<IProjectsB> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, string belong, string ptid);
 
         /// <summary>
         /// 获取数据

@@ -132,10 +132,10 @@ namespace PMBLL.Instance
         /// <param name="key">搜索条件</param>
         /// <param name="order">排序</param>
         /// <returns></returns>
-        public List<IProjectsB> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, string belong)
+        public List<IProjectsB> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, string belong, string ptid)
         {
-            object[] args = new object[] { count, start, size, key, order, orderway, belong , this._connectionb.ConnectionD };
-            List<ProjectsM> lstprojects = Methods.ReflexInvokeMethod(this._projectsd, this._methodnm_GetPageData, new Type[] { typeof(long).MakeByRefType(), typeof(long), typeof(int), typeof(string), typeof(string),  typeof(OrderType), typeof(string), typeof(IConnectionD) }, args) as List<ProjectsM>;
+            object[] args = new object[] { count, start, size, key, order, orderway, belong, ptid,  this._connectionb.ConnectionD };
+            List<ProjectsM> lstprojects = Methods.ReflexInvokeMethod(this._projectsd, this._methodnm_GetPageData, new Type[] { typeof(long).MakeByRefType(), typeof(long), typeof(int), typeof(string), typeof(string),  typeof(OrderType), typeof(string), typeof(string), typeof(IConnectionD) }, args) as List<ProjectsM>;
             count = args[0].ConvertToInt64();
             return ConvertToProjectsB(lstprojects);
         }

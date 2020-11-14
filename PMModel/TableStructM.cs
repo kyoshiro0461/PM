@@ -141,6 +141,8 @@ namespace PMModel
             /// 归属
             /// </summary>
             public static string PR_BELONG = "pr_belong";
+
+            public static string PR_PTID = "pr_ptid";
         }
         #endregion
 
@@ -308,9 +310,9 @@ namespace PMModel
         }
         #endregion
 
-        #region 工程组信息表(ProjectTeam)
+        #region 项目组信息表(ProjectTeam)
         /// <summary>
-        /// 工程组信息表
+        /// 项目组信息表
         /// </summary>
         public static class Info_ProjectTeam
         {
@@ -328,6 +330,26 @@ namespace PMModel
             /// 项目组名称
             /// </summary>
             public static string PT_NAME = "pt_name";
+
+            /// <summary>
+            /// 顶级项目组编号
+            /// </summary>
+            public static string PT_TID = "pt_tid";
+
+            /// <summary>
+            /// 父级项目组编号
+            /// </summary>
+            public static string PT_PID = "pt_pid";
+
+            /// <summary>
+            /// 项目组级别
+            /// </summary>
+            public static string PT_LEVEL = "pt_level";
+
+            /// <summary>
+            /// 项目组排序
+            /// </summary>
+            public static string PT_ORDER = "pt_order";
 
         }
         #endregion

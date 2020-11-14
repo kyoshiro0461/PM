@@ -97,9 +97,9 @@ namespace PM.Models
         /// <param name="order">排序</param>
         /// <param name="belong">隶属</param>
         /// <returns></returns>
-        public List<IProjectsB> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, string belong)
+        public List<IProjectsB> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, string belong, string ptid)
         {
-            return this._projectsb.GetPageData(ref count, start, size, key, order, orderway, belong);
+            return this._projectsb.GetPageData(ref count, start, size, key, order, orderway, belong, ptid);
         }
 
         /// <summary>

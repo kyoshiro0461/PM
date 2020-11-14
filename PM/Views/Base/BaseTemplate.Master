@@ -92,6 +92,12 @@
                     </asp:ContentPlaceHolder>
                 </div>
 
+                
+                    <asp:ContentPlaceHolder ID="LeftContent" runat="server">
+
+                    </asp:ContentPlaceHolder>
+               
+
                 <div class="primary m20 js_tabcont" data-num="0" style="display: block;">
                     <asp:ContentPlaceHolder ID="MainContent" runat="server">
                     </asp:ContentPlaceHolder>

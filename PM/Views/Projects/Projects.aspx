@@ -5,16 +5,58 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     项目管理
 </asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="LeftContent" runat="server">
+    <% List<ProjectsTeamM> projectsTeamInfo = ViewBag.ProjectsTeamInfo as List<ProjectsTeamM>;
+        List<ProjectsTeamM> ptLevel1 = projectsTeamInfo.Where(p => p.PTLevel == 1).ToList();
+        List<ProjectsTeamM> ptLevel2 = projectsTeamInfo.Where(p => p.PTLevel == 2).ToList();
+    %>
+
+    <div class="left js_leftnav">
+        <div class="up js_up"><span></span></div>
+        
+
+            <% if (ptLevel1 != null)
+                { %>
+            <% foreach (ProjectsTeamM level1 in ptLevel1)
+                { %>
+        <div class="class">
+            <div class="title js_title">
+                <span><% =level1.PTName %></span><div class="tag"></div>
+            </div>
+            <% ptLevel2 = projectsTeamInfo.Where(p => p.PTLevel == 2 && p.PTTid == level1.PTID).OrderBy(p => p.PTOrder).ToList(); %>
+            <% if (ptLevel2 != null && ptLevel2.Count > 0)
+                { %>
+           <div class="ul">
+            <div class="li show ">
+               <% foreach (ProjectsTeamM level2 in ptLevel2)
+                    { %>
+                <div class="subli">
+                    <a href="../../Projects/Projects?PTID=<%=level2.PTID %>"><%=level2.PTName %></a>
+                </div>
+            <% } %>
+                  </div>
+            <% } %>
+               </div>
+               </div>
+            <% } %>
+               
+            <% } %>
+        
+        </div>
+</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <% 
         List<ProjectsM> ProjectsInfo = ViewBag.Projects as List<ProjectsM>;
+
         object keys = TempData["keys"];
         int desc = TempData["Orderby"].ConvertToInt32();
         int allpage = ViewBag.TotalPages;
         int pagecurrent = TempData["CurrentPage"].ConvertToInt32();
         int belong = TempData["belong"].ConvertToInt32();
     %>
+
     <div class="wrap_mk wball">
         <div class="crumbs">
             位置:<a href="../../Main/Index">首页</a> > <a href="../../Projects/Projects">项目管理</a>
@@ -47,19 +89,19 @@
                     { %>
                 <tr data-uid='<%=item.PRID%>'>
                     <td><%=item.PRID %></td>
-                    <td><a href="../../Projects/Projects_List?PRID=<%=item.PRID %>"> <%= item.PRName%></a></td>
+                    <td><a href="../../Projects/Projects_List?PRID=<%=item.PRID %>"><%= item.PRName%></a></td>
                     <%if (item.PRBelong.ConvertToInt32() == 0)
                         { %>
                     <td>集团内项目</td>
                     <%} %>
-                     <%if (item.PRBelong.ConvertToInt32() == 1)
+                    <%if (item.PRBelong.ConvertToInt32() == 1)
                         { %>
                     <td>集团外项目</td>
                     <%} %>
-                     <%if (item.PRBelong.ConvertToInt32() == 2)
+                    <%if (item.PRBelong.ConvertToInt32() == 2)
                         { %>
                     <td>挂靠项目</td>
-                    <%} %> 
+                    <%} %>
                     <%if (item.PRBelong.ConvertToInt32() == 3)
                         { %>
                     <td>借用资质项目</td>
@@ -177,7 +219,7 @@
         // 删除
         $('.btn_del').on('click', function () {
             var t = $(this).parents('tr'),
-               uid = $(this).parents('tr').attr('data-uid');
+                uid = $(this).parents('tr').attr('data-uid');
             var onoff_del = $(this).find('.btn_del').attr('value');
             var c = confirm('是否删除该项目信息？');
             if (c == true) {
@@ -186,12 +228,12 @@
                 $.ajax({
                     type: "Post",
                     url: "../../Projects/Delete_Projects",
-                    data: { uid, onoff_del},
-                            dataType: "json",
-                            success: function (data) {
-                                var result = JSON.parse(data);
-                                if (result.status == "0") alert(result.msg);
-                            }
+                    data: { uid, onoff_del },
+                    dataType: "json",
+                    success: function (data) {
+                        var result = JSON.parse(data);
+                        if (result.status == "0") alert(result.msg);
+                    }
                 });
             }
         });

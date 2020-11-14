@@ -48,8 +48,8 @@ namespace PMDAL.Instance
         /// <returns>字段</returns>
         public static string GetField(string alias = "")
         {
-            string result = string.Format("[#alias]{0}[#as]{0}, [#alias]{1}[#as]{1}, [#alias]{2}[#as]{2}",
-                TableStructM.Info_Projects.PR_ID, TableStructM.Info_Projects.PR_NAME,TableStructM.Info_Projects.PR_BELONG);
+            string result = string.Format("[#alias]{0}[#as]{0}, [#alias]{1}[#as]{1}, [#alias]{2}[#as]{2}, [#alias]{3}[#as]{3}",
+                TableStructM.Info_Projects.PR_ID, TableStructM.Info_Projects.PR_NAME,TableStructM.Info_Projects.PR_BELONG, TableStructM.Info_Projects.PR_PTID);
             result = result.Replace("[#alias]", (string.IsNullOrEmpty(alias) ? "" : string.Format("{0}.", alias)));
             result = result.Replace("[#as]", string.Format(" as {0}", CommonMethods.CombineFieldPrefix(alias)));
             return result;
@@ -188,12 +188,13 @@ namespace PMDAL.Instance
         /// <param name="condition">其他条件（需带入and）</param>
         /// <param name="order">排序条件（无需带入order by）</param>
         /// <returns></returns>
-        public static List<ProjectsM> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, string belong, IConnectionD connection)
+        public static List<ProjectsM> GetPageData(ref long count, long start, int size, string key, string order, OrderType orderway, string belong, string ptid, IConnectionD connection)
         {
             string where = "", orderby = "";
             if (!string.IsNullOrEmpty(key)) where = string.Format("{0} and({1} like '%{2}%')", where, TableStructM.Info_Projects.PR_NAME, key.ReplaceStr());
             if (!string.IsNullOrEmpty(order)) orderby = string.Format("{0} {1}", order, (orderway == OrderType.otAsc ? "asc" : "desc"));
             if (!string.IsNullOrEmpty(belong )) where = string.Format("{0} and {1} ={2}", where, TableStructM.Info_Projects.PR_BELONG, belong.ReplaceStr());
+            if(!string.IsNullOrEmpty(ptid)) where = string.Format("{0} and {1} = {2}", where, TableStructM.Info_Projects.PR_PTID, ptid.ReplaceStr()); 
           
             string condition = GetFrom();
             count = connection.DataBaseFactory.GetCount(TableStructM.Info_Projects.TABLENAME, string.Format("where 1=1 {0}", where));

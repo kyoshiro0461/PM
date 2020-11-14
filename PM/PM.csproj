@@ -230,6 +230,7 @@
     <Compile Include="Methods\CommonSite.cs" />
     <Compile Include="Methods\ViewMethods.cs" />
     <Compile Include="Models\ConnectionFactory.cs" />
+    <Compile Include="Models\ProjectsTeam\ProjectsTeamFactory.cs" />
     <Compile Include="Models\Quantity\QuantityFactory.cs" />
     <Compile Include="Models\MenuFactory.cs" />
     <Compile Include="Models\Contract\ContractFactory.cs" />
@@ -238,6 +239,7 @@
     <Compile Include="Models\Clients\ClientsFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sections\ConnectionSection.cs" />
+    <Compile Include="Sections\ProjectsTeam\ProjectsTeamSection.cs" />
     <Compile Include="Sections\Quantity\QuantitySection.cs" />
     <Compile Include="Sections\Menu\MenuSection.cs" />
     <Compile Include="Sections\Contract\ContractSection.cs" />

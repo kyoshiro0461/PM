@@ -21,6 +21,7 @@ namespace PM.Controllers
         {
             int pageSize = 12; //每页要显示的行数 
             string belong = ViewMethods.GetForm(Request, "BELONG");
+            string ptid = ViewMethods.GetForm(Request, "PTID");
             string orderby = ViewMethods.GetForm(Request, "OrderBy", CommonEnums.ValueEnum.vlGet);
             if (string.IsNullOrEmpty(orderby)) orderby = "PR_ID";
             int desc = ViewMethods.GetForm(Request, "Desc", CommonEnums.ValueEnum.vlGet).ConvertToInt32();
@@ -34,22 +35,35 @@ namespace PM.Controllers
             string order = orderby;
             OrderType orderway = (desc == 0 ? OrderType.otDesc : OrderType.otAsc);
             long count = 0;
+            
+            //调取项目组信息
+            ProjectsTeamFactory projectsTeamFactory = new ProjectsTeamFactory();
+            List<IProjectsTeamB> lstProjectsTeam = projectsTeamFactory.GetDataProjectsTeam();
+            List<ProjectsTeamM> ProjectsTeamInfo = new List<ProjectsTeamM>();
+            lstProjectsTeam.ForEach(p => ProjectsTeamInfo.Add(p.Infomation_projectsteam));
+            
 
+            //调取项目信息
             ProjectsFactory projectsfactory = new ProjectsFactory();
-            List<IProjectsB> lstprojects = projectsfactory.GetPageData(ref count, start, pageSize, keys, order, orderway, belong);
+            List<IProjectsB> lstprojects = projectsfactory.GetPageData(ref count, start, pageSize, keys, order, orderway, belong, ptid);
             List<ProjectsM> projectsinfo = new List<ProjectsM>();
             if (lstprojects != null && lstprojects.Count > 0) lstprojects.ForEach(p => projectsinfo.Add(p.Infomation_projects));
+
+            //分页数据
             int totalpages = 0;
             if ((count % pageSize) > 0)
                 totalpages = (int)Math.Ceiling((float)((count / pageSize) + 1));
             else
                 totalpages = (int)Math.Ceiling((float)(count / pageSize));//算出分页的总数
+
+            //前端页面数据推送
             ViewBag.TotalPages = totalpages;
             ViewBag.Projects = projectsinfo;
             TempData["OrderBy"] = desc;
             TempData["CurrentPage"] = pagecurrent;
             TempData["keys"] = objkeys;
             TempData["belong"] = belong;
+            ViewBag.ProjectsTeamInfo = ProjectsTeamInfo;
             return View();
         }
 

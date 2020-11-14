@@ -48,8 +48,8 @@ namespace PMDAL.Instance
         /// <returns>字段</returns>
         public static string GetField(string alias = "")
         {
-            string result = string.Format("[#alias]{0}[#as]{0}, [#alias]{1}[#as]{1}",
-                TableStructM.Info_ProjectTeam.PT_ID, TableStructM.Info_ProjectTeam.PT_NAME);
+            string result = string.Format("[#alias]{0}[#as]{0}, [#alias]{1}[#as]{1}, [#alias]{2}[#as]{2}, [#alias]{3}[#as]{3}, [#alias]{4}[#as]{4}, [#alias]{5}[#as]{5}",
+                TableStructM.Info_ProjectTeam.PT_ID, TableStructM.Info_ProjectTeam.PT_NAME, TableStructM.Info_ProjectTeam.PT_LEVEL, TableStructM.Info_ProjectTeam.PT_ORDER, TableStructM.Info_ProjectTeam.PT_PID, TableStructM.Info_ProjectTeam.PT_TID);
             result = result.Replace("[#alias]", (string.IsNullOrEmpty(alias) ? "" : string.Format("{0}.", alias)));
             result = result.Replace("[#as]", string.Format(" as {0}", CommonMethods.CombineFieldPrefix(alias)));
             return result;
@@ -144,6 +144,11 @@ namespace PMDAL.Instance
 
             result.PTID = dr[CommonMethods.CombineFieldAlias(TableStructM.Info_ProjectTeam.PT_ID, alias)].ConvertToInt32();
             result.PTName = (dr[CommonMethods.CombineFieldAlias(TableStructM.Info_ProjectTeam.PT_NAME, alias)].ToString());
+            result.PTTid = (dr[CommonMethods.CombineFieldAlias(TableStructM.Info_ProjectTeam.PT_TID, alias)].ConvertToInt32());
+            result.PTPid = (dr[CommonMethods.CombineFieldAlias(TableStructM.Info_ProjectTeam.PT_PID)].ConvertToInt32());
+            result.PTLevel = (dr[CommonMethods.CombineFieldAlias(TableStructM.Info_ProjectTeam.PT_LEVEL)].ConvertToInt32());
+            result.PTOrder = (dr[CommonMethods.CombineFieldAlias(TableStructM.Info_ProjectTeam.PT_ORDER)].ConvertToInt32());
+
             // result.SetOnOff(dr[CommonMethods.CombineFieldAlias(TableStructM.Info_Menu.MN_ONOFF, alias)].ConvertToInt32());
 
             return result;

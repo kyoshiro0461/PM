@@ -13,8 +13,11 @@ namespace PMModel
     {
         #region 变量
         private int _pt_id;                             //编号
-        //private IsDisableEnum _mn_onoff;                //状态
         private string _pt_name;                        //名称
+        private int _pt_tid;                            //顶级项目组编号
+        private int _pt_pid;                            //父级项目组编号                            
+        private int _pt_order;                          //排序
+        private int _pt_level;                          //级别
         #endregion
         #region 属性
         /// <summary>
@@ -25,13 +28,6 @@ namespace PMModel
             get { return this._pt_id; }
             set { this._pt_id = value; }
         }
-        /// <summary>
-        /// 是否被禁用
-        /// </summary>
-        //public IsDisableEnum OnOff
-        //{
-        //    get { return this._mn_onoff; }
-        //}
        
 
         /// <summary>
@@ -43,8 +39,43 @@ namespace PMModel
             set { this._pt_name = value; }
         }
 
-        
+        /// <summary>
+        /// 顶级项目组编号
+        /// </summary>
+        public int PTTid
+        {
+            get { return this._pt_tid; }
+            set { this._pt_tid = value; }
+        }
+
+        /// <summary>
+        /// 父级项目组编号
+        /// </summary>
+        public int PTPid
+        {
+            get { return this._pt_pid; }
+            set { this._pt_pid = value; }
+        }
+
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public int PTOrder
+        {
+            get { return this._pt_order; }
+            set { this._pt_order = value; }
+        }
+
+        /// <summary>
+        /// 级别
+        /// </summary>
+        public int PTLevel
+        {
+            get { return this._pt_level; }
+            set { this._pt_level = value; }
+        }
         #endregion
+      
         #region 初始化
         /// <summary>
         /// 初始化
@@ -52,20 +83,12 @@ namespace PMModel
         public ProjectsTeamM()
         {
             this._pt_id = 0;
-           // this._mn_onoff = IsDisableEnum.idNo;
             this._pt_name = "";
+            this._pt_level = 0;
+            this._pt_order = 0;
+            this._pt_pid = 0;
+            this._pt_tid = 0;
        }
-        #endregion
-        #region 方法
-        /// <summary>
-        /// 设置是否禁用属性
-        /// </summary>
-        /// <param name="value">属性值</param>
-        //public void SetOnOff(int value)
-        //{
-        //    this._mn_onoff = CommonMethods.SetOnOff(value);
-        //}
-        
         #endregion
     }
 }

@@ -16,6 +16,7 @@ namespace PMModel
         //private IsDisableEnum _mn_onoff;                //状态
         private string _pr_name;                        //名称
         private string _pr_belong;                      //隶属关系
+        private string _pr_ptid;
         #endregion
         #region 属性
         /// <summary>
@@ -52,6 +53,12 @@ namespace PMModel
             get { return this._pr_belong; }
             set { this._pr_belong = value; }
         }
+
+        public string PRPtid
+        {
+            get { return this._pr_ptid; }
+            set { this._pr_ptid = value; }
+        }
         #endregion
         #region 初始化
         /// <summary>
@@ -63,6 +70,7 @@ namespace PMModel
            // this._mn_onoff = IsDisableEnum.idNo;
             this._pr_name = "";
             this._pr_belong = "";
+            this._pr_ptid = "";
        }
         #endregion
         #region 方法
