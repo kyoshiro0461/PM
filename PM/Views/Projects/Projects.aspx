@@ -13,12 +13,12 @@
 
     <div class="left js_leftnav">
         <div class="up js_up"><span></span></div>
-        
 
-            <% if (ptLevel1 != null)
-                { %>
-            <% foreach (ProjectsTeamM level1 in ptLevel1)
-                { %>
+
+        <% if (ptLevel1 != null)
+            { %>
+        <% foreach (ProjectsTeamM level1 in ptLevel1)
+            { %>
         <div class="class">
             <div class="title js_title">
                 <span><% =level1.PTName %></span><div class="tag"></div>
@@ -26,23 +26,22 @@
             <% ptLevel2 = projectsTeamInfo.Where(p => p.PTLevel == 2 && p.PTTid == level1.PTID).OrderBy(p => p.PTOrder).ToList(); %>
             <% if (ptLevel2 != null && ptLevel2.Count > 0)
                 { %>
-           <div class="ul">
-            <div class="li show ">
-               <% foreach (ProjectsTeamM level2 in ptLevel2)
-                    { %>
-                <div class="subli">
-                    <a href="../../Projects/Projects?PTID=<%=level2.PTID %>"><%=level2.PTName %></a>
+            <div class="ul">
+                <div class="li show ">
+                    <% foreach (ProjectsTeamM level2 in ptLevel2)
+                        { %>
+                    <div class="subli">
+                        <a href="../../Projects/Projects?PTID=<%=level2.PTID %>"><%=level2.PTName %></a>
+                    </div>
+                    <% } %>
                 </div>
-            <% } %>
-                  </div>
-            <% } %>
-               </div>
-               </div>
-            <% } %>
-               
-            <% } %>
-        
+                <% } %>
+            </div>
         </div>
+        <% } %>
+
+        <% } %>
+    </div>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
