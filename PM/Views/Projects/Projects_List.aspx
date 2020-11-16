@@ -256,12 +256,13 @@
         <div class="clear"></div>
         <div class="footerbtn">
 
-            <a href="../../Finance/Finance?PRID= %>" class="btn btn-gray">关闭</a>
+            <a href="../../Projects/Projects" class="btn btn-gray">关闭</a>
         </div>
 
         <div class="clear"></div>
     </div>
-
+    <script type="text/javascript" src="../../CustomBase/Script/layui/layui.js"></script>
+    <script type="text/javascript" src="../../CustomBase/Script/layui/treeTable.js"></script>
     <script type="text/javascript">
 
 
@@ -432,6 +433,53 @@
                 }
             }
         });
+
+        //table折叠
+        //layui.use(['treetable', 'table', 'layer'], function () {
+        //    var treetable = layui.treetable;
+        //    var layer = layui.layer;
+        //    var table = layui.table;
+        //    var $ = layui.jquery;
+
+        //    var re;
+        //    // 渲染表格
+        //    var renderTable = function () {
+        //        layer.load(3);    //这里好像是要加载几层 ，我的是3层，就写了个3，
+        //        re = treetable.render({
+        //            elem: '#qttable',    //table名称
+        //            url: '${basepath}/goodscategory/selectTreeTable',
+        //            treeColIndex: 1,          // 树形图标显示在第几列
+        //            treeSpid: 0,             // 最上级的父级id
+        //            treeIdName: 'classId',       // 	id字段的名称
+        //            treePidName: 'parentId',    // 	pid字段的名称
+        //            treeDefaultClose: true,     //是否默认折叠
+        //            page: false,
+        //            //treeLinkage: true,      //父级展开时是否自动展开所有子级
+        //            cols: [[
+        //                { type: 'numbers' },
+        //                { title: "分类名称", field: "className", align: "left" },
+        //                { title: "分类编码", field: "classCode" },
+        //                //  {title: "分类层级", field: "classIdLevel"},
+        //                { title: "分类状态", field: "classIdStatus", templet: '#classIdStatusTpl' },
+        //                { title: "创建人", field: "createUser" },
+        //                {
+        //                    title: "创建时间",
+        //                    field: "createTime",
+        //                    templet: '<div>{{# if(d.createTime!=null){ }} {{ layui.util.toDateString(d.createTime,\'yyyy-MM-dd HH:mm:ss\')  }} {{# } }}</div>'
+        //                },
+        //                { title: "更新人员", field: "updateUser" },
+        //                {
+        //                    title: "更新时间",
+        //                    field: "updateTime",
+        //                    templet: '<div>{{# if(d.updateTime!=null){ }} {{ layui.util.toDateString(d.updateTime,\'yyyy-MM-dd HH:mm:ss\')  }} {{# } }}</div>'
+        //                },
+        //                { title: "操作", templet: "#updateAndDelete" }
+        //            ]],
+        //            done: function () {
+        //                layer.closeAll('loading');
+        //            }
+        //        })
+        //    };
     </script>
 </asp:Content>
 

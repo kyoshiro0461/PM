@@ -21,9 +21,9 @@
             { %>
         <div class="class">
             <div class="title js_title">
-                <span><% =level1.PTName %></span><div class="tag"></div>
+                <span> <a href="../../Projects/Projects?PTID=<%=level1.PTID %>"><% =level1.PTName %></a></span><div class="tag"></div>
             </div>
-            <% ptLevel2 = projectsTeamInfo.Where(p => p.PTLevel == 2 && p.PTTid == level1.PTID).OrderBy(p => p.PTOrder).ToList(); %>
+           <%-- <% ptLevel2 = projectsTeamInfo.Where(p => p.PTLevel == 2 && p.PTTid == level1.PTID).OrderBy(p => p.PTOrder).ToList(); %>
             <% if (ptLevel2 != null && ptLevel2.Count > 0)
                 { %>
             <div class="ul">
@@ -36,7 +36,7 @@
                     <% } %>
                 </div>
                 <% } %>
-            </div>
+            </div>--%>
         </div>
         <% } %>
 
@@ -147,7 +147,9 @@
         </div>
     </div>
     <script type="text/javascript" src="../../CustomBase/Script/laypage.js"></script>
-
+    <script type="text/javascript" src="../../CustomBase/Script/layui/layui.js"></script>
+    <script type="text/javascript" src="../../CustomBase/Script/layui/treeTable.js"></script>
+ 
     <script type="text/javascript">
         //分页
         $('.page_current').on('click', function () {
@@ -245,6 +247,8 @@
             var currentpage = $('.js_listpage a.hover').attr('data-page');
             location.href = "../../Projects/Projects?OrderBy=" + orderby + "&Desc=" + desc + "&Page=" + currentpage + "&keys=" + keys;
         });
+
+        
 
     </script>
 </asp:Content>
